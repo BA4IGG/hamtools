@@ -1,0 +1,24 @@
+{
+  "name": "ham-tools-auth-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "HAM工具合集 账号服务端：呼号 + 密码注册登录，JWT 鉴权",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "db:check": "node scripts/db-check.js",
+    "backup": "bash scripts/backup-db.sh"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.10.1"
+  }
+}

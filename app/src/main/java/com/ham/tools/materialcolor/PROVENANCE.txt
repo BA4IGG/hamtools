@@ -1,0 +1,12 @@
+本目录下（com/ham/tools/materialcolor/utilities）的 Java 源码取自
+Google material-components-android 1.14.0 中的
+com.google.android.material.color.utilities（即 material-color-utilities），
+依据 Apache License 2.0 引入，各文件头部均保留了原始版权与许可声明。
+
+改动仅限：
+1. 包名由 com.google.android.material.color.utilities 改为 com.ham.tools.materialcolor.utilities；
+2. 移除 androidx.annotation.RestrictTo / NonNull / Nullable 与 errorprone @Var 注解及其 import，
+   使其不依赖任何 Android 库、可作为纯 Java 颜色数学使用。
+
+用途：按 Material Design 3 规范，由任意种子色通过 HCT（Hue / Chroma / Tone）
+色彩空间生成完整的动态配色方案（tonal palette + 颜色角色）。

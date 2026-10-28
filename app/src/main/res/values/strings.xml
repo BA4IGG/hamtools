@@ -1,0 +1,204 @@
+<resources>
+    <string name="app_name">HAM工具合集</string>
+    <string name="home_subtitle">业余无线电随身工具箱</string>
+
+    <string name="action_settings">设置</string>
+    <string name="action_back">返回</string>
+
+    <string name="coming_soon">即将推出</string>
+    <string name="tool_not_found_title">未找到该工具</string>
+    <string name="tool_not_found_message">该工具可能已被移除，请返回首页重试。</string>
+
+    <string name="settings_title">设置</string>
+    <string name="settings_section_appearance">外观</string>
+    <string name="settings_section_about">关于</string>
+    <string name="settings_theme_mode">主题模式</string>
+    <string name="settings_theme_mode_desc">深色主题护眼，适合夜间值守与户外强光环境</string>
+    <string name="theme_mode_system">跟随系统</string>
+    <string name="theme_mode_light">浅色</string>
+    <string name="theme_mode_dark">深色</string>
+    <string name="settings_accent">主题色</string>
+    <string name="settings_accent_desc">按 Material Design 3 的 HCT 色彩空间，由种子色派生整套配色</string>
+    <string name="settings_accent_disabled_desc">动态取色开启时，主题色由系统壁纸决定</string>
+
+    <!-- 取色器 -->
+    <string name="action_cancel">取消</string>
+    <string name="action_confirm">确定</string>
+    <string name="color_picker_title">选择主题色</string>
+    <string name="color_picker_hex">HEX</string>
+    <string name="color_picker_hex_invalid">请输入 3 位或 6 位十六进制颜色，例如 006C5B</string>
+    <string name="color_picker_presets">预设色</string>
+    <string name="color_picker_variant">配色方案</string>
+    <string name="color_picker_preview">配色预览</string>
+    <string name="color_picker_reset">恢复默认</string>
+    <string name="color_role_primary">主色</string>
+    <string name="color_role_secondary">次色</string>
+    <string name="color_role_tertiary">第三色</string>
+    <string name="variant_tonal_spot">强调点</string>
+    <string name="variant_vibrant">鲜艳</string>
+    <string name="variant_expressive">表现力</string>
+    <string name="variant_neutral">中性</string>
+    <string name="variant_monochrome">单色</string>
+    <string name="variant_fidelity">忠实</string>
+    <string name="variant_content">内容</string>
+    <string name="variant_rainbow">彩虹</string>
+    <string name="variant_fruit_salad">水果色</string>
+    <string name="settings_dynamic_color">动态取色</string>
+    <string name="settings_dynamic_color_desc">跟随系统壁纸取色，需要 Android 12 及以上</string>
+    <string name="settings_version">版本</string>
+    <string name="settings_package">包名</string>
+
+    <!-- 底部 Dock 与关于页 -->
+    <string name="dock_home">主页</string>
+    <string name="dock_about">关于</string>
+    <string name="about_title">关于</string>
+    <string name="about_stats_implemented">已上线</string>
+    <string name="about_stats_total">规划总数</string>
+    <string name="about_appearance_settings">外观设置</string>
+    <string name="about_appearance_settings_desc">主题模式、主题色与动态取色</string>
+    <string name="about_author">作者</string>
+    <string name="about_build_type">构建类型</string>
+    <string name="about_min_sdk">最低系统</string>
+    <string name="about_min_sdk_value">Android 7.0（API 24）</string>
+    <string name="about_section_data">数据来源</string>
+    <string name="about_data_body">频段划分按 IARU/ITU 惯例与国内现行划分整理；馈线衰减取自线缆厂商公布的实测对照表并按双对数插值；S 表基准取 HF 段 S9 = -73 dBm、每档 6 dB。所有计算均为工程估算。</string>
+    <string name="about_section_disclaimer">免责声明</string>
+    <string name="about_disclaimer_body">本应用仅用于工程估算与学习参考。实际架设天线或发射前，请遵守所在国家与地区的频率划分、功率与执照规定，并以实测仪表读数为准。</string>
+    <string name="about_footer">73！祝通联愉快</string>
+
+    <!-- 通用 -->
+    <string name="group_input">输入</string>
+    <string name="group_result">结果</string>
+    <string name="hint_invalid_input">请输入有效数值</string>
+
+    <!-- 工具页标题 -->
+    <string name="tool_wavelength">频率波长</string>
+    <string name="tool_antenna_length">天线长度</string>
+    <string name="tool_vswr">驻波比回损</string>
+    <string name="tool_feedline">馈线损耗</string>
+    <string name="tool_link_budget">链路预算</string>
+
+    <!-- 输入标签 -->
+    <string name="label_frequency">频率</string>
+    <string name="label_wavelength">波长</string>
+    <string name="label_antenna_type">天线类型</string>
+    <string name="label_cable_type">馈线类型</string>
+    <string name="label_cable_length">馈线长度</string>
+    <string name="label_tx_output_power">发射功率</string>
+    <string name="label_tx_power">发射功率</string>
+    <string name="label_antenna_swr">天线端驻波比</string>
+    <string name="label_distance">通信距离</string>
+    <string name="label_tx_gain">发射天线增益</string>
+    <string name="label_rx_gain">接收天线增益</string>
+    <string name="label_rx_sensitivity">接收机灵敏度</string>
+    <string name="label_extra_loss">附加损耗</string>
+    <string name="label_vswr">驻波比 VSWR</string>
+    <string name="label_return_loss">回波损耗</string>
+    <string name="label_forward_power">前向功率</string>
+
+    <!-- 模式切换 -->
+    <string name="mode_freq_to_wave">频率 → 波长</string>
+    <string name="mode_wave_to_freq">波长 → 频率</string>
+    <string name="mode_from_vswr">由驻波比</string>
+    <string name="mode_from_return_loss">由回波损耗</string>
+
+    <!-- 天线类型 -->
+    <string name="antenna_dipole_total">半波偶极子（总长）</string>
+    <string name="antenna_dipole_leg">半波偶极子（单臂）</string>
+    <string name="antenna_inverted_v_leg">倒 V（单臂）</string>
+    <string name="antenna_vertical_quarter">1/4 波长垂直振子</string>
+
+    <!-- 结果标签 -->
+    <string name="res_wavelength">波长</string>
+    <string name="res_frequency">频率</string>
+    <string name="res_half_wave">半波长</string>
+    <string name="res_quarter_wave">1/4 波长</string>
+    <string name="res_band">所属频段</string>
+    <string name="res_element_length">振子长度</string>
+    <string name="res_free_space_wave">自由空间波长</string>
+    <string name="res_free_space_half_wave">自由空间半波长</string>
+    <string name="res_vswr">驻波比 VSWR</string>
+    <string name="res_reflection_coefficient">反射系数 Γ</string>
+    <string name="res_return_loss">回波损耗</string>
+    <string name="res_mismatch_loss">失配损耗</string>
+    <string name="res_reflected_ratio">反射功率占比</string>
+    <string name="res_reflected_power">反射功率</string>
+    <string name="res_delivered_power">到达天线功率</string>
+    <string name="res_loss_per_100m">单位损耗</string>
+    <string name="res_loss_per_100ft">单位损耗</string>
+    <string name="res_matched_loss">匹配线路损耗</string>
+    <string name="res_total_loss">含驻波总损耗</string>
+    <string name="res_power_to_antenna">到达天线功率</string>
+    <string name="res_power_lost">线缆耗散功率</string>
+    <string name="res_efficiency">传输效率</string>
+    <string name="res_fspl">自由空间路径损耗</string>
+    <string name="res_rx_power">接收功率</string>
+    <string name="res_rx_power_watt">接收功率</string>
+    <string name="res_rx_voltage">接收电平 (50Ω)</string>
+    <string name="res_s_meter">S 表读数</string>
+    <string name="res_fade_margin">链路余量</string>
+    <string name="out_of_amateur_band">业余频段外</string>
+    <string name="cable_subtitle">%1$dΩ · %2$s dB/100m</string>
+
+    <!-- 首页署名 -->
+    <string name="home_version_badge">v%1$s (%2$d)</string>
+    <string name="home_author_label">作者 %1$s</string>
+
+    <!-- 我的 / 登录 -->
+    <string name="dock_profile">我的</string>
+    <string name="profile_title">我的</string>
+    <string name="profile_guest_title">尚未登录</string>
+    <string name="profile_guest_body">用业余电台呼号登录，即可使用云端账号</string>
+    <string name="profile_action_login">登录 / 注册</string>
+    <string name="profile_section_account">账号</string>
+    <string name="profile_label_callsign">呼号</string>
+    <string name="profile_label_nickname">昵称</string>
+    <string name="profile_label_nickname_unset">未设置</string>
+    <string name="profile_label_region">所属分区</string>
+    <string name="profile_label_joined">注册时间</string>
+    <string name="profile_action_logout">退出登录</string>
+    <string name="profile_logout_title">退出登录？</string>
+    <string name="profile_logout_body">退出后本机不再保存登录状态，需要重新输入密码。</string>
+    <string name="profile_section_author">关于作者</string>
+    <string name="profile_author_contact">联系方式：%1$s</string>
+    <string name="profile_section_app">应用</string>
+    <string name="profile_app_build">构建号</string>
+    <string name="profile_item_appearance">外观设置</string>
+    <string name="profile_item_appearance_desc">主题模式、主题色与动态取色</string>
+
+    <string name="login_title">呼号登录</string>
+    <string name="login_tab_login">登录</string>
+    <string name="login_tab_register">注册</string>
+    <string name="login_callsign_label">呼号</string>
+    <string name="login_callsign_placeholder">例如 BA4IGG</string>
+    <string name="login_callsign_invalid">呼号格式不正确，应形如 BA4IGG</string>
+    <string name="login_password_label">密码</string>
+    <string name="login_password_confirm_label">确认密码</string>
+    <string name="login_password_too_short">密码至少 6 位</string>
+    <string name="login_password_mismatch">两次输入的密码不一致</string>
+    <string name="login_nickname_label">昵称（选填）</string>
+    <string name="login_action_login">登 录</string>
+    <string name="login_action_register">注 册</string>
+
+    <!-- 账号错误提示 -->
+    <string name="auth_error_NO_SERVER">还没有配置服务器地址</string>
+    <string name="auth_error_NETWORK">连不上服务器，请检查地址与网络</string>
+    <string name="auth_error_BAD_RESPONSE">服务器返回了无法识别的内容</string>
+    <string name="auth_error_INVALID_CALLSIGN">呼号格式不正确</string>
+    <string name="auth_error_WEAK_PASSWORD">密码长度需为 6~64 位</string>
+    <string name="auth_error_INVALID_NICKNAME">昵称过长</string>
+    <string name="auth_error_CALLSIGN_TAKEN">该呼号已注册，请直接登录</string>
+    <string name="auth_error_BAD_CREDENTIALS">呼号或密码不正确</string>
+    <string name="auth_error_NO_TOKEN">请先登录</string>
+    <string name="auth_error_TOKEN_EXPIRED">登录已失效，请重新登录</string>
+    <string name="auth_error_NO_USER">账号不存在，请重新登录</string>
+    <string name="auth_error_NOT_FOUND">接口不存在，请检查服务器地址</string>
+    <string name="auth_error_SERVER_ERROR">服务器开小差了，请稍后重试</string>
+
+    <!-- 说明 -->
+    <string name="note_wavelength">频段划分按 IARU/ITU 常见惯例整理，60m 与 4m 各国差异较大，请以本国现行频率划分规定为准。</string>
+    <string name="note_antenna">经验公式：长度 = 波长 × 波长系数 × 0.95 端部效应系数（倒 V 额外取 0.96）。实际架设请留 2–3% 冗余后逐步修剪。</string>
+    <string name="note_vswr">默认 S9 对应 -73 dBm。这里假设失配发生在单一参考面，未区分天线端与发射机端的驻波差异。</string>
+    <string name="note_feedline">损耗由厂家公布数据双对数插值估算，未计入接头损耗、老化与环境温度影响。</string>
+    <string name="note_link_budget">自由空间模型，未考虑地形遮挡、绕射、电离层反射与多径衰落，结果仅供参考。</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.HAM工具合集" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- 冷启动窗口用品牌色打底，随后由 Compose 的启动动画无缝接上 -->
+        <item name="android:windowBackground">@color/launch_window</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

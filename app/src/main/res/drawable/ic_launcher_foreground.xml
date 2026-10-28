@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  图标主体：电波发射（中心馈源 + 三道同心波瓣），白色描边。
+  内容控制在 108dp 画布中央 72dp 的安全区内，适配各家厂商的图标遮罩。
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- 外层波瓣（±50°） -->
+    <path
+        android:pathData="M74.57,29.49A32,32 0 0 1 74.57,78.51"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5.5"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M33.43,29.49A32,32 0 0 0 33.43,78.51"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5.5"
+        android:strokeLineCap="round" />
+
+    <!-- 中层波瓣 -->
+    <path
+        android:pathData="M68.78,36.38A23,23 0 0 1 68.78,71.62"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5.5"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M39.22,36.38A23,23 0 0 0 39.22,71.62"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5.5"
+        android:strokeLineCap="round" />
+
+    <!-- 内层波瓣 -->
+    <path
+        android:pathData="M63.0,43.28A14,14 0 0 1 63.0,64.72"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5.5"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M45.0,43.28A14,14 0 0 0 45.0,64.72"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="5.5"
+        android:strokeLineCap="round" />
+
+    <!-- 中心馈源 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,49a5,5 0 1,1 0,10a5,5 0 1,1 0,-10" />
+</vector>

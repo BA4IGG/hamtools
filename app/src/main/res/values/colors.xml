@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- 冷启动窗口底色：与启动动画顶部同色，避免首帧白闪 -->
+    <color name="launch_window">#FF006C5B</color>
+</resources>

@@ -1,0 +1,28 @@
+[Unit]
+Description=HAM Tools Auth Server
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=hamtools
+Group=hamtools
+WorkingDirectory=/opt/hamtools/server
+# 配置由 server/.env 提供（应用内已 require('dotenv')），这里不再重复声明
+ExecStart=/usr/bin/node src/index.js
+Restart=always
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ham-auth
+
+# 轻量加固
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target
