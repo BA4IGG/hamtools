@@ -1,9 +1,32 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
 }
 
+// 正式签名配置。keystore.properties 与密钥库都不入库（见 .gitignore），
+// 没配的人照样能编 debug，只是 release 包会是未签名的。
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties().apply {
+    if (keystorePropertiesFile.exists()) {
+        keystorePropertiesFile.inputStream().use { load(it) }
+    }
+}
+val hasSigningConfig = keystorePropertiesFile.exists()
+
 android {
+
+    signingConfigs {
+        if (hasSigningConfig) {
+            create("release") {
+                storeFile = keystoreProperties["storeFile"]?.let { rootProject.file(it as String) }
+                storePassword = keystoreProperties["storePassword"] as String?
+                keyAlias = keystoreProperties["keyAlias"] as String?
+                keyPassword = keystoreProperties["keyPassword"] as String?
+            }
+        }
+    }
     namespace = "com.ham.tools"
     compileSdk {
         version = release(37)
@@ -21,6 +44,9 @@ android {
 
     buildTypes {
         release {
+            if (hasSigningConfig) {
+                signingConfig = signingConfigs.getByName("release")
+            }
             optimization {
                 enable = true
                 packageScope = setOf("androidx.**", "kotlin.**", "kotlinx.**")

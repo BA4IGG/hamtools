@@ -15,7 +15,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.Logout
+import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Palette
 import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.PersonOutline
@@ -253,7 +253,7 @@ private fun AccountCard(
                 shape = MaterialTheme.shapes.large
             ) {
                 Icon(
-                    imageVector = Icons.Filled.Logout,
+                    imageVector = Icons.AutoMirrored.Filled.Logout,
                     contentDescription = null,
                     modifier = Modifier.size(18.dp)
                 )

@@ -21,3 +21,8 @@ captures/
 
 # WorkBuddy 本地工作区（项目记忆，不进版本库）
 .workbuddy/
+
+# 正式签名密钥库及其密码 —— 丢了它就永远无法发布此 App 的升级版，
+# 因此不入库；请自行异地备份 keystore/ 与 keystore.properties
+keystore/
+keystore.properties

@@ -1,17 +1,14 @@
 package com.ham.tools.util
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.os.Build
 import android.util.Log
 import android.view.Display
 import android.view.WindowManager
 import kotlin.math.abs
 
 private const val TAG = "FrameRate"
-
-/** 声明给系统的可接受下限：允许系统在发热/省电时往下走，但不锁死在低帧。 */
-private const val MIN_ACCEPTABLE_HZ = 60f
 
 /** 判定「当前模式已达目标」的容差，部分屏幕报的是 119.88Hz 这类非整数值。 */
 private const val RATE_TOLERANCE_HZ = 0.5f
@@ -43,8 +40,13 @@ data class RefreshProfile(
  *    覆盖面最广。只对分辨率与当前完全一致的模式生效，避免为了高刷把画面分辨率也改掉。
  * 2. `preferredRefreshRate`（API 21+，公开）：声明期望的刷新率。注意它与上一条互斥——
  *    同时设置时 `preferredDisplayModeId` 生效、另一个被忽略，所以两者只挑一个写。
- * 3. `preferredMin/MaxDisplayRefreshRate`（隐藏字段）：部分厂商 ROM 正是写这两个字段把第三方
- *    应用限到 60/90Hz，反向写回去可以解除限制。反射失败只是跳过，不影响前两条。
+ *
+ * 这两条只覆盖「本窗口想跑多少帧」。真正把应用从 90Hz 解放出来的，是 [RefreshPolicy] 那一层
+ * ——它抬的是系统全局的 `peak_refresh_rate` 上限，窗口请求只能落在系统给的区间里。
+ *
+ * 注意：早期版本曾用反射写隐藏字段 `preferredMin/MaxDisplayRefreshRate` 作为第三层兜底，
+ * 但 targetSdk 37 起该私有 API 已被封禁（lint `BlockedPrivateApi` 直接判为 fatal），
+ * 且此时系统策略层已经能达成同样效果，故已移除，不要再往回加。
  *
  * 设备保护：只请求硬件支持范围内的值，60Hz 屏幕直接放弃请求。
  */
@@ -65,7 +67,7 @@ object FrameRateController {
 
     private fun applyInternal(activity: Activity): RefreshProfile {
         val window = activity.window ?: return profileOf(null)
-        val display = activity.windowManager?.defaultDisplay
+        val display = displayOf(activity)
         val profile = profileOf(display)
         if (profile.targetHz <= 0f) {
             return profile.copy(requested = false)
@@ -81,7 +83,6 @@ object FrameRateController {
             params.preferredDisplayModeId = 0
             params.preferredRefreshRate = profile.targetHz
         }
-        writeCompatRefreshRateRange(params, profile.maxHz)
         window.attributes = params
 
         Log.d(
@@ -131,28 +132,15 @@ object FrameRateController {
     }
 
     /**
-     * 写隐藏字段，用于解除部分 ROM 对第三方应用的帧率封顶。
-     *
-     * 这些字段不在公开 SDK 里，Android 9 之后受 hidden API 限制，
-     * 被挡住时会抛异常，这里吞掉并忽略，退回到公开 API 的效果。
+     * 取当前所在的屏幕。`WindowManager.defaultDisplay` 自 API 30 起废弃，
+     * 新接口 `Context.display` 需要 API 30+，因此按版本分路并隔离废弃告警。
      */
-    @SuppressLint("PrivateApi", "SoonBlockedPrivateApi", "DiscouragedPrivateApi")
-    private fun writeCompatRefreshRateRange(params: WindowManager.LayoutParams, maxHz: Float) {
-        runCatching {
-            WindowManager.LayoutParams::class.java
-                .getDeclaredField("preferredMinDisplayRefreshRate")
-                .apply { isAccessible = true }
-                .setFloat(params, MIN_ACCEPTABLE_HZ)
-        }.onFailure { Log.d(TAG, "preferredMinDisplayRefreshRate 不可用，已跳过") }
-
-        runCatching {
-            WindowManager.LayoutParams::class.java
-                .getDeclaredField("preferredMaxDisplayRefreshRate")
-                .apply { isAccessible = true }
-                .setFloat(params, maxHz)
-        }.onFailure { Log.d(TAG, "preferredMaxDisplayRefreshRate 不可用，已跳过") }
+    private fun displayOf(context: Context): Display? {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return runCatching { context.display }.getOrNull()
+        }
+        @Suppress("DEPRECATION")
+        val legacy = (context.getSystemService(Context.WINDOW_SERVICE) as? WindowManager)?.defaultDisplay
+        return legacy
     }
-
-    private fun displayOf(context: Context): Display? =
-        (context.getSystemService(Context.WINDOW_SERVICE) as? WindowManager)?.defaultDisplay
 }
