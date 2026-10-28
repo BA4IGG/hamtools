@@ -26,3 +26,7 @@ captures/
 # 因此不入库；请自行异地备份 keystore/ 与 keystore.properties
 keystore/
 keystore.properties
+
+# 构建出的安装包：体积大且可随时重建，只随 GitHub Release 分发
+*.apk
+*.aab

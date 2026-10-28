@@ -47,9 +47,20 @@ android {
             if (hasSigningConfig) {
                 signingConfig = signingConfigs.getByName("release")
             }
+            // 这里**不要**打开 optimization（R8 优化）！！
+            //
+            // 曾经的 release 配置是 optimization { enable = true; packageScope = ... }，
+            // 结果装包后一启动就崩：packageScope 只把 androidx/kotlin/kotlinx 划进优化域，
+            // 而本 App 的 com.ham.tools 代码被排除在外，形成「库侧字节码被 R8 改写、
+            // 调用方代码却不受 R8 管辖」的混合状态。编出的 dex 里
+            // androidx.compose.runtime.Composer、ui.graphics.Shape、ui.text.AnnotatedString
+            // 等核心类型已无类定义，只剩悬空引用，运行时直接 NoClassDefFoundError。
+            // debug 构建不走这一步，所以一切正常——这也正是「debug 好、release 崩」的全部差异。
+            //
+            // 本 App 体积本就只有几 MB，省下的那点空间远不值得冒启动崩溃的风险。
+            // 保持 release 与 debug 走同一套字节码，行为一致。
             optimization {
-                enable = true
-                packageScope = setOf("androidx.**", "kotlin.**", "kotlinx.**")
+                enable = false
             }
         }
     }

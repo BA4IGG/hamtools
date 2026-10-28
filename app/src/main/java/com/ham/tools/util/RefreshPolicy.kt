@@ -1,6 +1,5 @@
 package com.ham.tools.util
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -231,7 +230,6 @@ object RefreshPolicy {
         runRoot("id -u").let { it.exitCode == 0 && it.output.trim() == "0" }
 
     /** 单条 su 命令，带 3 秒超时。只读 stdout，失败一律返回 exitCode=-1，不抛异常。 */
-    @SuppressLint("DiscouragedPrivateApi")
     private fun runRoot(command: String): ShellResult {
         return runCatching {
             val process = Runtime.getRuntime().exec(arrayOf("su", "-c", command))
@@ -261,14 +259,4 @@ object RefreshPolicy {
     }
 
     private data class ShellResult(val exitCode: Int, val output: String)
-
-    /** 读取只读系统属性，用来做机型诊断（拿不到就返回空字符串）。 */
-    @SuppressLint("PrivateApi")
-    fun systemProperty(name: String): String {
-        return runCatching {
-            Class.forName("android.os.SystemProperties")
-                .getMethod("get", String::class.java)
-                .invoke(null, name) as? String
-        }.getOrNull().orEmpty()
-    }
 }
