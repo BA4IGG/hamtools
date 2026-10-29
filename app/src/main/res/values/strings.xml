@@ -201,4 +201,92 @@
     <string name="note_vswr">默认 S9 对应 -73 dBm。这里假设失配发生在单一参考面，未区分天线端与发射机端的驻波差异。</string>
     <string name="note_feedline">损耗由厂家公布数据双对数插值估算，未计入接头损耗、老化与环境温度影响。</string>
     <string name="note_link_budget">自由空间模型，未考虑地形遮挡、绕射、电离层反射与多径衰落，结果仅供参考。</string>
+
+    <!-- 查询手册：通用 -->
+    <string name="action_clear">清除</string>
+    <string name="ref_search">搜索</string>
+    <string name="ref_result_count">共 %1$d 条</string>
+    <string name="ref_empty">没有匹配的条目</string>
+
+    <!-- 查询手册：工具名 -->
+    <string name="tool_band_plan">业余频段划分</string>
+    <string name="tool_callsign_prefix">呼号前缀</string>
+    <string name="tool_qcode">Q 简语</string>
+    <string name="tool_morse_code">摩尔斯对照</string>
+    <string name="tool_sat_repeater">卫星与中继</string>
+
+    <!-- 频段划分 -->
+    <string name="region_cn">中国</string>
+    <string name="region_r1">IARU 1 区</string>
+    <string name="region_r2">IARU 2 区</string>
+    <string name="region_r3">IARU 3 区</string>
+    <string name="band_plan_modes">常用模式</string>
+    <string name="band_plan_usage">用途与传播</string>
+    <string name="band_plan_note">备注</string>
+    <string name="note_band_plan">多数频段上业余业务是次要业务，须避让同频段主要业务（如 40m 广播、30m/17m/12m 固定业务）。60m 各国指配差异极大，发射前请以本国现行频率划分规定为准。</string>
+
+    <!-- 呼号前缀 -->
+    <string name="prefix_tab_resolve">呼号解析</string>
+    <string name="prefix_tab_directory">前缀名录</string>
+    <string name="prefix_group_resolve">呼号</string>
+    <string name="prefix_input_label">输入呼号</string>
+    <string name="prefix_entity">实体</string>
+    <string name="prefix_entity_en">英文名</string>
+    <string name="prefix_continent">大洲</string>
+    <string name="prefix_cq">CQ 分区</string>
+    <string name="prefix_itu">ITU 分区</string>
+    <string name="prefix_unresolved">未能识别该呼号的归属</string>
+    <string name="continent_all">全部</string>
+    <string name="continent_as">亚洲</string>
+    <string name="continent_eu">欧洲</string>
+    <string name="continent_af">非洲</string>
+    <string name="continent_na">北美洲</string>
+    <string name="continent_sa">南美洲</string>
+    <string name="continent_oc">大洋洲</string>
+    <string name="continent_an">南极</string>
+    <string name="note_prefix">前缀按 ITU 国际呼号序列划分表整理。「呼号解析」支持斜杠后缀（如 W1AW/KH6 按操作地夏威夷计）；便携标记 /P /M /MM /QRP 不改变归属。CQ/ITU 分区取常见值，个别地区随前缀细分而变化。</string>
+
+    <!-- Q 简语与字母解释法 -->
+    <string name="qcode_tab_q">Q 简语</string>
+    <string name="qcode_tab_phonetic">字母解释法</string>
+    <string name="qcode_search_label">搜索 Q 简语</string>
+    <string name="qcode_phonetic_search_label">搜索字母或解释词</string>
+    <string name="qcode_question">提问</string>
+    <string name="qcode_statement">陈述 / 回答</string>
+    <string name="note_qcode">Q 简语的两面性：同一代码后加问号是提问，不加是陈述。例如 QTH? 问「你的位置？」，QTH SHANGHAI 答「我在上海」。记忆时两面一起记才用得顺。</string>
+    <string name="note_phonetic">字母解释法取国际民航组织（ICAO）标准，附业余界口耳相传的变体。信号不佳时可换用变体交叉确认，比反复重复标准词更容易被听懂。</string>
+
+    <!-- 摩尔斯电码 -->
+    <string name="morse_tab_convert">转换与播放</string>
+    <string name="morse_tab_table">对照表</string>
+    <string name="morse_dir_to_code">文字 → 电码</string>
+    <string name="morse_dir_to_text">电码 → 文字</string>
+    <string name="morse_input_text">输入文字</string>
+    <string name="morse_input_code">输入电码（点 . 划 -，字母间空格，词间 /）</string>
+    <string name="morse_speed">速度</string>
+    <string name="morse_speed_value">%1$d WPM</string>
+    <string name="morse_duration">预计时长 %1$.1f 秒</string>
+    <string name="morse_action_play">播放</string>
+    <string name="morse_action_stop">停止</string>
+    <string name="morse_quick_words">常用词</string>
+    <string name="morse_search_label">搜索字符或电码</string>
+    <string name="morse_group_letter">字母</string>
+    <string name="morse_group_digit">数字</string>
+    <string name="morse_group_punct">标点符号</string>
+    <string name="morse_group_prosign">简语</string>
+    <string name="note_morse">电码表取 ITU-R M.1677-1 国际摩尔斯码。速度按 PARIS 标准换算（T = 1200/WPM 毫秒）。科赫法训练建议从 15 WPM 起，此时耳朵被迫整体识别字符，而非逐个点划去数。</string>
+
+    <!-- 卫星与中继 -->
+    <string name="sat_tab_satellite">业余卫星</string>
+    <string name="sat_tab_repeater">中继名录</string>
+    <string name="sat_search_label">搜索卫星</string>
+    <string name="rpt_search_label">搜索城市或地区</string>
+    <string name="sat_uplink">上行</string>
+    <string name="sat_downlink">下行</string>
+    <string name="sat_tone">亚音</string>
+    <string name="sat_beacon">信标</string>
+    <string name="rpt_freq_pair">%1$s / %2$s MHz</string>
+    <string name="rpt_no_tone">无亚音</string>
+    <string name="note_satellite">参数为公开资料整理。低轨业余卫星寿命有限，退役、再入或参数调整均有可能；上行前请核对最新星历与运营方公告，并确认本地对该频段的授权。同步轨道的 QO-100 需 2.4GHz 上行与 10GHz 下行设备。</string>
+    <string name="note_repeater">中继频率、亚音与联网方式由各地中继组自行管理，变更频繁且无统一登记机构。以下为常见配置，非权威名录；落地后请先守听确认，并遵守当地中继组的使用约定。</string>
 </resources>

@@ -72,38 +72,43 @@ object ToolRegistry {
         ),
 
         ToolMeta(
-            id = "band_plan",
+            id = ToolIds.BAND_PLAN,
             name = "业余频段划分",
             description = "中国与 IARU 各区频段划分表",
             category = ToolCategory.REFERENCE,
+            implemented = true,
             icon = Icons.Filled.ViewWeek
         ),
         ToolMeta(
-            id = "callsign_prefix",
+            id = ToolIds.CALLSIGN_PREFIX,
             name = "呼号前缀",
             description = "国家和地区呼号前缀检索",
             category = ToolCategory.REFERENCE,
+            implemented = true,
             icon = Icons.Filled.TravelExplore
         ),
         ToolMeta(
-            id = "qcode",
+            id = ToolIds.QCODE,
             name = "Q 简语",
             description = "常用 Q 简语与字母解释法",
             category = ToolCategory.REFERENCE,
+            implemented = true,
             icon = Icons.AutoMirrored.Filled.Chat
         ),
         ToolMeta(
-            id = "morse_code",
+            id = ToolIds.MORSE_CODE,
             name = "摩尔斯对照",
             description = "字符与电码对照表，可发声",
             category = ToolCategory.REFERENCE,
+            implemented = true,
             icon = Icons.Filled.GraphicEq
         ),
         ToolMeta(
-            id = "sat_repeater",
+            id = ToolIds.SAT_REPEATER,
             name = "卫星与中继",
             description = "业余卫星与常用中继名录",
             category = ToolCategory.REFERENCE,
+            implemented = true,
             icon = Icons.Filled.SatelliteAlt
         ),
 
@@ -187,4 +192,10 @@ object ToolIds {
     const val VSWR = "vswr"
     const val FEEDLINE_LOSS = "feedline_loss"
     const val LINK_BUDGET = "link_budget"
+
+    const val BAND_PLAN = "band_plan"
+    const val CALLSIGN_PREFIX = "callsign_prefix"
+    const val QCODE = "qcode"
+    const val MORSE_CODE = "morse_code"
+    const val SAT_REPEATER = "sat_repeater"
 }

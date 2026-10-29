@@ -26,6 +26,11 @@ import com.ham.tools.ui.calc.VswrScreen
 import com.ham.tools.ui.calc.WavelengthScreen
 import com.ham.tools.ui.pager.TOP_LEVEL_PAGE_COUNT
 import com.ham.tools.ui.pager.TopLevelPager
+import com.ham.tools.ui.reference.BandPlanScreen
+import com.ham.tools.ui.reference.MorseScreen
+import com.ham.tools.ui.reference.PrefixScreen
+import com.ham.tools.ui.reference.QCodeScreen
+import com.ham.tools.ui.reference.SatRepeaterScreen
 import com.ham.tools.ui.settings.SettingsScreen
 import com.ham.tools.ui.theme.M3Variant
 import com.ham.tools.ui.theme.ThemeMode
@@ -136,6 +141,13 @@ fun HamNavHost(
                 ToolIds.VSWR -> VswrScreen(onBack = onBack)
                 ToolIds.FEEDLINE_LOSS -> FeedlineLossScreen(onBack = onBack)
                 ToolIds.LINK_BUDGET -> LinkBudgetScreen(onBack = onBack)
+
+                ToolIds.BAND_PLAN -> BandPlanScreen(onBack = onBack)
+                ToolIds.CALLSIGN_PREFIX -> PrefixScreen(onBack = onBack)
+                ToolIds.QCODE -> QCodeScreen(onBack = onBack)
+                ToolIds.MORSE_CODE -> MorseScreen(onBack = onBack)
+                ToolIds.SAT_REPEATER -> SatRepeaterScreen(onBack = onBack)
+
                 else -> ToolPlaceholderScreen(
                     toolName = tool?.name,
                     toolDescription = tool?.description,
