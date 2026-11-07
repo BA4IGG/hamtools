@@ -56,7 +56,7 @@ fun AprsPasscodeScreen(onBack: () -> Unit, modifier: Modifier = Modifier) {
                     ResultItem(
                         label = stringResource(R.string.aprs_passcode_result_login),
                         value = if (passcode != null) {
-                            "user $loginCallsign pass $passcode vers hamtools 1.0"
+                            "user $loginCallsign pass $passcode\nvers hamtools 1.0"
                         } else {
                             "—"
                         }
