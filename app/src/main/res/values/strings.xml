@@ -214,6 +214,7 @@
     <string name="tool_qcode">Q 简语</string>
     <string name="tool_morse_code">摩尔斯对照</string>
     <string name="tool_sat_repeater">卫星与中继</string>
+    <string name="tool_aprs_passcode">APRS 验证码</string>
 
     <!-- 频段划分 -->
     <string name="region_cn">中国</string>
@@ -289,4 +290,12 @@
     <string name="rpt_no_tone">无亚音</string>
     <string name="note_satellite">参数为公开资料整理。低轨业余卫星寿命有限，退役、再入或参数调整均有可能；上行前请核对最新星历与运营方公告，并确认本地对该频段的授权。同步轨道的 QO-100 需 2.4GHz 上行与 10GHz 下行设备。</string>
     <string name="note_repeater">中继频率、亚音与联网方式由各地中继组自行管理，变更频繁且无统一登记机构。以下为常见配置，非权威名录；落地后请先守听确认，并遵守当地中继组的使用约定。</string>
+
+    <!-- APRS 验证码 -->
+    <string name="aprs_passcode_input_label">呼号</string>
+    <string name="aprs_passcode_input_hint">例如 BA4IGG 或 BA4IGG-9</string>
+    <string name="aprs_passcode_result_label">验证码</string>
+    <string name="aprs_passcode_result_hex">十六进制</string>
+    <string name="aprs_passcode_result_login">APRS-IS 登录串</string>
+    <string name="note_aprs_passcode">SSID 自动剥离，大小写不敏感。验证码是公开的呼号哈希，不是密码。APRS-IS 用它区分收发权限：verified 才能发包，unverified 只能收听。</string>
 </resources>

@@ -227,4 +227,70 @@ class HamMathTest {
         assertNotNull(CoaxTable.find("lmr400"))
         assertTrue(CoaxTable.cables.size >= 8)
     }
+
+    // ---------------- APRS 验证码 ----------------
+
+    @Test
+    fun aprsPasscode_testcall() {
+        // aprslib 金标准：TESTCALL → 31742
+        assertEquals(31742, HamMath.aprsPasscode("TESTCALL"))
+    }
+
+    @Test
+    fun aprsPasscode_caseInsensitive() {
+        // 大小写不敏感
+        assertEquals(31742, HamMath.aprsPasscode("testcall"))
+        assertEquals(31742, HamMath.aprsPasscode("tEsTcAlL"))
+    }
+
+    @Test
+    fun aprsPasscode_stripsSsid() {
+        // SSID 自动剥离
+        assertEquals(31742, HamMath.aprsPasscode("TESTCALL-12"))
+        assertEquals(31742, HamMath.aprsPasscode("TESTCALL-"))
+    }
+
+    @Test
+    fun aprsPasscode_shortCallsign_oddLength() {
+        // 极短呼号，奇数长度，验证末尾单字符分支
+        assertEquals(29613, HamMath.aprsPasscode("WOW"))
+    }
+
+    @Test
+    fun aprsPasscode_fullLength_eightChars() {
+        // 8 字符满长度呼号
+        assertEquals(27890, HamMath.aprsPasscode("SUCHCALL"))
+        assertEquals(27128, HamMath.aprsPasscode("MUCHSIGN"))
+    }
+
+    @Test
+    fun aprsPasscode_n0call() {
+        // APRS 脚本标准测试呼号
+        assertEquals(13023, HamMath.aprsPasscode("N0CALL"))
+    }
+
+    @Test
+    fun aprsPasscode_ba4igg_withAndWithoutSsid() {
+        // 项目作者呼号：BA4IGG 与 BA4IGG-9 结果应相同
+        val base = HamMath.aprsPasscode("BA4IGG")
+        val withSsid = HamMath.aprsPasscode("BA4IGG-9")
+        assertEquals(base, withSsid)
+        // 确保结果在 15 位有效范围内
+        assertTrue(base in 0..0x7FFF)
+    }
+
+    @Test
+    fun aprsPasscode_empty_returnsZero() {
+        assertEquals(0, HamMath.aprsPasscode(""))
+        assertEquals(0, HamMath.aprsPasscode("-"))
+    }
+
+    @Test
+    fun aprsPasscode_truncatesToEightChars() {
+        // 超过 8 字符截断：VERYLONGCALLSIGN 与 VERYLONGC 相同
+        assertEquals(
+            HamMath.aprsPasscode("VERYLONGC"),
+            HamMath.aprsPasscode("VERYLONGCALLSIGN")
+        )
+    }
 }

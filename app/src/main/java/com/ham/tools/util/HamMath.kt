@@ -182,6 +182,34 @@ object HamMath {
     fun sMeterUnits(dbm: Double): Double = 9.0 + (dbm - S9_DBM) / DB_PER_S_UNIT
 
     // ------------------------------------------------------------------
+    // APRS 验证码
+    // ------------------------------------------------------------------
+
+    /**
+     * 计算 APRS-IS 验证码（callpass），16 位无符号整数。
+     *
+     * 算法（与 aprslib / callpass 一致）：
+     * 1. 去掉 SSID（BA4IGG-9 → BA4IGG），转大写，截断到 8 字符；
+     * 2. 以固定种子 0x73E2 起步，每两个字符一组滚动 XOR；
+     * 3. 取 15 位（and 0x7FFF）得最终验证码。
+     *
+     * 注意：验证码是公开的呼号哈希，不是密码，不能证明操作者身份。
+     */
+    fun aprsPasscode(callsign: String): Int {
+        val base = callsign.substringBefore('-').trim().uppercase()
+        if (base.isEmpty()) return 0
+        val login = base.take(8)
+        var hash = 0x73E2
+        var i = 0
+        while (i < login.length) {
+            hash = hash xor (login[i].code shl 8)
+            if (i + 1 < login.length) hash = hash xor login[i + 1].code
+            i += 2
+        }
+        return hash and 0x7FFF
+    }
+
+    // ------------------------------------------------------------------
 
     private fun slope(f0: Double, f1: Double, loss0: Double, loss1: Double): Double =
         ln(loss1 / loss0) / ln(f1 / f0)
