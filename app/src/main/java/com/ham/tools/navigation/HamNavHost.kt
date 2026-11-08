@@ -24,6 +24,7 @@ import com.ham.tools.ui.calc.FeedlineLossScreen
 import com.ham.tools.ui.calc.LinkBudgetScreen
 import com.ham.tools.ui.calc.VswrScreen
 import com.ham.tools.ui.calc.WavelengthScreen
+import com.ham.tools.ui.network.AprsPasscodeScreen
 import com.ham.tools.ui.pager.TOP_LEVEL_PAGE_COUNT
 import com.ham.tools.ui.pager.TopLevelPager
 import com.ham.tools.ui.reference.BandPlanScreen
@@ -147,6 +148,8 @@ fun HamNavHost(
                 ToolIds.QCODE -> QCodeScreen(onBack = onBack)
                 ToolIds.MORSE_CODE -> MorseScreen(onBack = onBack)
                 ToolIds.SAT_REPEATER -> SatRepeaterScreen(onBack = onBack)
+
+                ToolIds.APRS_PASSCODE -> AprsPasscodeScreen(onBack = onBack)
 
                 else -> ToolPlaceholderScreen(
                     toolName = tool?.name,

@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Dialpad
 import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.GraphicEq
 import androidx.compose.material.icons.filled.Headphones
+import androidx.compose.material.icons.filled.Key
 import androidx.compose.material.icons.filled.LeakAdd
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.MusicNote
@@ -163,6 +164,14 @@ object ToolRegistry {
             icon = Icons.Filled.Explore
         ),
         ToolMeta(
+            id = ToolIds.APRS_PASSCODE,
+            name = "APRS 验证码",
+            description = "APRS-IS 登录验证码计算",
+            category = ToolCategory.NETWORK,
+            implemented = true,
+            icon = Icons.Filled.Key
+        ),
+        ToolMeta(
             id = "aprs_map",
             name = "APRS 地图",
             description = "离线地图上展示 APRS 台站",
@@ -198,4 +207,6 @@ object ToolIds {
     const val QCODE = "qcode"
     const val MORSE_CODE = "morse_code"
     const val SAT_REPEATER = "sat_repeater"
+
+    const val APRS_PASSCODE = "aprs_passcode"
 }
