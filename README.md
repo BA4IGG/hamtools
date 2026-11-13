@@ -214,6 +214,17 @@ App 端地址写死在 `AppConfig.SERVER_BASE_URL`，**换服务器改这一行�
 > 但 targetSdk 37 起该私有 API 已被封禁（lint `BlockedPrivateApi` 判为 fatal），
 > 且系统策略层已能达成同样效果，现已移除。
 
+## 官网静态站
+
+`site/` 是纯静态官网（首页 / 用户协议 / 隐私政策），直接把目录内容上传到站点根目录即可，无需构建、无后端依赖。
+
+首页引用的 3 分钟宣传片 `site/assets/media/HAM-Tools-promo-3min.mp4`（约 12 MB）**不纳入 Git 仓库**：二进制视频体积大，且会随版本重做。部署时二选一：
+
+- 用 `promo/render_3min.py` 自行生成（依赖 Pillow / numpy / imageio-ffmpeg）后放到 `site/assets/media/`；
+- 或使用随版本分发的官网压缩包 `hamtools-site-v1.2.zip`（内含完整 `assets/media/`，通过 Release 或本地交付，不入库）。
+
+缺少该视频时首页其余内容正常，仅宣传片区无法播放。宣传片生成脚本 `promo/*.py` 已随仓库提供。
+
 ## 第三方代码
 
 `app/src/main/java/com/ham/tools/materialcolor/utilities/` 下的 Java 类取自 Google
