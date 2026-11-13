@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#006C5B">
+<title>用户协议 · HAM 工具合集</title>
+<meta name="description" content="HAM 工具合集用户协议：使用许可、账号规则、无线电合规义务、计算结果免责声明、开源许可与争议解决。">
+<link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>
+(function(){var d=document.documentElement;d.classList.add('js');var t=null;
+try{t=localStorage.getItem('ham-theme')}catch(e){}
+if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}
+d.setAttribute('data-theme',t)})();
+</script>
+</head>
+<body data-page="terms">
+
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 8 4 12l4 4M16 8l4 4-4 4M14 5l-4 14"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 20V5m0 0-6 6m6-6 6 6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3Z"/><path d="M9 12l2 2 4-4"/></symbol>
+</defs></svg>
+
+<header class="app-bar">
+  <div class="container app-bar__inner">
+    <a class="brand" href="index.html" aria-label="HAM 工具合集首页">
+      <img class="brand__logo" src="assets/img/logo.svg" alt="" width="38" height="38">
+      <span class="brand__name">HAM 工具合集<small>HAM TOOLS · BA4IGG</small></span>
+    </a>
+    <nav class="nav" id="primary-nav" aria-label="主导航">
+      <a href="index.html#features">功能亮点</a>
+      <a href="index.html#tools">全部工具</a>
+      <a href="index.html#video">宣传片</a>
+      <a href="index.html#roadmap">路线图</a>
+      <a href="index.html#download">下载</a>
+      <span class="nav__legal">
+        <a href="terms.html" data-nav="terms">用户协议</a>
+        <a href="privacy.html" data-nav="privacy">隐私政策</a>
+      </span>
+    </nav>
+    <div class="app-bar__actions">
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换主题"><svg class="icon"><use href="#i-moon"></use></svg></button>
+      <a class="icon-btn" href="https://github.com/BA4IGG/hamtools" target="_blank" rel="noopener noreferrer" aria-label="GitHub 仓库"><svg class="icon"><use href="#i-code"></use></svg></a>
+      <a class="btn btn--filled btn--sm" href="index.html#download">下载 APK</a>
+      <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-nav" aria-label="展开菜单"><svg class="icon"><use href="#i-menu"></use></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="legal-hero">
+    <div class="container">
+      <span class="eyebrow">法律文件 · 用户协议</span>
+      <h1>HAM 工具合集用户协议</h1>
+      <p>本协议是你与 HAM 工具合集（以下简称「本工具」）作者之间就下载、安装、使用本工具及访问本官网所订立的约定。请在使用前完整阅读，尤其是关于计算结果免责与无线电合规的条款。</p>
+      <div class="legal-meta">
+        <span>生效日期：<b>2026 年 11 月 5 日</b></span>
+        <span>最后更新：<b>2026 年 11 月 11 日</b></span>
+        <span>适用版本：<b>v1.2（含 QSL 卡片交换）及后续版本</b></span>
+        <span>运营者：<b>BA4IGG（个人开发者）</b></span>
+      </div>
+    </div>
+  </section>
+
+  <div class="container legal-layout">
+    <aside class="toc" aria-label="目录">
+      <h2>目录</h2>
+      <ol>
+        <li><a href="#sec-1">协议的接受与范围</a></li>
+        <li><a href="#sec-2">服务说明</a></li>
+        <li><a href="#sec-3">使用许可与开源代码</a></li>
+        <li><a href="#sec-4">账号规则</a></li>
+        <li><a href="#sec-5">用户义务与禁止行为</a></li>
+        <li><a href="#sec-6">计算结果与免责声明</a></li>
+        <li><a href="#sec-7">知识产权与第三方许可</a></li>
+        <li><a href="#sec-8">第三方服务与链接</a></li>
+        <li><a href="#sec-9">变更、更新与终止</a></li>
+        <li><a href="#sec-10">责任限制</a></li>
+        <li><a href="#sec-11">适用法律与争议解决</a></li>
+        <li><a href="#sec-12">联系我们</a></li>
+      </ol>
+      <div class="toc__note">关于个人信息如何被收集、存储与删除，请同时阅读<a href="privacy.html">《隐私政策》</a>。</div>
+    </aside>
+
+    <article class="legal-doc">
+      <div class="lead">本工具由业余无线电爱好者 BA4IGG 以个人身份免费开发和维护，并非商业产品，也不代表任何监管机构、协会或企业。本工具不提供无线电发射功能，也不替代执照、法规或专业测量设备。</div>
+
+      <section id="sec-1">
+        <h2>一、协议的接受与范围</h2>
+        <p>1.1 你下载、安装、启动本工具，或浏览、使用本官网，即视为已阅读、理解并同意本协议全部条款。若不同意，请立即停止使用并卸载本工具。</p>
+        <p>1.2 本协议适用于本工具的 Android 客户端（包名 <strong>com.ham.tools</strong>）、其配套的自部署账号服务，以及本官网。个人信息处理另受<a href="privacy.html">《隐私政策》</a>约束；两者不一致时，涉及个人信息的部分以隐私政策为准。</p>
+        <p>1.3 若你未满 18 周岁，应在监护人陪同下阅读本协议；未满 14 周岁的儿童使用本工具，须事先取得监护人同意。</p>
+      </section>
+
+      <section id="sec-2">
+        <h2>二、服务说明</h2>
+        <p>2.1 本工具是面向业余无线电爱好者的计算与资料查询工具箱，分计算工具、查询手册、音频与硬件、联网与地图四组，<strong>共 19 个工具，均已实现</strong>，不再有占位入口。此外，底部导航另设独立的「QSL 交换」板块，提供纸质卡片与 eQSL 电子卡片的交换、名片与卡片图片管理、交换历史与台站名录，该板块<strong>必须登录账号才能使用</strong>。</p>
+        <p>2.2 核心计算与查询数据全部内置于安装包，断网可用。账号注册 / 登录、QSL 交换，以及部分可选的在线增强数据（如 DX 集群、传播指数、呼号资料）需要访问作者自建的账号服务器 <strong>https://api.ba4igg.cn</strong>。网络不可用时，在线增强会自动退回内置数据并如实标注来源，本地工具与账号登录态之外的数据不受影响；QSL 交换在服务端未部署时进入明确标注的「本地演示」模式，演示数据不会上传、不会冒充真实交换。</p>
+        <p>2.3 当前版本仍在持续迭代。作者可能在不事先通知的情况下修正错误、调整界面、增删功能或变更版本计划；为修复缺陷或提升安全性，也可能要求你升级到新版本。</p>
+        <p>2.4 部分显示优化功能依赖具体设备与系统版本，并可能需要你手动授予「修改系统设置」权限；未满足条件的设备上该功能会自动降级，这不属于服务缺陷。</p>
+      </section>
+
+      <section id="sec-3">
+        <h2>三、使用许可与开源代码</h2>
+        <p>3.1 本工具主体源码依 <strong>MIT 许可证</strong>开源。在保留版权与许可声明的前提下，你可以自由使用、复制、修改、合并、发布、再许可及销售本工具或其副本，用于个人或商业目的。</p>
+        <p>3.2 本工具按「现状」提供，不负任何明示或默示担保，包括但不限于适销性、特定用途适用性与不侵权担保。开源许可的具体条文以仓库中的 <a href="https://github.com/BA4IGG/hamtools/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">LICENSE</a> 文件为准；若本协议的使用条款与 MIT 许可证冲突，以 MIT 许可证为准。</p>
+        <p>3.3 你不得将本工具的名称、图标、作者呼号或相关标识用于暗示官方背书、赞助或附属关系；不得将修改后的版本冒充为作者发布的官方版本。</p>
+      </section>
+
+      <section id="sec-4">
+        <h2>四、账号规则</h2>
+        <p>4.1 账号为<strong>可选功能</strong>。不注册也可使用全部本地工具，但「QSL 交换」板块必须登录。注册时仅需提供业余电台呼号、密码，以及可选的昵称；注册流程不索取手机号、电子邮箱或真实姓名。若你主动使用 QSL 交换，可在名片中自愿填写联系邮箱、显示名称与邮寄地址，其处理规则见<a href="privacy.html">《隐私政策》</a>。</p>
+        <p>4.2 你应保证所填呼号真实、合法且归你本人使用，不得冒用他人呼号，不得使用含有违法、骚扰、误导内容的信息作为昵称。呼号格式按工信部《业余无线电台呼号管理办法》校验。</p>
+        <p>4.3 你负责妥善保管密码，并对账号下发生的操作负责。密码以 bcrypt 哈希形式保存于服务端，作者无法查看明文；如怀疑账号被盗用，请尽快修改密码并通过第 12 条渠道联系作者。</p>
+        <p>4.4 账号仅供本人使用，不得转让、出借、出租或批量注册。作者发现异常注册、滥用接口或其他违规行为时，可限制或停用相关账号，且不承担由此产生的损失。</p>
+        <p>4.5 当前版本<strong>未提供应用内自助注销入口</strong>。你可以随时退出登录并清除本地令牌，或按<a href="privacy.html#sec-10">隐私政策「您的权利」</a>申请删除服务端账号数据。QSL 名片、卡片图片与交换记录可随时在应用「QSL 交换 → 我的资料 → 数据管理」中单独删除，此操作不可恢复。</p>
+        <p>4.6 QSL 交换以你填写的信息为准：你应保证名片内容真实、邮寄地址为自己可接收的地址，并只上传自己有权使用的卡片图片。纸质交换需向对方公开收件地址，请你自行评估风险；不愿公开时可选择 eQSL 电子卡片，或勾选「仅记录到我的交换历史」只做本地留档。</p>
+      </section>
+
+      <section id="sec-5">
+        <h2>五、用户义务与禁止行为</h2>
+        <p>5.1 本工具面向依法取得相应资格的业余无线电爱好者。你进行任何无线电发射、设台或通联活动时，应自行遵守所在国家或地区的法律法规（包括但不限于《中华人民共和国无线电管理条例》）、主管部门最新公告，以及执照核准的频率、功率、模式与呼号使用要求。<strong>本工具不授予任何发射许可，也不判断你的操作是否合法。</strong></p>
+        <p>5.2 你不得利用本工具或其输出从事危害国家安全、扰乱无线电秩序、干扰他人正常通信、侵害他人合法权益或其他违法活动。</p>
+        <p>5.3 你不得对账号服务进行端口扫描、漏洞探测、暴力破解、爬虫抓取（含批量抓取 QSL 台站名录）、流量攻击、伪造请求或任何妨碍服务正常运行的行为；不得绕过鉴权访问他人卡片图片、邮寄地址或交换记录。</p>
+        <p>5.4 你不得反向工程、篡改或注入本工具以植入广告、恶意代码、跟踪组件或用于收集其他用户信息；分发修改版时应遵守 MIT 许可证的声明保留义务。</p>
+        <p>5.5 使用 QSL 交换时，不得冒用他人呼号发起交换、上传含有违法或侵权内容的图片、骚扰其他用户、批量刷申请，或将对方仅在本条交换中向你公开的地址、邮箱对外传播。作者可对违规账号限制或停用 QSL 功能。</p>
+      </section>
+
+      <section id="sec-6">
+        <h2>六、计算结果、内置资料与免责声明</h2>
+        <div class="callout"><p>本工具给出的所有数值、频段划分、呼号归属、卫星与中继参数<strong>仅供学习、估算与参考</strong>，不构成工程依据、计量依据、合规证明或发射授权。</p></div>
+        <p>6.1 计算基于理想化模型：波长按自由空间光速换算，天线长度使用缩短系数近似，馈线损耗按厂商公布的有限频点插值，链路预算采用自由空间传播模型。实际结果受材料、加工、架设环境、地形、馈线老化、设备误差等因素影响，可能与现场实测存在明显偏差。</p>
+        <p>6.2 内置的频段划分、DXCC 前缀、Q 简语、卫星频率与中继名录为整理性资料，可能滞后于主管部门、国际组织或卫星运营方的最新公告。部分卫星参数随任务状态变化，发射前应以官方最新资料与实测为准。</p>
+        <p>6.3 对于因依赖本工具结果而导致的天线或设备损坏、驻波过高、通信失败、频率违规、行政处罚、第三方索赔或其他损失，作者在法律允许的最大范围内不承担责任。</p>
+        <p>6.4 本工具不得用于安全关键系统、计量检定、商业验收、航空航海导航或任何可能因计算误差造成人身伤害或重大财产损失的场合。</p>
+      </section>
+
+      <section id="sec-7">
+        <h2>七、知识产权与第三方许可</h2>
+        <p>7.1 本工具的原创代码、界面设计、图标与文案由作者 BA4IGG 创作，依 MIT 许可证开放使用。你自行输入的数据与计算结果归你所有，本工具不会上传或主张权利。</p>
+        <p>7.2 <code>app/src/main/java/com/ham/tools/materialcolor/utilities/</code> 目录下的 Java 类取自 Google <a href="https://github.com/material-components/material-components-android" target="_blank" rel="noopener noreferrer">material-components-android</a> 1.14.0 的 material-color-utilities，依 <strong>Apache License 2.0</strong> 引入，各文件头部保留原始版权与许可声明，改动仅限包名与移除 Android 注解。该部分的再分发须遵守 Apache-2.0 的条款。</p>
+        <p>7.3 本工具依赖的 Kotlin、Jetpack Compose、AndroidX、OkHttp 等第三方库各自适用其原许可证；完整依赖清单见仓库构建文件。作者不对第三方组件的安全性或可用性作额外担保。</p>
+        <p>7.4 呼号、业余无线电相关标准与频段资料来源于公开法规与行业资料，作者不主张对上述公共信息享有专有权。</p>
+      </section>
+
+      <section id="sec-8">
+        <h2>八、第三方服务与链接</h2>
+        <p>8.1 本工具与官网可能包含指向 GitHub（源码托管与安装包下载）等第三方站点或服务的链接。这些站点由第三方独立运营，其内容、可用性与隐私做法不受本协议约束，你访问前应自行查阅其条款。</p>
+        <p>8.2 账号服务由作者自行部署，地址为 https://api.ba4igg.cn。你若自行编译客户端或自建服务端，则你与所使用服务器之间的数据往来由该部署者负责，作者不对第三方部署实例承担责任。</p>
+        <p>8.3 本工具不接入广告联盟、统计分析与推送服务，不会因第三方 SDK 而向其他域名发送数据。</p>
+      </section>
+
+      <section id="sec-9">
+        <h2>九、变更、更新与终止</h2>
+        <p>9.1 作者可因功能调整、法律要求或安全需要修订本协议，修订后的文本将在本官网公布并更新「最后更新日期」。涉及你重大权利义务的变更，会通过官网公告或 GitHub Release 说明予以提示。</p>
+        <p>9.2 你在协议修订后继续使用本工具，视为接受修订内容；若不接受，可停止使用并卸载应用，并按隐私政策申请删除账号数据。</p>
+        <p>9.3 作者保留随时调整、暂停或终止全部或部分服务的权利，尤其是账号服务因成本、法规或技术原因无法继续提供时。终止时将在合理范围内通过官网或仓库公告告知，并在可行情况下提供本地功能继续可用的版本。</p>
+        <p>9.4 服务终止不影响终止前已产生的权利义务，也不影响 MIT 许可证赋予你对已获得源码的使用权。</p>
+      </section>
+
+      <section id="sec-10">
+        <h2>十、责任限制</h2>
+        <p>10.1 本工具为免费、非商业、由个人在业余时间维护的开源项目，按「现状」及「可用与否」提供。作者不保证服务不间断、无错误、无安全漏洞，或始终兼容所有设备与系统版本。</p>
+        <p>10.2 在法律允许的最大范围内，作者不对因使用或无法使用本工具产生的间接、附带、特殊、惩罚性或后果性损失（包括数据丢失、业务中断、设备损坏、预期收益损失）承担责任，即使已被告知此类损失的可能性。</p>
+        <p>10.3 因不可抗力、网络运营商故障、第三方托管服务中断、设备厂商系统限制或你自身操作不当造成的问题，作者不承担违约责任，但会在能力范围内协助排查。QSL 交换属用户之间的自主行为：作者只提供信息记录与展示通道，不参与、不担保卡片寄送、对方履约、邮寄安全或交换内容的真实性，也不对因公开邮寄地址产生的纠纷承担责任；新申请提醒依赖本机轮询与后台周期任务，可能因系统省电策略而延迟或缺失，不构成实时推送承诺。</p>
+        <p>10.4 本条不排除适用法律强制规定不得限制或免除的责任，也不影响你作为消费者依法享有的法定权利。</p>
+      </section>
+
+      <section id="sec-11">
+        <h2>十一、适用法律与争议解决</h2>
+        <p>11.1 本协议的订立、效力、解释、履行与争议解决，适用<strong>中华人民共和国大陆地区法律</strong>（不含冲突法规则）。</p>
+        <p>11.2 因本协议引起的争议，双方应先通过第 12 条渠道友好协商；协商不成的，任何一方均可向作者所在地有管辖权的人民法院提起诉讼。</p>
+        <p>11.3 本协议部分条款被认定无效或不可执行时，不影响其余条款的效力。</p>
+      </section>
+
+      <section id="sec-12">
+        <h2>十二、联系我们</h2>
+        <p>12.1 作者为个人开发者，呼号 <strong>BA4IGG</strong>，未公开专用联系邮箱。关于本协议、账号数据、隐私请求或合规问题，请统一通过项目仓库的 <a href="https://github.com/BA4IGG/hamtools/issues" target="_blank" rel="noopener noreferrer">GitHub Issues</a> 提交，标题请注明「协议 / 隐私请求」；涉及个人信息的诉求请勿在公开内容中粘贴密码或令牌。</p>
+        <p>12.2 功能建议、缺陷反馈与代码贡献同样通过仓库 Issues 或 Pull Request 提交。作者会在力所能及的范围内回复，但不承诺固定的响应时限或服务等级。</p>
+        <p>12.3 本协议与<a href="privacy.html">《隐私政策》</a>共同构成你使用本工具的完整约定。两者均可在<a href="index.html">官网首页</a>页脚随时查阅。</p>
+      </section>
+
+      <div class="legal-foot">HAM 工具合集用户协议 · 生效日期 2026 年 11 月 5 日 · 最近更新 2026 年 11 月 11 日 · 作者 BA4IGG</div>
+    </article>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__legal">
+      <svg class="icon icon--lg" style="color:var(--primary)"><use href="#i-shield"></use></svg>
+      <strong>法律文件</strong>
+      <a href="terms.html">《用户协议》</a>
+      <a href="privacy.html">《隐私政策》</a>
+      <span>© <span data-year>2026</span> BA4IGG · 以 MIT 许可证开源 · <a href="index.html">返回首页</a></span>
+    </div>
+
+    <!-- 备案信息：号码同时写在下方 HTML 与 assets/js/app.js 的 FILINGS 中，两处需保持一致 -->
+    <div class="footer__filings" role="group" aria-label="网站备案信息">
+      <a class="filing" data-filing="icp" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"><span data-filing-text>ICP 备案号：鲁ICP备2025143500号</span></a>
+      <span class="filing__sep" aria-hidden="true"></span>
+      <a class="filing" data-filing="police" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37142402000186" target="_blank" rel="noopener noreferrer"><img class="filing__badge" src="assets/img/beian-police.png" alt="" width="18" height="20" decoding="async"><span data-filing-text>公安备案号：鲁公网安备37142402000186号</span></a>
+    </div>
+  </div>
+</footer>
+
+<button class="back-top" type="button" aria-label="返回顶部"><svg class="icon"><use href="#i-up"></use></svg></button>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

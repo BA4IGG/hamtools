@@ -2,3 +2,5 @@ node_modules/
 .env
 *.log
 backups/
+# 用户上传的 QSL 卡片图片属于个人信息，绝不入库
+uploads/

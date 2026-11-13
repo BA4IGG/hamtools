@@ -17,6 +17,37 @@ object AppConfig {
      */
     const val SERVER_BASE_URL = "https://api.ba4igg.cn"
 
+    /**
+     * 联网板块的数据聚合接口（可选）。
+     * 服务端未部署该接口时，各工具会自动降级到内置离线数据并在界面上如实标注。
+     */
+    val HAM_DATA_URL = "$SERVER_BASE_URL/api/ham/overview"
+
+    /** 太阳活动公开数据源：hamqsl.com 的 solar XML，业余无线电界通用、无需密钥。 */
+    const val SOLAR_XML_URL = "https://www.hamqsl.com/solarxml.php"
+
+    /** 备用数据源：NOAA SWPC 的行星 K 指数（1 分钟分辨率）。 */
+    const val SOLAR_NOAA_URL = "https://services.swpc.noaa.gov/json/planetary_k_index_1m.json"
+
+    /**
+     * 呼号资料在线源：HamDB REST API，免费公开、无需密钥。
+     * 形如 https://api.hamdb.org/v1/W1AW/json/hamtools，返回执照登记资料。
+     * 注意这是「执照登记信息」，不是实时位置，界面必须这样标注。
+     */
+    const val HAMDB_BASE_URL = "https://api.hamdb.org/v1/"
+
+    /** HamDB 要求在 URL 末段带应用标识，用于对方统计与限流。 */
+    const val HAMDB_APP_NAME = "hamtools-ba4igg"
+
+    /**
+     * DX spots 在线源：DXWatch 公开的实时 DX cluster 页面（HTML，无需密钥）。
+     * 页面结构可能调整，解析失败时客户端会静默降级到服务端聚合或内置样例。
+     */
+    const val DXWATCH_SPOTS_URL = "https://www.dxwatch.com/dx"
+
+    /** 服务端呼号查询代理（可选部署，国内网络更稳）；失败不影响 HamDB 直连。 */
+    val CALLSIGN_LOOKUP_URL = "$SERVER_BASE_URL/api/ham/callsign"
+
     /** 作者呼号，同时用作「我的」页的署名标题。 */
     const val AUTHOR_CALLSIGN = "BA4IGG"
 

@@ -30,3 +30,23 @@ keystore.properties
 # 构建出的安装包：体积大且可随时重建，只随 GitHub Release 分发
 *.apk
 *.aab
+
+# 本地日志、分发压缩包、IDE 与个人运维清单（都可重建，走 Release / 部署包分发）
+build-log.txt
+early-build.txt
+*.zip
+/.idea/vcs.xml
+/宝塔面板待办清单.md
+
+# 宣传片渲染产物：仓库只保留生成脚本，视频 / 帧图 / 音轨走站点部署与 Release
+/promo/*.mp4
+/promo/*.wav
+/promo/*.png
+/promo/preview/
+/promo/preview_3m/
+/promo/preview_ls/
+/promo/__pycache__/
+/promo/*.pyc
+
+# 官网宣传片体积大且会随版本重做，部署时随站点包单独上传
+/site/assets/media/*.mp4

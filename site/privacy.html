@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#006C5B">
+<title>隐私政策 · HAM 工具合集</title>
+<meta name="description" content="HAM 工具合集隐私政策：收集的信息、权限说明、本地与服务端存储、日志、数据保留、共享、您的权利与账号删除方式。">
+<link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>
+(function(){var d=document.documentElement;d.classList.add('js');var t=null;
+try{t=localStorage.getItem('ham-theme')}catch(e){}
+if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}
+d.setAttribute('data-theme',t)})();
+</script>
+</head>
+<body data-page="privacy">
+
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 8 4 12l4 4M16 8l4 4-4 4M14 5l-4 14"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 20V5m0 0-6 6m6-6 6 6"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3Z"/><path d="M9 12l2 2 4-4"/></symbol>
+</defs></svg>
+
+<header class="app-bar">
+  <div class="container app-bar__inner">
+    <a class="brand" href="index.html" aria-label="HAM 工具合集首页">
+      <img class="brand__logo" src="assets/img/logo.svg" alt="" width="38" height="38">
+      <span class="brand__name">HAM 工具合集<small>HAM TOOLS · BA4IGG</small></span>
+    </a>
+    <nav class="nav" id="primary-nav" aria-label="主导航">
+      <a href="index.html#features">功能亮点</a>
+      <a href="index.html#tools">全部工具</a>
+      <a href="index.html#video">宣传片</a>
+      <a href="index.html#roadmap">路线图</a>
+      <a href="index.html#download">下载</a>
+      <span class="nav__legal">
+        <a href="terms.html" data-nav="terms">用户协议</a>
+        <a href="privacy.html" data-nav="privacy">隐私政策</a>
+      </span>
+    </nav>
+    <div class="app-bar__actions">
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换主题"><svg class="icon"><use href="#i-moon"></use></svg></button>
+      <a class="icon-btn" href="https://github.com/BA4IGG/hamtools" target="_blank" rel="noopener noreferrer" aria-label="GitHub 仓库"><svg class="icon"><use href="#i-code"></use></svg></a>
+      <a class="btn btn--filled btn--sm" href="index.html#download">下载 APK</a>
+      <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-nav" aria-label="展开菜单"><svg class="icon"><use href="#i-menu"></use></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="legal-hero">
+    <div class="container">
+      <span class="eyebrow">法律文件 · 隐私政策</span>
+      <h1>HAM 工具合集隐私政策</h1>
+      <p>这份文件说明本工具会接触哪些数据、为什么需要、存在哪里、保留多久，以及你如何查看、更正或删除它们。作者是个人开发者，没有商业变现，也没有数据分析团队。</p>
+      <div class="legal-meta">
+        <span>生效日期：<b>2026 年 11 月 5 日</b></span>
+        <span>最后更新：<b>2026 年 11 月 11 日</b></span>
+        <span>适用版本：<b>v1.2（含 QSL 卡片交换）及后续版本</b></span>
+        <span>责任主体：<b>BA4IGG（个人开发者）</b></span>
+      </div>
+    </div>
+  </section>
+
+  <div class="container legal-layout">
+    <aside class="toc" aria-label="目录">
+      <h2>目录</h2>
+      <ol>
+        <li><a href="#sec-1">适用范围与基本原则</a></li>
+        <li><a href="#sec-2">我们收集哪些信息</a></li>
+        <li><a href="#sec-3">应用权限说明</a></li>
+        <li><a href="#sec-4">信息的使用目的</a></li>
+        <li><a href="#sec-5">本地存储与设备数据</a></li>
+        <li><a href="#sec-6">服务端访问日志</a></li>
+        <li><a href="#sec-7">存储地点与保留期限</a></li>
+        <li><a href="#sec-8">共享、转让与披露</a></li>
+        <li><a href="#sec-9">数据安全</a></li>
+        <li><a href="#sec-10">您的权利与账号删除</a></li>
+        <li><a href="#sec-11">未成年人保护</a></li>
+        <li><a href="#sec-12">第三方链接与官网说明</a></li>
+        <li><a href="#sec-13">政策更新与联系我们</a></li>
+      </ol>
+      <div class="toc__note">使用条款、计算结果免责与开源许可，请同时阅读<a href="terms.html">《用户协议》</a>。</div>
+    </aside>
+
+    <article class="legal-doc">
+      <div class="lead">一句话版本：<strong>19 个工具的计算、查询与内置检索全部在手机上完成，你输入的频率、长度、功率、查询关键词不会上传</strong>。只有你主动注册 / 登录账号时，呼号、昵称与密码哈希才会发往作者自建的服务器；只有你主动使用「QSL 交换」并填写名片、上传卡片或发起交换时，才会额外上传邮寄地址、邮箱、卡片图片与通联记录。应用不包含广告、统计或第三方推送 SDK，不申请位置、相机、麦克风、通讯录或外部存储读取权限；Android 13 及以上会在你首次进入 QSL 板块时请求通知权限，拒绝后其余功能不受影响。</div>
+
+      <section id="sec-1">
+        <h2>一、适用范围与基本原则</h2>
+        <p>1.1 本政策适用于 HAM 工具合集 Android 应用（包名 <strong>com.ham.tools</strong>）、其配套账号服务（<strong>https://api.ba4igg.cn</strong>）以及本官网。责任主体为个人开发者 BA4IGG，非公司或机构。</p>
+        <p>1.2 我们遵循以下原则：<strong>最小必要</strong>（只收集实现功能所必需的数据）、<strong>本地优先</strong>（能在设备完成的不上传）、<strong>目的限定</strong>（不用于广告、画像或营销）、<strong>公开透明</strong>（收集项与权限在本文逐项列出）。</p>
+        <p>1.3 若你自行编译客户端或连接自建的账号服务器，则该服务器上的数据处理由该部署者负责，本政策仅描述作者官方提供的服务。</p>
+      </section>
+
+      <section id="sec-2">
+        <h2>二、我们收集哪些信息</h2>
+        <p>下表列出本工具会接触的全部数据类别。「上传」指数据离开你的设备发送到服务器。</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>类别</th><th>具体内容</th><th>是否上传</th><th>用途</th></tr></thead>
+            <tbody>
+              <tr><td>账号信息</td><td><ul><li>业余电台呼号（必填，规范化为大写，唯一）</li><li>昵称（选填，最长 32 字符）</li><li>密码：仅以 <strong>bcrypt 哈希</strong>形式保存在服务端，服务端不保存明文</li><li>注册时间、记录更新时间</li></ul></td><td>是，仅在你注册 / 登录时通过 HTTPS 发往 api.ba4igg.cn</td><td>创建账号、校验身份、展示呼号与所属分区</td></tr>
+              <tr><td>登录凭证</td><td>JWT 令牌（载荷仅含用户 ID 与呼号，默认有效期 180 天）</td><td>调用需要鉴权的接口时作为 Bearer 令牌发送；令牌本身保存在设备本地</td><td>保持登录态、冷启动时校验会话</td></tr>
+              <tr><td>应用偏好</td><td>主题模式、主题色与配色变体、动态取色开关等界面设置</td><td><strong>否</strong></td><td>记住你的外观选择</td></tr>
+              <tr><td>工具输入</td><td>频率、功率、线缆长度、天线参数、查询关键词、摩尔斯文本等你在工具里输入的内容</td><td><strong>否</strong></td><td>仅在本机参与计算与检索，不记录、不上传</td></tr>
+              <tr><td>设备显示参数</td><td>屏幕硬件支持的刷新率上限、当前刷新率（通过系统公开 API 读取）</td><td><strong>否</strong></td><td>决定高刷优化是否可用，60Hz 设备直接跳过</td></tr>
+              <tr><td>系统设置变更</td><td><code>Settings.System.min_refresh_rate</code> 与 <code>peak_refresh_rate</code></td><td><strong>否</strong>；这是写入你设备的系统设置，不是上传个人信息</td><td>在你手动授权后抬升刷新率上限</td></tr>
+              <tr><td>访问日志</td><td>IP 地址、请求时间、请求路径、User-Agent、状态码</td><td>请求账号服务时由服务端 / 反向代理自动产生，详见第六条</td><td>故障排查与基础安全防护</td></tr>
+              <tr><td>QSL 名片（选填）</td><td><ul><li>显示名称、网格、QTH / 所在地</li><li>联系邮箱</li><li><strong>邮寄地址</strong>（仅纸质交换需要）</li><li>给对方的留言、是否开放纸质 / eQSL 与是否出现在名录</li></ul></td><td><strong>是</strong>，仅在你登录并主动保存「我的资料」时通过 HTTPS 上传</td><td>生成 QSL 名片、供已建立交换的对方查看联系信息</td></tr>
+              <tr><td>QSL 卡片图片</td><td>你从系统图片选择器选取的一张纸卡扫描件 / 电子卡片图（JPG / PNG / WebP，最大 5 MB）</td><td><strong>是</strong>，仅在你主动上传时</td><td>展示给本人及与你已接受 / 已完成交换的对方</td></tr>
+              <tr><td>交换与通联记录</td><td>对方呼号、通联日期、波段、模式、RST、附言、交换方式（纸质 / eQSL）、状态与时间戳</td><td><strong>是</strong>，仅在你主动发起或处理一次交换时</td><td>交换流程流转、交换历史与统计</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>QSL 交换的可见范围（重要）</h3>
+        <p>台站名录只展示呼号、显示名称、网格、QTH 与是否开放交换，<strong>不包含邮寄地址、邮箱与卡片图片</strong>。邮寄地址与邮箱只有在<strong>你接受某次交换之后</strong>，才会对该次交换的另一方单独可见；卡片图片也只对本人和与你已建立交换的对方提供鉴权下载，不放在可匿名访问的路径下。你可以随时关闭「出现在台站名录」，或在应用内一键删除全部 QSL 资料、卡片图片与交换记录。</p>
+        <p>若对方尚未注册本服务，你可以勾选「仅记录到我的交换历史」：此时不会向任何人发送申请，记录只保存在你的账号下，也不会产生通知。</p>
+        <div class="callout"><p>演示模式：若线上服务端尚未部署 QSL 接口，应用会明确标注「本地演示」，页面中的 EXAMPLE 呼号与交换记录只存在于本次运行的内存里，不会上传、不会写盘、退出应用即清空，也绝不会被当成真实交换。</p></div>
+        <h3>我们明确不收集的信息</h3>
+        <p>手机号、身份证件信息、精确或粗略地理位置、通讯录、短信、通话记录、整本相册、相机画面、麦克风录音、设备标识符（IMEI / Android ID / 广告 ID）、浏览器或应用使用轨迹、生物特征、支付与交易信息。<strong>QSL 名片中的邮箱、邮寄地址与显示名称由你自愿填写，属于上述目的所需的例外</strong>；账号注册本身始终不要求邮箱或手机号。</p>
+        <div class="callout"><p>账号注册不要求邮箱或手机号，因此我们也无法通过邮件重置密码。请自行保管好密码；忘记密码时请通过第 10 条渠道联系作者处理。</p></div>
+      </section>
+
+      <section id="sec-3">
+        <h2>三、应用权限说明</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Android 权限</th><th>用途</th><th>是否必需</th><th>拒绝 / 未授权后</th></tr></thead>
+            <tbody>
+              <tr><td><code>INTERNET</code><br>（访问网络）</td><td>与账号服务器通信：注册、登录、查询登录态、QSL 资料 / 卡片 / 交换记录，以及可选的在线数据源</td><td>账号与联网增强功能需要</td><td>纯本地的计算与查询工具完全不受影响，账号与 QSL 操作会提示失败</td></tr>
+              <tr><td><code>POST_NOTIFICATIONS</code><br>（通知，Android 13+）</td><td>别人向你发起 QSL 卡片交换申请时，在<strong>本机</strong>发一条提醒。应用不接入任何厂商或第三方推送 SDK，新申请由前台轮询 / 后台周期检查发现后生成本地通知</td><td>否，仅在首次进入 QSL 板块、看过用途说明后申请一次</td><td>拒绝后不影响任何交换功能，只是不再弹提醒；可随时到系统设置开启，应用不会反复弹窗</td></tr>
+              <tr><td><code>WRITE_SETTINGS</code><br>（修改系统设置）</td><td>抬升系统允许的刷新率上限，以突破部分 ROM 对第三方应用的 90Hz 限制</td><td>否，属于特殊权限，需在系统设置中手动开启</td><td>刷新率优化自动降级，其余功能正常；应用不会反复弹窗索取</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>3.1 应用<strong>不申请</strong>位置、相机、麦克风、通讯录、短信、通话记录、外部存储读取、蓝牙或后台定位等权限。选择 QSL 卡片图片走 Android 系统文件选择器（SAF），由你主动挑选单张图片，应用不会扫描相册或读取其他文件。清单以安装包 AndroidManifest 为准，源码公开可查。</p>
+        <p>3.2 通知权限用于的「新申请提醒」不是服务器主动推送：服务端未部署 QSL 接口或处于演示模式时，应用不会因演示数据发出任何交换通知；页面提供的「测试通知」按钮也会明确标注是测试，不冒充真实申请。</p>
+        <p>3.3 未来版本若因新增联网工具而需要新权限，我们会在版本更新说明中明确告知，并在使用前由系统向你请求授权；涉及个人信息处理范围变化的，会同步更新本政策。</p>
+      </section>
+
+      <section id="sec-4">
+        <h2>四、信息的使用目的</h2>
+        <p>我们仅将收集到的信息用于以下目的，不会超出范围使用：</p>
+        <ul>
+          <li>创建与识别账号：校验呼号格式与唯一性、以 bcrypt 校验密码；</li>
+          <li>维持登录状态：签发与验证 JWT，App 冷启动时调用 <code>/api/auth/me</code> 恢复登录态；</li>
+          <li>展示账号信息：在「我的」页显示呼号、昵称及由呼号推算的所属分区；</li>
+          <li>保存你的界面偏好：主题、配色等设置只存本地；</li>
+          <li>设备显示优化：读取刷新率上限并在授权后调整系统设置；</li>
+          <li>完成 QSL 卡片交换：保存你的名片与卡片图片、按呼号查找已开放交换的台站、记录每次通联与交换状态、在你接受后向对方提供联系信息、生成交换历史与统计；</li>
+          <li>发送交换申请提醒：在你授权通知权限后，把新申请以本机通知的方式告诉你；</li>
+          <li>保障服务安全：通过访问日志排查异常请求、暴力尝试与服务故障。</li>
+        </ul>
+        <p>我们<strong>不会</strong>将你的数据用于用户画像、个性化广告、精准营销、自动化决策，也不会出售或出租给任何第三方。</p>
+      </section>
+
+      <section id="sec-5">
+        <h2>五、本地存储与设备数据</h2>
+        <p>5.1 应用偏好与登录令牌保存在 Android 应用私有目录的 <strong>DataStore Preferences</strong> 中，其他应用无法读取；退出登录会清除本地令牌，卸载应用会删除这些私有数据。</p>
+        <p>5.2 应用开启了 Android 系统备份（<code>allowBackup</code>），因此系统或厂商提供的云备份服务可能包含上述偏好数据。你可以在设备的「系统设置 → 备份」中关闭应用数据备份或删除已有备份，这部分由你的设备厂商 / 系统管理。</p>
+        <p>5.3 计算与查询所依赖的数据表（频段划分、呼号前缀、Q 简语、摩尔斯、卫星与中继）随 APK 内置，属于应用资源，不含任何与你个人相关的数据。</p>
+        <p>5.4 高刷优化读取与写入的是设备显示相关的系统设置，不会读取你的联系人、文件、位置或账号信息。</p>
+      </section>
+
+      <section id="sec-6">
+        <h2>六、服务端访问日志</h2>
+        <p>6.1 当你使用账号功能时，承载服务的 Web 服务器 / 反向代理会按常规运维配置生成访问日志，通常包含 IP 地址、请求时间、请求路径、User-Agent 与响应状态码。这是任何 HTTP 服务都会产生的技术记录。</p>
+        <p>6.2 这些日志仅用于排查故障、识别异常流量与保障基本安全，<strong>不用于用户画像、行为分析或营销</strong>，也不会与第三方分析平台共享。</p>
+        <p>6.3 应用不会在请求中夹带设备标识符、广告 ID 或工具输入内容；登录接口的请求体只包含呼号与密码（密码经 HTTPS 传输后仅用于 bcrypt 校验，不写入日志）。</p>
+      </section>
+
+      <section id="sec-7">
+        <h2>七、存储地点与保留期限</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>数据</th><th>存放位置</th><th>保留期限</th></tr></thead>
+            <tbody>
+              <tr><td>呼号、昵称、密码哈希、时间戳</td><td>作者自行部署的 MySQL 数据库（服务域名 api.ba4igg.cn）</td><td>保留至账号删除、服务终止或法律法规要求的期限；不会因你卸载应用而自动删除，需按第 10 条申请</td></tr>
+              <tr><td>QSL 名片（含邮寄地址、邮箱）、交换记录</td><td>同一 MySQL 数据库的 <code>qsl_profiles</code> / <code>qsl_exchanges</code> 表</td><td>保留至你在应用「QSL 交换 → 我的资料 → 删除我的 QSL 资料」中主动删除，或账号删除 / 服务终止</td></tr>
+              <tr><td>QSL 卡片图片</td><td>服务端非公开目录 <code>uploads/qsl/</code>，需带令牌鉴权下载</td><td>随卡片删除或 QSL 资料删除一并移除，不进入公开静态资源目录</td></tr>
+              <tr><td>JWT 令牌</td><td>仅在你的设备本地（DataStore）</td><td>默认签发有效期 180 天；退出登录即清除，过期后需重新登录</td></tr>
+              <tr><td>通知去重标记（上次已提醒的申请编号）</td><td>仅在你的设备本地（DataStore）</td><td>卸载应用即删除；不含任何个人信息</td></tr>
+              <tr><td>主题偏好、工具输入</td><td>仅在你的设备本地</td><td>卸载应用即删除；工具输入不落盘保存历史</td></tr>
+              <tr><td>访问日志</td><td>自有服务器 / 反向代理</td><td>按运维需要短期留存并定期轮转清理，不会长期保存用于分析个人</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>7.1 数据存储于作者租用的服务器所在地区。若未来更换托管地区或增加数据处理者，我们会在本政策中更新说明。</p>
+        <p>7.2 当账号服务终止时，我们将在可行范围内删除或匿名化服务端账号数据，并通过官网或仓库公告说明。</p>
+      </section>
+
+      <section id="sec-8">
+        <h2>八、共享、转让与公开披露</h2>
+        <p>8.1 我们<strong>不会出售、出租或与第三方共享</strong>你的个人信息用于商业目的。应用内不嵌入任何第三方广告、统计、崩溃上报或推送 SDK。</p>
+        <p>8.2 以下情形可能涉及数据提供，且以最小必要为限：</p>
+        <ul>
+          <li>为完成网络传输所必需的托管服务商、域名与 CDN 服务（其接触范围限于传输过程与访问日志）；</li>
+          <li>依据法律法规、司法机关或主管机关的强制要求；</li>
+          <li>为保护作者或他人合法权益，在必要范围内处理欺诈、攻击或滥用行为。</li>
+        </ul>
+        <p>8.3 项目源码在 GitHub 公开发布，但仓库中<strong>不包含任何用户账号数据、QSL 卡片图片或访问日志</strong>（上传目录已被忽略）。请勿在公开 Issue 中粘贴密码、令牌、邮寄地址或其他敏感信息。</p>
+        <p>8.4 若本项目未来整体转让给其他维护者，我们会提前公告，并确保接收方继续受本政策约束或重新取得你的同意。</p>
+      </section>
+
+      <section id="sec-9">
+        <h2>九、数据安全</h2>
+        <p>9.1 我们采取的措施包括：账号通信强制走 HTTPS；密码使用 bcrypt 加盐哈希存储，服务端不保存明文；鉴权采用带有效期的 JWT；服务端按最小字段返回用户信息；应用不请求与功能无关的权限。</p>
+        <p>9.2 针对 QSL 交换：所有 QSL 接口都要求登录；邮寄地址与邮箱不出现在名录等列表接口，只在交换被接受后由双方按单条记录查询；卡片图片按文件头白名单校验后存入非公开目录，并需逐个鉴权下载；服务端按账号关联清理，删除资料时同步移除图片文件与交换记录。</p>
+        <p>9.3 请理解，互联网传输与任何软件都不存在绝对安全。纸质 QSL 交换会向对方公开收件地址，请你自行判断是否愿意披露，也可改用 eQSL 电子卡片或只填写到城市级别的 QTH；同时建议为账号设置独立且足够长的密码，不要与其他站点复用，并妥善保管设备。</p>
+        <p>9.4 若发生可能影响你权益的数据安全事件，我们会通过官网公告与 GitHub 仓库及时说明事件概况、可能影响与补救措施，并按法律要求向有关部门报告。</p>
+      </section>
+
+      <section id="sec-10">
+        <h2>十、您的权利与账号删除</h2>
+        <p>在适用法律允许的范围内，你可以行使以下权利：</p>
+        <ul>
+          <li><strong>访问与更正：</strong>在应用「我的」页查看呼号与昵称，并可直接修改昵称；</li>
+          <li><strong>修改密码：</strong>在登录后通过修改密码功能更新（需验证原密码）；</li>
+          <li><strong>退出登录：</strong>清除设备本地的 JWT 令牌，账号服务端数据仍保留，之后可重新登录；</li>
+          <li><strong>停止使用：</strong>卸载应用将删除应用私有目录中的偏好与令牌；</li>
+          <li><strong>删除 QSL 资料：</strong>在应用「QSL 交换 → 我的资料 → 数据管理」中，可一键删除服务端的 QSL 名片、全部卡片图片与交换记录（不可恢复，但不删除登录账号本身）；</li>
+          <li><strong>关闭通知：</strong>随时在 Android 系统设置 → 应用通知中关闭，或首次弹窗时选择「暂不开启」；</li>
+          <li><strong>删除账号数据：</strong>当前版本<strong>没有应用内自助注销入口</strong>。请通过 <a href="https://github.com/BA4IGG/hamtools/issues" target="_blank" rel="noopener noreferrer">GitHub Issues</a> 提交申请，标题注明「隐私请求 - 删除账号」，并提供需删除的呼号；为防冒删，作者可能要求你用该账号能证明的方式作简单核验。核验通过后，我们将删除服务端的呼号、昵称、密码哈希、QSL 名片、卡片图片与全部交换记录，并回复确认，通常在 15 个工作日内处理完毕。</li>
+        </ul>
+        <p>10.1 删除账号后，已签发的 JWT 在有效期内仍可能通过签名校验，但服务端已无对应账号记录，登录态随即失效；你也可以在应用内先退出登录以立即清除本地令牌。</p>
+        <p>10.2 依法必须留存的技术日志或备份副本将在轮转周期内清除，不会再用于其他目的。</p>
+        <p>10.3 若你对处理结果有异议，可在原 Issue 中补充说明，或依据<a href="terms.html#sec-11">用户协议第十一条</a>寻求进一步解决。</p>
+      </section>
+
+      <section id="sec-11">
+        <h2>十一、未成年人保护</h2>
+        <p>11.1 本工具面向业余无线电爱好者，相关操作依法需要取得相应资格与执照，主要使用者为成年人。我们不故意收集儿童个人信息。</p>
+        <p>11.2 未满 14 周岁的儿童使用本工具或注册账号，须事先取得父母或其他监护人的同意；监护人可随时通过第 10 条渠道要求查看或删除相关信息。</p>
+        <p>11.3 若我们发现未满 14 周岁儿童在未经监护人同意的情况下提供了个人信息，将尽快删除相关数据。</p>
+      </section>
+
+      <section id="sec-12">
+        <h2>十二、第三方链接与官网说明</h2>
+        <p>12.1 本应用与官网包含指向 GitHub 等第三方网站的链接。这些网站有自己的隐私政策，我们对其内容与数据处理不承担责任，建议你另行查阅。</p>
+        <p>12.2 <strong>本官网是纯静态页面</strong>：不设置 Cookie，不嵌入第三方统计、广告或指纹识别脚本，不提供账号登录，也不收集访客表单数据。你在本站切换明暗主题时，选择只保存在浏览器的 <code>localStorage</code>（键名 <code>ham-theme</code>），清除浏览器站点数据即可删除。</p>
+        <p>12.3 官网托管服务出于技术需要可能生成访问日志，该部分由托管服务运营方按其规则管理，我们不会获取用于分析个人的访客画像。</p>
+        <p>12.4 官网中嵌入的宣传片为本地静态媒体文件，播放时不会向第三方服务器发送观看统计。</p>
+      </section>
+
+      <section id="sec-13">
+        <h2>十三、政策更新与联系我们</h2>
+        <p>13.1 本政策可能因功能调整、法律要求或安全需要而修订。修订后的文本将在本页公布并更新「最后更新日期」；涉及收集范围、使用目的或共享方式的重大变更，会通过官网公告或 GitHub Release 说明提示。</p>
+        <p>13.2 若不同意修订内容，你可以停止使用、卸载应用，并按第 10 条申请删除账号数据。</p>
+        <p>13.3 关于本政策的任何疑问、意见，以及访问、更正、删除等权利请求，请通过项目仓库的 <a href="https://github.com/BA4IGG/hamtools/issues" target="_blank" rel="noopener noreferrer">GitHub Issues</a> 联系作者 <strong>BA4IGG</strong>。作者为个人开发者，未公开专用联系邮箱，请勿在公开 Issue 中粘贴密码或令牌。</p>
+        <p>13.4 本政策与<a href="terms.html">《用户协议》</a>共同适用；两份文件均可在<a href="index.html">官网首页</a>页脚随时查阅。</p>
+      </section>
+
+      <div class="legal-foot">HAM 工具合集隐私政策 · 生效日期 2026 年 11 月 5 日 · 最近更新 2026 年 11 月 11 日 · 作者 BA4IGG</div>
+    </article>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__legal">
+      <svg class="icon icon--lg" style="color:var(--primary)"><use href="#i-shield"></use></svg>
+      <strong>法律文件</strong>
+      <a href="terms.html">《用户协议》</a>
+      <a href="privacy.html">《隐私政策》</a>
+      <span>© <span data-year>2026</span> BA4IGG · 以 MIT 许可证开源 · <a href="index.html">返回首页</a></span>
+    </div>
+
+    <!-- 备案信息：号码同时写在下方 HTML 与 assets/js/app.js 的 FILINGS 中，两处需保持一致 -->
+    <div class="footer__filings" role="group" aria-label="网站备案信息">
+      <a class="filing" data-filing="icp" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"><span data-filing-text>ICP 备案号：鲁ICP备2025143500号</span></a>
+      <span class="filing__sep" aria-hidden="true"></span>
+      <a class="filing" data-filing="police" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37142402000186" target="_blank" rel="noopener noreferrer"><img class="filing__badge" src="assets/img/beian-police.png" alt="" width="18" height="20" decoding="async"><span data-filing-text>公安备案号：鲁公网安备37142402000186号</span></a>
+    </div>
+  </div>
+</footer>
+
+<button class="back-top" type="button" aria-label="返回顶部"><svg class="icon"><use href="#i-up"></use></svg></button>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

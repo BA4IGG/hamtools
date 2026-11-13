@@ -69,6 +69,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _authState = MutableStateFlow(AuthUiState())
     val authState: StateFlow<AuthUiState> = _authState.asStateFlow()
 
+    /** 通知点击后请求打开 QSL 板块；用 StateFlow 而不是一次性事件，避免重组时丢失。 */
+    private val _openQsl = MutableStateFlow(false)
+    val openQsl: StateFlow<Boolean> = _openQsl.asStateFlow()
+
+    fun requestOpenQsl() {
+        _openQsl.value = true
+    }
+
+    fun consumeOpenQsl() {
+        _openQsl.value = false
+    }
+
     fun setThemeMode(mode: ThemeMode) {
         viewModelScope.launch { userPreferences.setThemeMode(mode) }
     }

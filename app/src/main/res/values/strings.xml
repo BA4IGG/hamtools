@@ -51,6 +51,7 @@
     <!-- 底部 Dock 与关于页 -->
     <string name="dock_home">主页</string>
     <string name="dock_about">关于</string>
+    <string name="dock_qsl">QSL 交换</string>
     <string name="about_title">关于</string>
     <string name="about_stats_implemented">已上线</string>
     <string name="about_stats_total">规划总数</string>
@@ -289,4 +290,25 @@
     <string name="rpt_no_tone">无亚音</string>
     <string name="note_satellite">参数为公开资料整理。低轨业余卫星寿命有限，退役、再入或参数调整均有可能；上行前请核对最新星历与运营方公告，并确认本地对该频段的授权。同步轨道的 QO-100 需 2.4GHz 上行与 10GHz 下行设备。</string>
     <string name="note_repeater">中继频率、亚音与联网方式由各地中继组自行管理，变更频繁且无统一登记机构。以下为常见配置，非权威名录；落地后请先守听确认，并遵守当地中继组的使用约定。</string>
+    <!-- APRS 验证码（计算工具） -->
+    <string name="tool_aprs_passcode">APRS 验证码</string>
+    <string name="aprs_input_label">业余无线电呼号，可带 -SSID 或 /P</string>
+    <string name="aprs_input_hint">请只输入自己持有执照的呼号</string>
+    <string name="aprs_invalid_callsign">呼号不合法：基础呼号只能是 1~10 位字母或数字</string>
+    <string name="aprs_group_samples">示例呼号</string>
+    <string name="aprs_group_detail">计算过程</string>
+    <string name="aprs_res_passcode">APRS-IS 验证码</string>
+    <string name="aprs_res_base">参与计算的基础呼号</string>
+    <string name="aprs_res_login_call">登录呼号</string>
+    <string name="aprs_res_range">取值范围</string>
+    <string name="aprs_res_login_line">登录行示例</string>
+    <string name="aprs_action_copy">复制验证码</string>
+    <string name="aprs_action_copied">已复制</string>
+    <string name="aprs_step_title">逐对异或</string>
+    <string name="aprs_step_seed">初始值 0x73E2（29666）</string>
+    <string name="aprs_step_pair_label">第 %1$d 组</string>
+    <string name="aprs_step_mask">取低 15 位（&amp; 0x7FFF）</string>
+    <string name="aprs_step_odd_hint">呼号为奇数长度时，末组低位按 0 参与运算</string>
+    <string name="aprs_note">验证码由 APRS-IS 通行算法在本地算出：基础呼号转大写、去掉 -SSID 与 /后缀，从 0x73E2（29666）开始每两字符一组做异或，最后取低 15 位（0~32767）。SSID 不参与运算，带 SSID 登录时 pass 仍填基础呼号算出的值。它只是公开的校验和，不是密码，不具备加密或防冒充能力——请只计算自己持有执照的呼号，并遵守当地业余无线电法规与 APRS-IS 使用条款。本页完全离线，不联网、不上传、不保存输入的呼号。</string>
+
 </resources>

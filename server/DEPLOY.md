@@ -317,7 +317,40 @@ gunzip < /data/backup/hamtools-20261026-030000.sql.gz | mysql -u hamtools -p ham
 | App 提示「无法连接服务器」但浏览器能打开                 | 域名证书链不全，或填了 http               | 用 https；`curl -vI` 看证书                                                 |
 | 注册一直转圈                                 | bcrypt 轮数太高，CPU 打满             | `.env` 里 `BCRYPT_ROUNDS=8` 后重启                                         |
 | 日志 `unhandled error: ER_NO_SUCH_TABLE` | 账号没建表权限                        | 手动 `mysql -u root -p hamtools < schema.sql`                            |
+| App 的 QSL 板块显示「本地演示模式」           | 线上还是旧版服务端，`/api/qsl/ping` 返回 404 | 按上节升级 `server/` 并重启，确认 ping 返回 `ok:true`                     |
+| QSL 卡片上传报 500                     | `uploads/qsl/` 没有写权限，或被 WAF 拦了二进制请求 | 检查目录属主与 Nginx `client_max_body_size`（建议 ≥ 8m）                  |
 | 手机端登录状态掉了                              | 服务器时间漂移导致 JWT 判定过期             | `sudo timedatectl set-ntp on`                                          |
+
+---
+
+## 升级到含 QSL 交换的版本（老部署必看）
+
+App 会用 `GET /api/qsl/ping` 判断服务端有没有 QSL 接口。老版本服务端没有这个路由，
+App 会进入明确标注的「本地演示」模式，交换记录不会真正保存到数据库。
+
+```bash
+# 1. 覆盖代码（保留原来的 .env 与数据库）
+rsync -av ./server/ user@ip:/opt/hamtools/server/
+
+# 2. 重启，启动时会自动 CREATE TABLE IF NOT EXISTS 补建三张 QSL 表
+sudo systemctl restart ham-auth
+
+# 3. 验证
+curl https://api.ba4igg.cn/api/qsl/ping
+# {"ok":true,"feature":"qsl","version":1,"requiresLogin":true}
+# 仍是 404 就说明跑的不是新代码：看 journalctl -u ham-auth -f 与进程实际工作目录
+
+# 4. 检查卡片图片目录可写（默认 server/uploads/qsl/，服务会自动创建）
+sudo -u hamtools test -w /opt/hamtools/server/uploads/qsl && echo "可写"
+```
+
+注意事项：
+
+- `uploads/qsl/` 存放用户邮寄卡片图片，**不要**在 Nginx 里把它配成静态可访问目录；
+  图片一律走带令牌的 `GET /api/qsl/cards/:id/image`。
+- 如需换位置，在 `.env` 加 `QSL_UPLOAD_DIR=/var/lib/hamtools/qsl-cards` 并给运行账号授权。
+- 备份脚本会把 QSL 三张表一起导出；磁盘上的图片目录需要另行纳入备份，且**不要提交到公开仓库**。
+- 不改数据库结构也能升级：`db.js` 里的建表语句是幂等的，已存在的表不会被重建或清数据。
 
 ---
 
@@ -328,3 +361,4 @@ gunzip < /data/backup/hamtools-20261026-030000.sql.gz | mysql -u hamtools -p ham
 - **看日志**：`sudo journalctl -u ham-auth -f`
 - **数据库迁移**：当前没有迁移机制，`ham_users` 结构变了就手写 `ALTER TABLE`；`db.js` 用的是 `CREATE TABLE IF NOT EXISTS`，加字段要自己补 SQL
 - **让旧令牌立即失效**：给 `ham_users` 加 `token_version INT DEFAULT 0`，在 `routes/auth.js` 的 `requireAuth` 里比对，改密码时 +1（默认改密码后旧令牌在 180 天内仍有效）
+

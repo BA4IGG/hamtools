@@ -7,6 +7,8 @@ const cors = require('cors');
 
 const db = require('./db');
 const authRoutes = require('./routes/auth');
+const hamRoutes = require('./routes/ham');
+const qslRoutes = require('./routes/qsl');
 
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
@@ -20,6 +22,10 @@ app.get('/api/health', (_req, res) => {
 });
 
 app.use('/api/auth', authRoutes.router);
+// 联网板块的 DX spots 聚合与呼号代理；未部署时 App 会自动降级到内置离线数据
+app.use('/api/ham', hamRoutes.router);
+// QSL 卡片交换：全部接口都要求登录，未部署时 App 会标注「服务端未部署」并进入演示模式
+app.use('/api/qsl', qslRoutes.router);
 
 app.use((_req, res) => {
   res.status(404).json({ error: { code: 'NOT_FOUND', message: '接口不存在' } });

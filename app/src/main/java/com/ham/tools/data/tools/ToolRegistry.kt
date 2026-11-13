@@ -8,8 +8,8 @@ import androidx.compose.material.icons.filled.Dialpad
 import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.GraphicEq
 import androidx.compose.material.icons.filled.Headphones
+import androidx.compose.material.icons.filled.Key
 import androidx.compose.material.icons.filled.LeakAdd
-import androidx.compose.material.icons.filled.Map
 import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Public
@@ -70,6 +70,14 @@ object ToolRegistry {
             implemented = true,
             icon = Icons.Filled.LeakAdd
         ),
+        ToolMeta(
+            id = ToolIds.APRS_PASSCODE,
+            name = "APRS 验证码",
+            description = "按呼号计算 APRS-IS 登录验证码",
+            category = ToolCategory.CALCULATOR,
+            implemented = true,
+            icon = Icons.Filled.Key
+        ),
 
         ToolMeta(
             id = ToolIds.BAND_PLAN,
@@ -113,67 +121,68 @@ object ToolRegistry {
         ),
 
         ToolMeta(
-            id = "cw_keyer",
+            id = ToolIds.CW_KEYER,
             name = "CW 电键",
             description = "触屏电键发射 CW，可调速度",
             category = ToolCategory.AUDIO,
+            implemented = true,
             icon = Icons.Filled.PlayArrow
         ),
         ToolMeta(
-            id = "cw_trainer",
+            id = ToolIds.CW_TRAINER,
             name = "CW 听抄训练",
             description = "科赫法与随机码听抄练习",
             category = ToolCategory.AUDIO,
+            implemented = true,
             icon = Icons.Filled.Headphones
         ),
         ToolMeta(
-            id = "dtmf",
+            id = ToolIds.DTMF,
             name = "DTMF",
             description = "双音多频生成与解码",
             category = ToolCategory.AUDIO,
+            implemented = true,
             icon = Icons.Filled.Dialpad
         ),
         ToolMeta(
-            id = "tone_generator",
+            id = ToolIds.TONE_GENERATOR,
             name = "音调发生器",
             description = "单音与扫频信号输出",
             category = ToolCategory.AUDIO,
+            implemented = true,
             icon = Icons.Filled.MusicNote
         ),
 
         ToolMeta(
-            id = "propagation",
+            id = ToolIds.PROPAGATION,
             name = "传播指数",
             description = "太阳通量、K/A 指数与传播预测",
             category = ToolCategory.NETWORK,
+            implemented = true,
             icon = Icons.Filled.WbSunny
         ),
         ToolMeta(
-            id = "dx_cluster",
+            id = ToolIds.DX_CLUSTER,
             name = "DX 集群",
             description = "实时通联 spots 与台站查询",
             category = ToolCategory.NETWORK,
+            implemented = true,
             icon = Icons.Filled.Public
         ),
         ToolMeta(
-            id = "grid_square",
+            id = ToolIds.GRID_SQUARE,
             name = "网格与方位",
             description = "梅登海德网格与大圆距离方位",
             category = ToolCategory.NETWORK,
+            implemented = true,
             icon = Icons.Filled.Explore
         ),
         ToolMeta(
-            id = "aprs_map",
-            name = "APRS 地图",
-            description = "离线地图上展示 APRS 台站",
-            category = ToolCategory.NETWORK,
-            icon = Icons.Filled.Map
-        ),
-        ToolMeta(
-            id = "callsign_lookup",
+            id = ToolIds.CALLSIGN_LOOKUP,
             name = "呼号查询",
-            description = "联网检索呼号归属与资料",
+            description = "离线前缀表解析归属、后缀与中国分区",
             category = ToolCategory.NETWORK,
+            implemented = true,
             icon = Icons.Filled.Badge
         )
     )
@@ -192,10 +201,20 @@ object ToolIds {
     const val VSWR = "vswr"
     const val FEEDLINE_LOSS = "feedline_loss"
     const val LINK_BUDGET = "link_budget"
+    const val APRS_PASSCODE = "aprs_passcode"
 
     const val BAND_PLAN = "band_plan"
     const val CALLSIGN_PREFIX = "callsign_prefix"
     const val QCODE = "qcode"
     const val MORSE_CODE = "morse_code"
     const val SAT_REPEATER = "sat_repeater"
+
+    const val CW_KEYER = "cw_keyer"
+    const val CW_TRAINER = "cw_trainer"
+    const val DTMF = "dtmf"
+    const val TONE_GENERATOR = "tone_generator"
+    const val PROPAGATION = "propagation"
+    const val DX_CLUSTER = "dx_cluster"
+    const val GRID_SQUARE = "grid_square"
+    const val CALLSIGN_LOOKUP = "callsign_lookup"
 }

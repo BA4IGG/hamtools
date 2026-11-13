@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material3.Badge
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarDefaults
@@ -58,7 +59,9 @@ fun HamDock(
     modifier: Modifier = Modifier,
     labels: List<String> = emptyList(),
     selectedIcons: List<ImageVector> = emptyList(),
-    unselectedIcons: List<ImageVector> = emptyList()
+    unselectedIcons: List<ImageVector> = emptyList(),
+    /** 每项右上角的待处理数量，0 表示不显示；用于 QSL 待处理申请角标。 */
+    badges: List<Int> = emptyList()
 ) {
     val count = labels.size
     if (count == 0) return
@@ -108,6 +111,7 @@ fun HamDock(
                         selectedIcon = selectedIcons.getOrNull(index) ?: Icons.Filled.Info,
                         unselectedIcon = unselectedIcons.getOrNull(index) ?: Icons.Outlined.Info,
                         progress = progress,
+                        badge = badges.getOrNull(index) ?: 0,
                         onClick = { onPageSelected(index) },
                         modifier = Modifier.weight(1f)
                     )
@@ -123,6 +127,7 @@ private fun DockItem(
     selectedIcon: ImageVector,
     unselectedIcon: ImageVector,
     progress: Float,
+    badge: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -139,15 +144,26 @@ private fun DockItem(
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Icon(
-                imageVector = if (progress > 0.5f) selectedIcon else unselectedIcon,
-                contentDescription = label,
-                tint = tint,
-                modifier = Modifier.graphicsLayer {
-                    scaleX = scale
-                    scaleY = scale
+            Box(contentAlignment = Alignment.Center) {
+                Icon(
+                    imageVector = if (progress > 0.5f) selectedIcon else unselectedIcon,
+                    contentDescription = label,
+                    tint = tint,
+                    modifier = Modifier.graphicsLayer {
+                        scaleX = scale
+                        scaleY = scale
+                    }
+                )
+                if (badge > 0) {
+                    Badge(
+                        modifier = Modifier.offset(x = 12.dp, y = (-10).dp),
+                        containerColor = MaterialTheme.colorScheme.error,
+                        contentColor = MaterialTheme.colorScheme.onError
+                    ) {
+                        Text(text = if (badge > 9) "9+" else badge.toString())
+                    }
                 }
-            )
+            }
             Text(
                 text = label,
                 style = MaterialTheme.typography.labelMedium,

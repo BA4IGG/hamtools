@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.ham.tools.data.remote.UserProfile
@@ -39,6 +40,8 @@ class UserPreferences(private val dataStore: DataStore<Preferences>) {
         val SESSION_NICKNAME = stringPreferencesKey("session_nickname")
         val SESSION_REGION = stringPreferencesKey("session_region")
         val SESSION_CREATED_AT = stringPreferencesKey("session_created_at")
+        // QSL 交换通知去重：记录上一次已提醒过的最大 incoming 申请 ID
+        val QSL_LAST_INCOMING_ID = longPreferencesKey("qsl_last_incoming_id")
     }
 
     val themeMode: Flow<ThemeMode> = dataStore.data
@@ -155,5 +158,16 @@ class UserPreferences(private val dataStore: DataStore<Preferences>) {
             preferences.remove(Keys.SESSION_REGION)
             preferences.remove(Keys.SESSION_CREATED_AT)
         }
+    }
+
+    /** 上一次已提醒过的 QSL 申请 ID，用于避免同一条申请反复弹通知。 */
+    val qslLastIncomingId: Flow<Long> = dataStore.data
+        .catch { error ->
+            if (error is IOException) emit(emptyPreferences()) else throw error
+        }
+        .map { preferences -> preferences[Keys.QSL_LAST_INCOMING_ID] ?: 0L }
+
+    suspend fun setQslLastIncomingId(id: Long) {
+        dataStore.edit { preferences -> preferences[Keys.QSL_LAST_INCOMING_ID] = id }
     }
 }

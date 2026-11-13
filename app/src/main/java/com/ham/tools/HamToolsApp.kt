@@ -44,6 +44,8 @@ fun HamToolsApp(
     onLogout: () -> Unit,
     onClearAuthError: () -> Unit,
     onSessionRefresh: () -> Unit,
+    openQsl: Boolean = false,
+    onOpenQslConsumed: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val navController = rememberNavController()
@@ -75,7 +77,9 @@ fun HamToolsApp(
                 onLogin = onLogin,
                 onRegister = onRegister,
                 onLogout = onLogout,
-                onClearAuthError = onClearAuthError
+                onClearAuthError = onClearAuthError,
+                openQsl = openQsl,
+                onOpenQslConsumed = onOpenQslConsumed
             )
         }
 

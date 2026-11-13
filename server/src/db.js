@@ -31,6 +31,68 @@ async function ensureSchema() {
       UNIQUE KEY uk_callsign (callsign)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci
   `);
+
+  // QSL 交换：资料、卡片图片、交换记录。三张表都通过 user_id 关联账号，
+  // 删除账号资料时会一并清理，不留存孤立的个人信息。
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS qsl_profiles (
+      user_id       BIGINT UNSIGNED NOT NULL,
+      callsign      VARCHAR(16)  NOT NULL,
+      display_name  VARCHAR(64)  NOT NULL DEFAULT '',
+      grid          VARCHAR(8)   NOT NULL DEFAULT '',
+      qth           VARCHAR(128) NOT NULL DEFAULT '',
+      email         VARCHAR(128) NOT NULL DEFAULT '',
+      address       TEXT,
+      note          VARCHAR(255) NOT NULL DEFAULT '',
+      paper_enabled TINYINT(1)   NOT NULL DEFAULT 1,
+      eqsl_enabled  TINYINT(1)   NOT NULL DEFAULT 1,
+      discoverable  TINYINT(1)   NOT NULL DEFAULT 1,
+      card_id       BIGINT UNSIGNED DEFAULT NULL,
+      created_at    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      PRIMARY KEY (user_id),
+      UNIQUE KEY uk_qsl_callsign (callsign)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci
+  `);
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS qsl_cards (
+      id          BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+      user_id     BIGINT UNSIGNED NOT NULL,
+      mode        VARCHAR(8)   NOT NULL,
+      file_name   VARCHAR(128) NOT NULL,
+      mime        VARCHAR(32)  NOT NULL,
+      size_bytes  INT UNSIGNED NOT NULL,
+      created_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      PRIMARY KEY (id),
+      INDEX idx_qsl_cards_user (user_id)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci
+  `);
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS qsl_exchanges (
+      id            BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+      from_user_id  BIGINT UNSIGNED NOT NULL,
+      to_user_id    BIGINT UNSIGNED DEFAULT NULL,
+      peer_callsign VARCHAR(16)  NOT NULL,
+      mode          VARCHAR(8)   NOT NULL,
+      qso_date      VARCHAR(16)  NOT NULL DEFAULT '',
+      qso_band      VARCHAR(16)  NOT NULL DEFAULT '',
+      qso_mode      VARCHAR(16)  NOT NULL DEFAULT '',
+      rst_sent      VARCHAR(8)   NOT NULL DEFAULT '',
+      rst_rcvd      VARCHAR(8)   NOT NULL DEFAULT '',
+      note          VARCHAR(255) NOT NULL DEFAULT '',
+      status        VARCHAR(16)  NOT NULL DEFAULT 'pending',
+      from_card_id  BIGINT UNSIGNED DEFAULT NULL,
+      to_card_id    BIGINT UNSIGNED DEFAULT NULL,
+      created_at    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      updated_at    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      PRIMARY KEY (id),
+      INDEX idx_qsl_ex_from (from_user_id),
+      INDEX idx_qsl_ex_to (to_user_id),
+      INDEX idx_qsl_ex_peer (peer_callsign)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci
+  `);
 }
 
 async function findUserByCallsign(callsign) {

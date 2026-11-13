@@ -36,8 +36,8 @@ android {
         applicationId = "com.ham.tools"
         minSdk = 24
         targetSdk = 37
-        versionCode = 2
-        versionName = "1.1"
+        versionCode = 3
+        versionName = "1.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -89,7 +89,11 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.okhttp)
+    // QSL 交换：后台周期检查「有没有新的交换申请」，用本地通知提醒
+    implementation(libs.androidx.work.runtime.ktx)
     testImplementation(libs.junit)
+    // Android 自带的 org.json 在本地 JVM 单测里是 stub，补真实实现才能测 JSON 解析
+    testImplementation("org.json:json:20240303")
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)

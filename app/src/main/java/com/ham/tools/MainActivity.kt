@@ -1,5 +1,6 @@
 package com.ham.tools
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,6 +12,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.ham.tools.data.preferences.UserPreferences
+import com.ham.tools.data.qsl.QslNotifier
 import com.ham.tools.data.preferences.settingsDataStore
 import com.ham.tools.ui.theme.HamToolsTheme
 import com.ham.tools.util.FrameRateBoost
@@ -28,6 +30,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        handleOpenQsl(intent)
         // 应用层：告诉系统本 App 想跑多少帧（60Hz 屏会自动跳过）
         FrameRateController.apply(this)
         // 部分 ROM 会在窗口真正显示后重置窗口属性，首帧之后再补一次
@@ -40,6 +43,7 @@ class MainActivity : ComponentActivity() {
             val accentVariant by viewModel.accentVariant.collectAsStateWithLifecycle()
             val session by viewModel.session.collectAsStateWithLifecycle()
             val authState by viewModel.authState.collectAsStateWithLifecycle()
+            val openQsl by viewModel.openQsl.collectAsStateWithLifecycle()
 
             HamToolsTheme(
                 themeMode = themeMode,
@@ -61,9 +65,24 @@ class MainActivity : ComponentActivity() {
                     onRegister = viewModel::register,
                     onLogout = viewModel::logout,
                     onClearAuthError = viewModel::clearAuthError,
-                    onSessionRefresh = viewModel::refreshSession
+                    onSessionRefresh = viewModel::refreshSession,
+                    openQsl = openQsl,
+                    onOpenQslConsumed = viewModel::consumeOpenQsl
                 )
             }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleOpenQsl(intent)
+    }
+
+    /** 通知点击会带 open_qsl 标记；读完立刻移除，避免旋转屏幕后重复跳转。 */
+    private fun handleOpenQsl(intent: Intent?) {
+        if (intent?.getBooleanExtra(QslNotifier.EXTRA_OPEN_QSL, false) == true) {
+            viewModel.requestOpenQsl()
+            intent.removeExtra(QslNotifier.EXTRA_OPEN_QSL)
         }
     }
 

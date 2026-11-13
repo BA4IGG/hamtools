@@ -322,6 +322,32 @@ App 端已经把账号服务器地址**写死**为 `https://api.ba4igg.cn`，位
 | 开了「强制HTTPS」后 App 连不上 | App 里填的是 http | App 端改成 `https://` |
 | 装了「Nginx防火墙/网站监控报表」插件后 POST 被拦 | WAF 规则误杀 JSON | 防火墙插件 → 规则里临时关闭 URL 过滤验证一下 |
 | 注册一直转圈 | 小机器 bcrypt 轮数太高 | `.env` 改 `BCRYPT_ROUNDS=8` 后重启服务 |
+| App 的 QSL 板块显示「本地演示模式」 | 线上还是旧版服务端，`/api/qsl/ping` 返回 404 | 按上节覆盖 `src/` 并重启，确认 ping 返回 `ok:true` |
+| QSL 卡片上传失败 | 二进制 POST 被防火墙插件拦截，或 `uploads/qsl/` 不可写 | 暂时关闭 URL 过滤验证；检查目录属主与 `client_max_body_size` |
+
+---
+
+## 升级到含 QSL 交换的版本
+
+App 靠 `GET /api/qsl/ping` 判断服务端版本。老服务端没这个路由，App 会进入明确标注的
+「本地演示」模式，交换记录不会真正入库。升级步骤：
+
+1. 文件管理器把仓库里新的 `server/src/`（尤其是 `routes/qsl.js`、`db.js`、`index.js`）
+   覆盖到 `/www/wwwroot/ham-auth/src/`，保留原 `.env`。
+2. 终端执行 `systemctl restart ham-auth`，或在 PM2 管理器里点「重启」。
+   服务启动时会自动 `CREATE TABLE IF NOT EXISTS` 补建 `qsl_profiles` / `qsl_cards` / `qsl_exchanges`。
+3. 浏览器或终端验证：
+   ```bash
+   curl https://api.ba4igg.cn/api/qsl/ping
+   # {"ok":true,"feature":"qsl","version":1,"requiresLogin":true}
+   # 若返回 404 或宝塔默认页：检查反代是否只代理了 /api，以及跑的是不是新代码
+   ```
+4. 检查 `/www/wwwroot/ham-auth/uploads/qsl/` 已自动创建且 Node 运行账号可写（PM2 管理器里看运行用户）。
+
+> ⚠️ 卡片图片属于个人信息：站点设置里**不要**把 `uploads/` 配成静态可访问目录，
+> 图片只能走带令牌的 `GET /api/qsl/cards/:id/image`。若开了 Nginx 防火墙，
+> 确认二进制 POST 上传（≤ 5 MB）没被 WAF 的 URL / 上传规则误拦，必要时把站点
+> `client_max_body_size` 调到 8m 以上。
 
 ---
 
@@ -331,3 +357,4 @@ App 端已经把账号服务器地址**写死**为 `https://api.ba4igg.cn`，位
 - 看日志：终端 `journalctl -u ham-auth -f`；或 PM2 管理器点「日志」
 - 更新代码：覆盖 `src/` → 重启服务
 - 查账号：面板 → 数据库 → 管理（phpMyAdmin）→ `ham_users` 表
+

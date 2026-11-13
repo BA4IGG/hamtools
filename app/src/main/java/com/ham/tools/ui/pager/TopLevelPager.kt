@@ -7,15 +7,18 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.PersonOutline
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -25,20 +28,24 @@ import com.ham.tools.ui.about.AboutScreen
 import com.ham.tools.ui.components.HamDock
 import com.ham.tools.ui.home.HomeScreen
 import com.ham.tools.ui.profile.ProfileScreen
+import com.ham.tools.ui.qsl.QslScreen
 import kotlinx.coroutines.launch
 
-/** 底部 Dock 对应的三个顶层页面。 */
+/** 底部 Dock 对应的四个顶层页面。 */
 const val PAGE_HOME = 0
 const val PAGE_PROFILE = 1
 const val PAGE_ABOUT = 2
-const val TOP_LEVEL_PAGE_COUNT = 3
+const val PAGE_QSL = 3
+const val TOP_LEVEL_PAGE_COUNT = 4
 
 /**
- * 顶层页面容器：左右滑动或点 Dock 都能在「主页 / 我的 / 关于」之间切换。
+ * 顶层页面容器：左右滑动或点 Dock 都能在「主页 / 我的 / 关于 / QSL 交换」之间切换。
  *
  * 用 Pager 而不是导航路由，好处是：切换完全发生在同一个目的地内，
  * 不会被回退栈影响（连点、快速来回切都不会堆积页面），
  * 而且滑动过程中 Dock 指示器可以连续跟随。
+ *
+ * QSL 交换是独立板块，不在工具集里注册，因此只作为 Dock 的第四个顶层页出现。
  */
 @Composable
 fun TopLevelPager(
@@ -48,20 +55,36 @@ fun TopLevelPager(
     onLoginClick: () -> Unit,
     onLogout: () -> Unit,
     modifier: Modifier = Modifier,
+    openQsl: Boolean = false,
+    onOpenQslConsumed: () -> Unit = {},
+    qslBadge: Int = 0,
     pagerState: PagerState = rememberPagerState(pageCount = { TOP_LEVEL_PAGE_COUNT })
 ) {
     val scope = rememberCoroutineScope()
     val labels = listOf(
         stringResource(R.string.dock_home),
         stringResource(R.string.dock_profile),
-        stringResource(R.string.dock_about)
+        stringResource(R.string.dock_about),
+        stringResource(R.string.dock_qsl)
     )
-    val selectedIcons = listOf(Icons.Filled.Home, Icons.Filled.Person, Icons.Filled.Info)
+    val selectedIcons = listOf(
+        Icons.Filled.Home, Icons.Filled.Person, Icons.Filled.Info, Icons.Filled.Email
+    )
     val unselectedIcons = listOf(
         Icons.Outlined.Home,
         Icons.Outlined.PersonOutline,
-        Icons.Outlined.Info
+        Icons.Outlined.Info,
+        Icons.Outlined.Email
     )
+    val badges = listOf(0, 0, 0, qslBadge)
+
+    // 从通知点进来时切到 QSL 板块；用状态而非一次性事件，重组后也不会丢
+    LaunchedEffect(openQsl) {
+        if (openQsl) {
+            runCatching { pagerState.animateScrollToPage(PAGE_QSL) }
+            onOpenQslConsumed()
+        }
+    }
 
     Scaffold(
         modifier = modifier,
@@ -79,7 +102,8 @@ fun TopLevelPager(
                 },
                 labels = labels,
                 selectedIcons = selectedIcons,
-                unselectedIcons = unselectedIcons
+                unselectedIcons = unselectedIcons,
+                badges = badges
             )
         }
     ) { innerPadding ->
@@ -104,6 +128,11 @@ fun TopLevelPager(
                 )
                 PAGE_ABOUT -> AboutScreen(
                     onSettingsClick = onSettingsClick,
+                    modifier = Modifier.fillMaxSize()
+                )
+                PAGE_QSL -> QslScreen(
+                    session = session,
+                    onLoginClick = onLoginClick,
                     modifier = Modifier.fillMaxSize()
                 )
             }

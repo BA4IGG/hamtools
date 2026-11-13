@@ -7,23 +7,40 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.ham.tools.AuthUiState
+import com.ham.tools.data.qsl.QslNoticeController
+import com.ham.tools.data.qsl.QslNotifier
+import com.ham.tools.data.qsl.QslSyncScheduler
 import com.ham.tools.data.remote.UserSession
 import com.ham.tools.data.tools.ToolIds
 import com.ham.tools.data.tools.ToolRegistry
 import com.ham.tools.ui.auth.LoginScreen
 import com.ham.tools.ui.calc.AntennaLengthScreen
+import com.ham.tools.ui.calc.AprsPasscodeScreen
 import com.ham.tools.ui.calc.FeedlineLossScreen
 import com.ham.tools.ui.calc.LinkBudgetScreen
 import com.ham.tools.ui.calc.VswrScreen
 import com.ham.tools.ui.calc.WavelengthScreen
+import com.ham.tools.ui.audio.CwKeyerScreen
+import com.ham.tools.ui.audio.CwTrainerScreen
+import com.ham.tools.ui.audio.DtmfScreen
+import com.ham.tools.ui.audio.ToneGeneratorScreen
+import com.ham.tools.ui.network.CallsignLookupScreen
+import com.ham.tools.ui.network.DxClusterScreen
+import com.ham.tools.ui.network.GridSquareScreen
+import com.ham.tools.ui.network.PropagationScreen
 import com.ham.tools.ui.pager.TOP_LEVEL_PAGE_COUNT
 import com.ham.tools.ui.pager.TopLevelPager
 import com.ham.tools.ui.reference.BandPlanScreen
@@ -35,8 +52,10 @@ import com.ham.tools.ui.settings.SettingsScreen
 import com.ham.tools.ui.theme.M3Variant
 import com.ham.tools.ui.theme.ThemeMode
 import com.ham.tools.ui.tool.ToolPlaceholderScreen
+import kotlinx.coroutines.delay
 
 /** 详情页：从右侧推入，返回时推回右侧。 */
+private const val QSL_POLL_INTERVAL_MS = 30_000L
 private val detailEnter = fadeIn(tween(240)) + slideInHorizontally(tween(280)) { it / 5 }
 private val detailExit = fadeOut(tween(160))
 private val detailPopEnter = fadeIn(tween(220))
@@ -58,11 +77,33 @@ fun HamNavHost(
     onRegister: (String, String, String) -> Unit,
     onLogout: () -> Unit,
     onClearAuthError: () -> Unit,
+    openQsl: Boolean = false,
+    onOpenQslConsumed: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val navigator = remember(navController) { SafeNavigator(navController) }
     // 提升到 NavHost 之外：从首页进工具详情再返回时，仍停在原来那一页
     val pagerState = rememberPagerState(pageCount = { TOP_LEVEL_PAGE_COUNT })
+    val context = LocalContext.current
+    var qslBadge by remember { mutableIntStateOf(0) }
+
+    // 前台 30 秒轮询 + 后台 15 分钟周期任务：发现新的交换申请就发本地通知并更新 Dock 角标。
+    // 服务端未部署 QSL 接口（演示模式）时 check() 返回 null，不会发通知也不会显示角标。
+    LaunchedEffect(session?.token) {
+        val token = session?.token
+        if (token.isNullOrBlank()) {
+            qslBadge = 0
+            QslSyncScheduler.disable(context)
+            return@LaunchedEffect
+        }
+        QslNotifier.ensureChannel(context)
+        QslSyncScheduler.enable(context)
+        while (true) {
+            val summary = QslNoticeController.check(context, token)
+            qslBadge = summary?.incoming ?: 0
+            delay(QSL_POLL_INTERVAL_MS)
+        }
+    }
 
     NavHost(
         navController = navController,
@@ -82,7 +123,10 @@ fun HamNavHost(
                 onToolClick = { toolId -> navigator.navigate(Routes.tool(toolId)) },
                 onSettingsClick = { navigator.navigate(Routes.SETTINGS) },
                 onLoginClick = { navigator.navigate(Routes.LOGIN) },
-                onLogout = onLogout
+                onLogout = onLogout,
+                openQsl = openQsl,
+                onOpenQslConsumed = onOpenQslConsumed,
+                qslBadge = qslBadge
             )
         }
 
@@ -141,12 +185,22 @@ fun HamNavHost(
                 ToolIds.VSWR -> VswrScreen(onBack = onBack)
                 ToolIds.FEEDLINE_LOSS -> FeedlineLossScreen(onBack = onBack)
                 ToolIds.LINK_BUDGET -> LinkBudgetScreen(onBack = onBack)
+                ToolIds.APRS_PASSCODE -> AprsPasscodeScreen(onBack = onBack)
 
                 ToolIds.BAND_PLAN -> BandPlanScreen(onBack = onBack)
                 ToolIds.CALLSIGN_PREFIX -> PrefixScreen(onBack = onBack)
                 ToolIds.QCODE -> QCodeScreen(onBack = onBack)
                 ToolIds.MORSE_CODE -> MorseScreen(onBack = onBack)
                 ToolIds.SAT_REPEATER -> SatRepeaterScreen(onBack = onBack)
+
+                ToolIds.CW_KEYER -> CwKeyerScreen(onBack = onBack)
+                ToolIds.CW_TRAINER -> CwTrainerScreen(onBack = onBack)
+                ToolIds.DTMF -> DtmfScreen(onBack = onBack)
+                ToolIds.TONE_GENERATOR -> ToneGeneratorScreen(onBack = onBack)
+                ToolIds.PROPAGATION -> PropagationScreen(onBack = onBack)
+                ToolIds.DX_CLUSTER -> DxClusterScreen(onBack = onBack)
+                ToolIds.GRID_SQUARE -> GridSquareScreen(onBack = onBack)
+                ToolIds.CALLSIGN_LOOKUP -> CallsignLookupScreen(onBack = onBack)
 
                 else -> ToolPlaceholderScreen(
                     toolName = tool?.name,

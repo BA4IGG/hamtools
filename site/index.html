@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#006C5B">
+<title>HAM 工具合集 · 业余无线电随身工具箱</title>
+<meta name="description" content="HAM 工具合集是面向业余无线电爱好者的 Android 原生工具箱：频率波长、天线长度、驻波比、馈线损耗、链路预算，以及频段划分、呼号前缀、Q 简语、摩尔斯、卫星中继。离线优先、Material 3、MIT 开源。">
+<link rel="icon" type="image/svg+xml" href="assets/img/logo.svg">
+<link rel="stylesheet" href="assets/css/style.css">
+<script>
+/* 提前确定主题，避免首屏闪烁；无存储时跟随系统 */
+(function(){var d=document.documentElement;d.classList.add('js');var t=null;
+try{t=localStorage.getItem('ham-theme')}catch(e){}
+if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'}
+d.setAttribute('data-theme',t)})();
+</script>
+</head>
+<body data-page="home">
+
+<!-- 图标精灵 -->
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v11m0 0 4.5-4.5M12 14l-4.5-4.5M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m0 0-5.5-5.5M19 12l-5.5 5.5"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 20V5m0 0-6 6m6-6 6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4.5 12.5 9.5 17.5 19.5 6.5"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 8 4 12l4 4M16 8l4 4-4 4M14 5l-4 14"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M13 5h6v6M19 5l-9 9M18 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4"/></symbol>
+  <symbol id="i-offline" viewBox="0 0 24 24"><path d="M3 3l18 18M8.7 9.4A10 10 0 0 1 21 13M3 13a10 10 0 0 1 3.2-2.5M6.6 16.6a6 6 0 0 1 1.5-1.1M12 20h.01M12 16a3.5 3.5 0 0 1 1.8.5"/></symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1"/><circle cx="12" cy="7.5" r="1"/><circle cx="16" cy="10" r="1"/><path d="M12 21a2.5 2.5 0 0 0 2.5-2.5c0-1.2-1.1-1.8-1.1-2.5 0-.8.7-1.5 1.6-1.5H16a3 3 0 0 0 3-3c0-2-2-3-4-3"/></symbol>
+  <symbol id="i-calc" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 7h8M8 12h2m4 0h2M8 16h2m4 0h2"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6c-2.5-1.5-5.5-2-8-2v13c2.5 0 5.5.5 8 2m0-13c2.5-1.5 5.5-2 8-2v13c-2.5 0-5.5.5-8 2m0-13v13"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 15v2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3Z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1.6"/><path d="M8.5 8.5a5 5 0 0 0 0 7m7-7a5 5 0 0 1 0 7M5.5 5.5a9 9 0 0 0 0 13m13-13a9 9 0 0 1 0 13"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
+</defs></svg>
+
+<!-- 顶栏 -->
+<header class="app-bar">
+  <div class="container app-bar__inner">
+    <a class="brand" href="index.html" aria-label="HAM 工具合集首页">
+      <img class="brand__logo" src="assets/img/logo.svg" alt="" width="38" height="38">
+      <span class="brand__name">HAM 工具合集<small>HAM TOOLS · BA4IGG</small></span>
+    </a>
+
+    <nav class="nav" id="primary-nav" aria-label="主导航">
+      <a href="index.html#features" data-nav="home">功能亮点</a>
+      <a href="index.html#tools">全部工具</a>
+      <a href="index.html#video">宣传片</a>
+      <a href="index.html#roadmap">路线图</a>
+      <a href="index.html#download">下载</a>
+      <span class="nav__legal">
+        <a href="terms.html">用户协议</a>
+        <a href="privacy.html">隐私政策</a>
+      </span>
+    </nav>
+
+    <div class="app-bar__actions">
+      <button class="icon-btn" type="button" data-theme-toggle aria-label="切换主题">
+        <svg class="icon"><use href="#i-moon"></use></svg>
+      </button>
+      <a class="icon-btn" href="https://github.com/BA4IGG/hamtools" target="_blank" rel="noopener noreferrer" aria-label="GitHub 仓库">
+        <svg class="icon"><use href="#i-code"></use></svg>
+      </a>
+      <a class="btn btn--filled btn--sm" href="index.html#download">下载 APK</a>
+      <button class="icon-btn nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="primary-nav" aria-label="展开菜单">
+        <svg class="icon"><use href="#i-menu"></use></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="reveal">
+        <span class="eyebrow"><svg class="icon icon--sm"><use href="#i-bolt"></use></svg> 19 个工具 · 免费开源</span>
+        <h1 class="hero__title">把整个电台桌，<br><em>装进口袋</em></h1>
+        <p class="hero__desc">面向业余无线电爱好者的 Android 原生工具箱。频率、天线、驻波、馈线、链路预算，以及频段划分、呼号前缀、Q 简语、摩尔斯、卫星中继——算得快，查得准，没信号也能用。</p>
+        <div class="hero__actions">
+          <a class="btn btn--filled btn--lg" href="#download"><svg class="icon"><use href="#i-download"></use></svg><span>下载 APK</span></a>
+          <a class="btn btn--outlined btn--lg" href="https://github.com/BA4IGG/hamtools" target="_blank" rel="noopener noreferrer"><svg class="icon"><use href="#i-code"></use></svg><span>查看源码</span></a>
+        </div>
+        <div class="hero__meta">
+          <span><svg class="icon"><use href="#i-check"></use></svg> Android 7.0+</span>
+          <span><svg class="icon"><use href="#i-check"></use></svg> 约 13.4 MB</span>
+          <span><svg class="icon"><use href="#i-check"></use></svg> 无广告 · 无跟踪</span>
+          <span><svg class="icon"><use href="#i-check"></use></svg> MIT 开源</span>
+        </div>
+      </div>
+
+      <div class="phone-stage reveal" style="--delay:.12s" aria-hidden="true">
+        <div class="phone">
+          <div class="phone__screen">
+            <div class="phone__notch"></div>
+            <div class="ui-status"><span>9:41</span><span>● ▮▮▮ 87%</span></div>
+            <div class="ui-topbar"><strong>HAM 工具合集</strong><span class="ui-badge">v1.1 · BA4IGG</span></div>
+            <div class="ui-hello">业余无线电随身工具箱</div>
+            <div class="ui-search"><svg class="icon"><use href="#i-search"></use></svg> 搜索工具、频段、呼号…</div>
+            <div class="ui-label">计算工具 <span>6 / 6</span></div>
+            <div class="ui-grid">
+              <div class="ui-tile ui-tile--accent"><div class="ui-glyph">λ</div>频率<br>波长</div>
+              <div class="ui-tile"><div class="ui-glyph">⌁</div>天线<br>长度</div>
+              <div class="ui-tile"><div class="ui-glyph">VS</div>驻波比<br>回损</div>
+              <div class="ui-tile"><div class="ui-glyph">≈</div>馈线<br>损耗</div>
+              <div class="ui-tile"><div class="ui-glyph">⇄</div>链路<br>预算</div>
+              <div class="ui-tile"><div class="ui-glyph">#</div>APRS<br>验证码</div>
+            </div>
+            <div class="ui-label">查询手册 <span>5 / 5</span></div>
+            <div class="ui-grid">
+              <div class="ui-tile"><div class="ui-glyph">▤</div>频段<br>划分</div>
+              <div class="ui-tile"><div class="ui-glyph">◎</div>呼号<br>前缀</div>
+              <div class="ui-tile"><div class="ui-glyph">Q</div>Q 简语</div>
+              <div class="ui-tile"><div class="ui-glyph">·−</div>摩尔斯</div>
+              <div class="ui-tile"><div class="ui-glyph">✧</div>卫星<br>中继</div>
+              <div class="ui-tile" style="opacity:.75"><div class="ui-glyph">＋</div>更多<br>板块</div>
+            </div>
+            <div class="ui-result">
+              <div><small>145.000 MHz</small><b>2.067 <i>m</i></b></div>
+              <div style="text-align:right"><small>波长 λ</small><div style="font-size:9px;color:#8fc9b4">λ/4 0.517 m</div></div>
+            </div>
+            <div class="ui-dock"><b>● 主页</b><span>○ 我的</span><span>○ 关于</span><span>○ QSL</span></div>
+          </div>
+        </div>
+        <div class="float-card"><small>实时计算</small><strong>λ = 2.067 m</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 统计 -->
+  <div class="container">
+    <div class="stats reveal">
+      <div class="stat"><b>19</b><span>工具全部实现</span></div>
+      <div class="stat"><b>4</b><span>功能板块</span></div>
+      <div class="stat"><b>139</b><span>单元测试</span></div>
+      <div class="stat"><b>0</b><span>广告与跟踪</span></div>
+    </div>
+  </div>
+
+  <!-- 功能亮点 -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">为什么做它</span>
+        <h2>山顶架好天线，才发现没带计算器</h2>
+        <p>不是又一个要联网、要看广告的网页工具。所有核心计算与查询数据都在安装包里，打开就能用。</p>
+      </div>
+      <div class="grid grid--3">
+        <article class="card reveal"><div class="card__icon"><svg class="icon"><use href="#i-offline"></use></svg></div>
+          <h3>离线优先，联网按需</h3>
+          <p>19 个工具的算法与数据表全部内置，山里没信号照样算。只有账号登录、QSL 交换与可选的在线数据增强才会访问网络，且失败即退回内置数据。</p></article>
+        <article class="card reveal" style="--delay:.06s"><div class="card__icon"><svg class="icon"><use href="#i-palette"></use></svg></div>
+          <h3>Material 3 Expressive</h3>
+          <p>内置 Google 官方 HCT 色彩算法源码，9 套配色方案变体、明暗双主题，Android 12+ 还能跟随壁纸动态取色。</p></article>
+        <article class="card reveal" style="--delay:.12s"><div class="card__icon"><svg class="icon"><use href="#i-calc"></use></svg></div>
+          <h3>数值实算，不靠经验凑</h3>
+          <p>馈线损耗按厂商公布的 7 个频点做双对数插值，链路预算走弗里斯传输方程；139 个单元测试按手算标杆值校验。</p></article>
+        <article class="card reveal"><div class="card__icon"><svg class="icon"><use href="#i-book"></use></svg></div>
+          <h3>常用数据表内置</h3>
+          <p>中国与 IARU 三个区的频段划分、约 300 个 DXCC 前缀、Q 简语、摩尔斯对照、业余卫星与国内中继名录，支持区域切换与关键词检索。</p></article>
+        <article class="card reveal" style="--delay:.06s"><div class="card__icon"><svg class="icon"><use href="#i-lock"></use></svg></div>
+          <h3>账号可选，密码不落明文</h3>
+          <p>呼号 + 密码注册登录，服务端只保存 bcrypt 哈希与可选昵称，JWT 用于保持登录态。不注册也能使用全部本地功能，工具数据始终留在设备上。</p></article>
+        <article class="card card--brand reveal" style="--delay:.12s"><div class="card__icon"><svg class="icon"><use href="#i-code"></use></svg></div>
+          <h3>完全开源，可自行编译</h3>
+          <p>App 主体采用 MIT 许可，账号服务端源码一并开放、支持自建。引入的 HCT 色彩代码按 Apache License 2.0 保留原始声明。</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 全部工具 -->
+  <section class="section section--tight" id="tools" style="background:var(--surface-container-low);border-block:1px solid var(--outline-variant)">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">19 个工具 · 4 大板块</span>
+        <h2>算的、查的、听的、联的，都在一个 App 里</h2>
+        <p>四组共 19 个工具均已实现并可用，没有占位入口。底部导航另有独立的「QSL 交换」板块，不计入工具数，需登录账号使用。</p>
+      </div>
+      <div class="blocks">
+        <article class="block reveal">
+          <div class="block__head"><span class="block__num">01</span><div><h3>计算工具</h3><p>输入即出结果</p></div><span class="chip chip--done">6 / 6 已实现</span></div>
+          <ul class="tool-list">
+            <li><span class="dot"></span><div><b>频率波长</b><small>频率 ↔ 波长，含 λ/4、λ/2 与频段归属提示</small></div></li>
+            <li><span class="dot"></span><div><b>天线长度</b><small>偶极子、倒 V、垂直天线振子长度</small></div></li>
+            <li><span class="dot"></span><div><b>驻波比回损</b><small>VSWR、回波损耗、反射系数三者互算</small></div></li>
+            <li><span class="dot"></span><div><b>馈线损耗</b><small>按线缆型号与长度估算衰减与末端功率</small></div></li>
+            <li><span class="dot"></span><div><b>链路预算</b><small>弗里斯方程、路径损耗与链路余量</small></div></li>
+            <li><span class="dot"></span><div><b>APRS 验证码</b><small>APRS-IS passcode 计算，附逐对异或过程，完全离线</small></div></li>
+          </ul>
+        </article>
+        <article class="block reveal" style="--delay:.06s">
+          <div class="block__head"><span class="block__num">02</span><div><h3>查询手册</h3><p>随身可查的资料表</p></div><span class="chip chip--done">5 / 5 已实现</span></div>
+          <ul class="tool-list">
+            <li><span class="dot"></span><div><b>业余频段划分</b><small>中国与 IARU 一 / 二 / 三区，按区域切换与检索</small></div></li>
+            <li><span class="dot"></span><div><b>呼号前缀</b><small>约 300 个 DXCC 实体，支持 /P、/M 等斜杠后缀</small></div></li>
+            <li><span class="dot"></span><div><b>Q 简语</b><small>提问 / 陈述两面并列 + ICAO 字母解释法</small></div></li>
+            <li><span class="dot"></span><div><b>摩尔斯对照</b><small>文字与电码互转，5–40 WPM 现场合成发声</small></div></li>
+            <li><span class="dot"></span><div><b>卫星与中继</b><small>业余卫星上下行参数与国内常用中继名录</small></div></li>
+          </ul>
+        </article>
+        <article class="block reveal">
+          <div class="block__head"><span class="block__num">03</span><div><h3>音频与硬件</h3><p>练习与信号发生</p></div><span class="chip chip--done">4 / 4 已实现</span></div>
+          <ul class="tool-list">
+            <li><span class="dot"></span><div><b>CW 电键</b><small>触屏手键与自动拍发，侧音频率与速度可调</small></div></li>
+            <li><span class="dot"></span><div><b>CW 听抄训练</b><small>科赫法 40 级渐进字符集与随机码组</small></div></li>
+            <li><span class="dot"></span><div><b>DTMF</b><small>ITU-T Q.23 双音生成，Goertzel 解码本机合成 PCM 自检</small></div></li>
+            <li><span class="dot"></span><div><b>音调发生器</b><small>4 种波形持续输出与线性扫频，拖动变频不重建音轨</small></div></li>
+          </ul>
+        </article>
+        <article class="block reveal" style="--delay:.06s">
+          <div class="block__head"><span class="block__num">04</span><div><h3>联网与地图</h3><p>离线优先 · 可选在线增强</p></div><span class="chip chip--done">4 / 4 已实现</span></div>
+          <ul class="tool-list">
+            <li><span class="dot"></span><div><b>传播指数</b><small>SFI / Kp / A 指数与 HF 六波段经验评估</small></div></li>
+            <li><span class="dot"></span><div><b>DX 集群</b><small>可选实时 spots，按波段与关键词过滤，失败保留样例</small></div></li>
+            <li><span class="dot"></span><div><b>网格与方位</b><small>梅登海德网格互转、大圆距离与方位，纯离线</small></div></li>
+            <li><span class="dot"></span><div><b>呼号查询</b><small>离线前缀表解析，另有可选 HamDB 执照资料</small></div></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 算例 -->
+  <section class="section" id="math">
+    <div class="container">
+      <div class="calc-panel reveal">
+        <div>
+          <span class="eyebrow">真实算例</span>
+          <h3 style="margin-top:18px">每个数字，都算得出来</h3>
+          <p>界面上显示的结果不是示意文案，而是按 App 内部公式当场算出来的。算法层是不依赖 Android 的纯函数，配套单元测试逐项比对手算标杆值。</p>
+          <ul class="calc-list">
+            <li><svg class="icon icon--sm"><use href="#i-check"></use></svg> λ = 299.792458 / f，同时给出 λ/4 与 λ/2</li>
+            <li><svg class="icon icon--sm"><use href="#i-check"></use></svg> 馈线衰减采用厂商 7 频点双对数插值</li>
+            <li><svg class="icon icon--sm"><use href="#i-check"></use></svg> 139 个单元测试覆盖算法、配色、数据解析与 QSL 状态机</li>
+          </ul>
+        </div>
+        <div class="calc-card">
+          <div class="calc-card__head">145.000 MHz · 2 m 波段</div>
+          <div class="calc-card__value">2.067<span>m</span></div>
+          <div class="calc-card__label">波长 λ</div>
+          <div class="calc-card__rows">
+            <div><span>λ / 4</span><b>0.517 m</b></div>
+            <div><span>λ / 2</span><b>1.034 m</b></div>
+            <div><span>所属频段</span><b>2 m 波段</b></div>
+            <div><span>结果</span><b>可一键复制</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 宣传片 -->
+  <section class="section section--tight" id="video" style="background:var(--surface-container-low);border-block:1px solid var(--outline-variant)">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">宣传片</span>
+        <h2>三分钟，看完整个工具箱</h2>
+        <p>19 个工具逐个出镜，包含音频、联网与计算板块。3:01 · 1920×1080 · 30fps。</p>
+      </div>
+      <div class="video-frame reveal">
+        <video controls preload="metadata" poster="assets/img/promo-poster.png" playsinline>
+          <source src="assets/media/HAM-Tools-promo-3min.mp4" type="video/mp4">
+          你的浏览器不支持内嵌视频，可<a href="assets/media/HAM-Tools-promo-3min.mp4">直接下载宣传片</a>。
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- 开发进度 -->
+  <section class="section" id="roadmap">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">开发进度</span>
+        <h2>从 10 个到 19 个，再到 QSL 交换</h2>
+        <p>源码已实现全部 19 个工具，并在底部导航新增独立的「QSL 交换」板块。下方下载区提供的仍是已发布的 v1.1-beta 安装包，包含新功能的 1.2 版 Release 尚待发布。</p>
+      </div>
+      <div class="roadmap">
+        <div class="roadmap__col reveal">
+          <h3><svg class="icon"><use href="#i-check"></use></svg> 1.2 · 工具集全部完成 <span class="chip chip--done" style="margin-left:auto">19 个</span></h3>
+          <ul>
+            <li><svg class="icon"><use href="#i-chevron"></use></svg> 计算工具 6 个：含新增的 APRS 验证码</li>
+            <li><svg class="icon"><use href="#i-chevron"></use></svg> 查询手册 5 个：频段、前缀、Q 简语、摩尔斯、卫星中继</li>
+            <li><svg class="icon"><use href="#i-chevron"></use></svg> 音频与硬件 4 个：CW 电键 / 听抄、DTMF、音调发生器</li>
+            <li><svg class="icon"><use href="#i-chevron"></use></svg> 联网与地图 4 个：传播、DX 集群、网格方位、呼号查询</li>
+          </ul>
+        </div>
+        <div class="roadmap__col reveal" style="--delay:.08s">
+          <h3><svg class="icon"><use href="#i-check"></use></svg> QSL 交换 · 独立板块 <span class="chip chip--done" style="margin-left:auto">需登录</span></h3>
+          <ul>
+            <li><svg class="icon"><use href="#i-chevron"></use></svg> 纸质卡片与 eQSL 电子卡片两大板块</li>
+            <li><svg class="icon"><use href="#i-chevron"></use></svg> 个人信息、邮寄地址与卡片图片上传</li>
+            <li><svg class="icon"><use href="#i-chevron"></use></svg> 交换申请、状态流转、交换历史与台站名录</li>
+            <li><svg class="icon"><use href="#i-chevron"></use></svg> 新申请本机通知；地址仅在接受交换后对对方可见</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 下载 -->
+  <section class="section section--tight" id="download">
+    <div class="container">
+      <div class="download reveal">
+        <h2>下载 HAM 工具合集 v1.1-beta</h2>
+        <p>这是当前已发布的公开测试版（10 个工具）。源码已更新到 1.2，包含 19 个工具与 QSL 交换；新版 Release 发布前，可从源码自行编译体验最新功能。安装包由作者签名密钥签发，构建方式全部公开。</p>
+        <div class="download__grid">
+          <div class="download__item"><small>版本</small><b>1.1（versionCode 2）</b></div>
+          <div class="download__item"><small>安装包</small><b>约 13.4 MB</b></div>
+          <div class="download__item"><small>系统要求</small><b>Android 7.0 / API 24+</b></div>
+          <div class="download__item"><small>包名</small><b>com.ham.tools</b></div>
+        </div>
+        <div class="download__actions">
+          <a class="btn btn--filled btn--lg" href="https://github.com/BA4IGG/hamtools/releases/download/v1.1-beta/HAM-Tools-v1.1-beta.apk" target="_blank" rel="noopener noreferrer">
+            <svg class="icon"><use href="#i-download"></use></svg><span>下载 APK</span></a>
+          <a class="btn btn--outlined btn--lg" href="https://github.com/BA4IGG/hamtools/releases" target="_blank" rel="noopener noreferrer">
+            <svg class="icon"><use href="#i-external"></use></svg><span>全部 Release</span></a>
+          <a class="btn btn--text btn--lg" href="https://github.com/BA4IGG/hamtools" target="_blank" rel="noopener noreferrer">
+            <svg class="icon"><use href="#i-code"></use></svg><span>源码与编译说明</span></a>
+        </div>
+        <p class="download__note">签名证书 CN=BA4IGG，升级安装请使用同一来源的 APK。首次安装需在系统设置中允许「安装未知来源应用」。下载或安装即表示你已阅读并同意 <a href="terms.html">《用户协议》</a> 与 <a href="privacy.html">《隐私政策》</a>。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--tight" id="faq">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">常见问题</span>
+        <h2>用之前，你可能想问</h2>
+      </div>
+      <div class="faq reveal">
+        <details><summary>一定要联网才能用吗？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
+          <p>不需要。19 个工具的算法与数据表全部打包在 APK 里，飞行模式下也能正常计算与查询。只有注册 / 登录账号、QSL 交换，以及 DX 集群 / 传播指数 / 呼号查询这几项可选的在线增强才需要网络；在线源失败会自动退回内置数据并如实标注。详见<a href="privacy.html">隐私政策</a>。</p></details>
+        <details><summary>为什么要申请「修改系统设置」权限？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
+          <p>部分手机厂商会把第三方应用锁在 90Hz。本工具在获得 <code>WRITE_SETTINGS</code> 授权后，会把系统允许的刷新率上限抬到屏幕硬件支持的最高值（最高 120Hz）。这是特殊权限，需要你在系统设置里手动打开；未授权时自动降级，不影响任何计算功能，也不会读取个人信息。</p></details>
+        <details><summary>必须注册账号吗？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
+          <p>不必。账号是可选的，不注册也能使用全部 19 个本地工具；但「QSL 交换」板块涉及双方呼号、通联记录与邮寄地址，必须登录才能使用。注册只需要呼号、密码和可选昵称，不索取手机号、邮箱或真实姓名；QSL 名片中的邮箱与地址由你自愿填写。</p></details>
+        <details><summary>QSL 交换会公开我的地址吗？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
+          <p>不会自动公开。台站名录不含邮寄地址与邮箱；只有在你接受某次纸质交换之后，对方才能在该条记录中看到地址。不愿公开可改用 eQSL 电子卡片，或勾选「仅记录到我的交换历史」只做本地留档。全部 QSL 资料、卡片图片与交换记录可随时在应用内一键删除，详见<a href="privacy.html">隐私政策</a>。</p></details>
+        <details><summary>计算结果和内置资料能直接照着用吗？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
+          <p>仅供学习与参考。天线尺寸、馈线衰减、链路预算都基于理想模型，实际结果受环境、材料与安装方式影响；频段划分、中继名录等资料可能滞后于主管部门的最新公告。发射前请以现行法规、执照核准范围和实测为准，详见<a href="terms.html">用户协议</a>中的免责条款。</p></details>
+        <details><summary>有广告、统计或推送吗？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
+          <p>没有。应用不接入广告 SDK、第三方统计分析或推送服务，也不申请位置、通讯录、相机、麦克风、相册读取等权限。Android 13 及以上会在首次进入 QSL 板块时申请通知权限，用于在<b>本机</b>提醒新的交换申请——这不是服务器推送，拒绝后不影响任何交换功能。官网本身是静态页面，不设置 Cookie，主题偏好只保存在浏览器本地。</p></details>
+        <details><summary>发现问题或想参与开发？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
+          <p>欢迎到 <a href="https://github.com/BA4IGG/hamtools/issues" target="_blank" rel="noopener noreferrer">GitHub Issues</a> 反馈，或直接提 PR。源码采用 MIT 许可，服务端也一并开源；涉及账号数据删除、协议与隐私的诉求，同样通过 Issues 联系作者 BA4IGG。</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- 页脚 -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="brand" href="index.html"><img class="brand__logo" src="assets/img/logo.svg" alt="" width="38" height="38"><span class="brand__name">HAM 工具合集<small>HAM TOOLS · BA4IGG</small></span></a>
+        <p>面向业余无线电爱好者的 Android 原生工具箱。离线优先、Material 3、开源免费。由 BA4IGG 个人开发和维护。</p>
+      </div>
+      <div><h4>产品</h4><ul>
+        <li><a href="index.html#features">功能亮点</a></li>
+        <li><a href="index.html#tools">全部工具</a></li>
+        <li><a href="index.html#video">宣传片</a></li>
+        <li><a href="index.html#roadmap">版本路线图</a></li>
+        <li><a href="index.html#download">下载 APK</a></li>
+      </ul></div>
+      <div><h4>资源</h4><ul>
+        <li><a href="https://github.com/BA4IGG/hamtools" target="_blank" rel="noopener noreferrer">GitHub 仓库</a></li>
+        <li><a href="https://github.com/BA4IGG/hamtools/releases" target="_blank" rel="noopener noreferrer">Release 下载</a></li>
+        <li><a href="https://github.com/BA4IGG/hamtools/blob/main/server/DEPLOY.md" target="_blank" rel="noopener noreferrer">自建账号服务</a></li>
+        <li><a href="https://github.com/BA4IGG/hamtools/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT 许可证</a></li>
+      </ul></div>
+      <div><h4>法律与支持</h4><ul>
+        <li><a href="terms.html">用户协议</a></li>
+        <li><a href="privacy.html">隐私政策</a></li>
+        <li><a href="terms.html#sec-7">开源与第三方许可</a></li>
+        <li><a href="https://github.com/BA4IGG/hamtools/issues" target="_blank" rel="noopener noreferrer">问题反馈 / 联系我们</a></li>
+        <li><a href="index.html#faq">常见问题</a></li>
+      </ul></div>
+    </div>
+
+    <div class="footer__legal">
+      <svg class="icon icon--lg" style="color:var(--primary)"><use href="#i-shield"></use></svg>
+      <strong>使用本工具前，请先阅读</strong>
+      <a href="terms.html">《用户协议》</a>
+      <a href="privacy.html">《隐私政策》</a>
+      <span>两份文件均为本站独立页面，可从任意设备查看。</span>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© <span data-year>2026</span> BA4IGG · 以 MIT 许可证开源</span>
+      <span>计算结果与内置资料仅供参考，无线电操作请遵守所在国家/地区的法规与执照要求</span>
+    </div>
+
+    <!-- 备案信息：号码同时写在下方 HTML 与 assets/js/app.js 的 FILINGS 中，两处需保持一致 -->
+    <div class="footer__filings" role="group" aria-label="网站备案信息">
+      <a class="filing" data-filing="icp" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"><span data-filing-text>ICP 备案号：鲁ICP备2025143500号</span></a>
+      <span class="filing__sep" aria-hidden="true"></span>
+      <a class="filing" data-filing="police" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=37142402000186" target="_blank" rel="noopener noreferrer"><img class="filing__badge" src="assets/img/beian-police.png" alt="" width="18" height="20" decoding="async"><span data-filing-text>公安备案号：鲁公网安备37142402000186号</span></a>
+    </div>
+  </div>
+</footer>
+
+<button class="back-top" type="button" aria-label="返回顶部"><svg class="icon"><use href="#i-up"></use></svg></button>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
