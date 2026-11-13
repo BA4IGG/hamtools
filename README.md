@@ -221,7 +221,7 @@ App 端地址写死在 `AppConfig.SERVER_BASE_URL`，**换服务器改这一行�
 首页引用的 3 分钟宣传片 `site/assets/media/HAM-Tools-promo-3min.mp4`（约 12 MB）**不纳入 Git 仓库**：二进制视频体积大，且会随版本重做。部署时二选一：
 
 - 用 `promo/render_3min.py` 自行生成（依赖 Pillow / numpy / imageio-ffmpeg）后放到 `site/assets/media/`；
-- 或使用随版本分发的官网压缩包 `hamtools-site-v1.2.zip`（内含完整 `assets/media/`，通过 Release 或本地交付，不入库）。
+- 或使用随版本本地交付的官网压缩包 `hamtools-site-v1.2.zip`（内含完整 `assets/media/`，不入库）。
 
 缺少该视频时首页其余内容正常，仅宣传片区无法播放。宣传片生成脚本 `promo/*.py` 已随仓库提供。
 
