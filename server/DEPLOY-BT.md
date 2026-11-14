@@ -324,6 +324,8 @@ App 端已经把账号服务器地址**写死**为 `https://api.ba4igg.cn`，位
 | 注册一直转圈 | 小机器 bcrypt 轮数太高 | `.env` 改 `BCRYPT_ROUNDS=8` 后重启服务 |
 | App 的 QSL 板块显示「本地演示模式」 | 线上还是旧版服务端，`/api/qsl/ping` 返回 404 | 按上节覆盖 `src/` 并重启，确认 ping 返回 `ok:true` |
 | QSL 卡片上传失败 | 二进制 POST 被防火墙插件拦截，或 `uploads/qsl/` 不可写 | 暂时关闭 URL 过滤验证；检查目录属主与 `client_max_body_size` |
+| 考试练习显示「服务端尚未部署学习记录接口」 | 线上没有 `/api/exam` 路由 | 覆盖 `src/routes/exam.js`、`src/db.js`、`src/index.js` 后重启；App 仍可纯本机使用 |
+| 学习记录同步报 413 | Nginx `client_max_body_size` 太小（进度 JSON 可达几百 KB） | 站点配置里调到 `1m` 以上；服务端自身已放宽到 1 MB |
 
 ---
 
@@ -348,6 +350,43 @@ App 靠 `GET /api/qsl/ping` 判断服务端版本。老服务端没这个路由�
 > 图片只能走带令牌的 `GET /api/qsl/cards/:id/image`。若开了 Nginx 防火墙，
 > 确认二进制 POST 上传（≤ 5 MB）没被 WAF 的 URL / 上传规则误拦，必要时把站点
 > `client_max_body_size` 调到 8m 以上。
+
+---
+
+## 升级到含「考试练习云同步」的版本（可选增强）
+
+App 的考试练习**不登录也能完整使用**：题库、附图、组卷、复习进度、错题本与成绩历史
+默认都存本机。登录账号后才会调用新接口，把这些摘要同步到账号；服务端没部署时
+界面会如实显示「仅本机」，不会把本地数据伪装成已上云。
+
+1. 覆盖这三个文件（保留原 `.env`）：
+   - `src/routes/exam.js`（新增）
+   - `src/db.js`（新增 `exam_progress` 建表）
+   - `src/index.js`（挂载 `/api/exam`，单独放宽 JSON body 到 1 MB）
+   另外把 `schema.sql`、`scripts/exam-selfcheck.js`、`package.json` 一并更新，便于手工部署与自检。
+2. 终端执行 `systemctl restart ham-auth`（或 PM2 里点「重启」）。
+   启动时的 `db.ensureSchema()` 会自动补建 `exam_progress` 表，**不需要手工导入 SQL**。
+3. 验证（把路径换成你实际的项目目录；本文其它章节用 `ham-auth` 作示例，
+   你当前这台机器是 `/www/wwwroot/hamtools_auth`）：
+   ```bash
+   curl https://api.ba4igg.cn/api/exam/ping
+   # {"ok":true,"feature":"exam-sync","version":2,"requiresLogin":true}
+   cd /www/wwwroot/hamtools_auth && npm run exam:check
+   # 考试练习云同步自检通过：6 项
+   cd /www/wwwroot/hamtools_auth && npm run qsl:check
+   # 全部通过：7 项检查
+   ```
+
+> 两个自检**只读取服务端目录内的文件**，不需要 Android 工程源码，也不需要连数据库。
+> 生产机上会打印一行「未检测到 Android 源码，跳过跨端核对」，这是正常提示，不是失败。
+> 若旧版自检报 `ENOENT ... app/src/main/java/...`，只需覆盖
+> `scripts/exam-selfcheck.js` 与 `scripts/qsl-selfcheck.js` 两个文件，**不用重启服务**。
+
+4. App 端进入考试练习 → 「账号同步」卡片点「立即同步」，状态变为「已同步」即生效。
+
+> 该表只存题号进度、复习数字、顺序练习断点与成绩摘要，不含题目正文、
+> 用户所选答案或任何个人资料；接口全部 `requireAuth`。若站点开了 Nginx 防火墙，
+> 确认 `PUT /api/exam/progress` 的 JSON 请求没有被规则误拦。
 
 ---
 

@@ -83,7 +83,7 @@ d.setAttribute('data-theme',t)})();
   <section class="hero">
     <div class="container hero__inner">
       <div class="reveal">
-        <span class="eyebrow"><svg class="icon icon--sm"><use href="#i-bolt"></use></svg> 19 个工具 · 免费开源</span>
+        <span class="eyebrow"><svg class="icon icon--sm"><use href="#i-bolt"></use></svg> v2.0 · 21 个工具 · 免费开源</span>
         <h1 class="hero__title">把整个电台桌，<br><em>装进口袋</em></h1>
         <p class="hero__desc">面向业余无线电爱好者的 Android 原生工具箱。频率、天线、驻波、馈线、链路预算，以及频段划分、呼号前缀、Q 简语、摩尔斯、卫星中继——算得快，查得准，没信号也能用。</p>
         <div class="hero__actions">
@@ -103,7 +103,7 @@ d.setAttribute('data-theme',t)})();
           <div class="phone__screen">
             <div class="phone__notch"></div>
             <div class="ui-status"><span>9:41</span><span>● ▮▮▮ 87%</span></div>
-            <div class="ui-topbar"><strong>HAM 工具合集</strong><span class="ui-badge">v1.2 · BA4IGG</span></div>
+            <div class="ui-topbar"><strong>HAM 工具合集</strong><span class="ui-badge">v2.0 · BA4IGG</span></div>
             <div class="ui-hello">业余无线电随身工具箱</div>
             <div class="ui-search"><svg class="icon"><use href="#i-search"></use></svg> 搜索工具、频段、呼号…</div>
             <div class="ui-label">计算工具 <span>6 / 6</span></div>
@@ -139,9 +139,9 @@ d.setAttribute('data-theme',t)})();
   <!-- 统计 -->
   <div class="container">
     <div class="stats reveal">
-      <div class="stat"><b>19</b><span>工具全部实现</span></div>
+      <div class="stat"><b>21</b><span>v2.0 工具全部实现</span></div>
       <div class="stat"><b>4</b><span>功能板块</span></div>
-      <div class="stat"><b>139</b><span>单元测试</span></div>
+      <div class="stat"><b>197</b><span>源码单元测试</span></div>
       <div class="stat"><b>0</b><span>广告与跟踪</span></div>
     </div>
   </div>
@@ -157,13 +157,13 @@ d.setAttribute('data-theme',t)})();
       <div class="grid grid--3">
         <article class="card reveal"><div class="card__icon"><svg class="icon"><use href="#i-offline"></use></svg></div>
           <h3>离线优先，联网按需</h3>
-          <p>19 个工具的算法与数据表全部内置，山里没信号照样算。只有账号登录、QSL 交换与可选的在线数据增强才会访问网络，且失败即退回内置数据。</p></article>
+          <p>v2.0 的 21 个工具，算法与数据表全部内置，山里没信号照样算。只有账号登录、QSL 交换与可选的在线数据增强才会访问网络，且失败即退回内置数据。</p></article>
         <article class="card reveal" style="--delay:.06s"><div class="card__icon"><svg class="icon"><use href="#i-palette"></use></svg></div>
           <h3>Material 3 Expressive</h3>
           <p>内置 Google 官方 HCT 色彩算法源码，9 套配色方案变体、明暗双主题，Android 12+ 还能跟随壁纸动态取色。</p></article>
         <article class="card reveal" style="--delay:.12s"><div class="card__icon"><svg class="icon"><use href="#i-calc"></use></svg></div>
           <h3>数值实算，不靠经验凑</h3>
-          <p>馈线损耗按厂商公布的 7 个频点做双对数插值，链路预算走弗里斯传输方程；139 个单元测试按手算标杆值校验。</p></article>
+          <p>馈线损耗按厂商公布的 7 个频点做双对数插值，链路预算走弗里斯传输方程；源码现有 197 个单元测试按手算标杆值校验。</p></article>
         <article class="card reveal"><div class="card__icon"><svg class="icon"><use href="#i-book"></use></svg></div>
           <h3>常用数据表内置</h3>
           <p>中国与 IARU 三个区的频段划分、约 300 个 DXCC 前缀、Q 简语、摩尔斯对照、业余卫星与国内中继名录，支持区域切换与关键词检索。</p></article>
@@ -181,9 +181,9 @@ d.setAttribute('data-theme',t)})();
   <section class="section section--tight" id="tools" style="background:var(--surface-container-low);border-block:1px solid var(--outline-variant)">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">19 个工具 · 4 大板块</span>
+        <span class="eyebrow">v2.0 已发布 · 21 个工具 · 4 大板块</span>
         <h2>算的、查的、听的、联的，都在一个 App 里</h2>
-        <p>四组共 19 个工具均已实现并可用，没有占位入口。底部导航另有独立的「QSL 交换」板块，不计入工具数，需登录账号使用。</p>
+        <p>下方列出的是 <b>v2.0 正式版里的</b> 21 个工具，四组全部可用，没有占位入口，其中 SSTV / FT8 编解码为本次新增。底部导航另有独立的「QSL 交换」（需登录）与「考试练习」（离线可用）两个板块，均不计入工具数。v1.2 及更早版本已归入 GitHub 的测试版通道，见<a href="#roadmap">开发进度</a>。</p>
       </div>
       <div class="blocks">
         <article class="block reveal">
@@ -208,12 +208,14 @@ d.setAttribute('data-theme',t)})();
           </ul>
         </article>
         <article class="block reveal">
-          <div class="block__head"><span class="block__num">03</span><div><h3>音频与硬件</h3><p>练习与信号发生</p></div><span class="chip chip--done">4 / 4 已实现</span></div>
+          <div class="block__head"><span class="block__num">03</span><div><h3>音频与硬件</h3><p>练习、信号发生与编解码</p></div><span class="chip chip--done">6 / 6 已实现</span></div>
           <ul class="tool-list">
             <li><span class="dot"></span><div><b>CW 电键</b><small>触屏手键与自动拍发，侧音频率与速度可调</small></div></li>
             <li><span class="dot"></span><div><b>CW 听抄训练</b><small>科赫法 40 级渐进字符集与随机码组</small></div></li>
             <li><span class="dot"></span><div><b>DTMF</b><small>ITU-T Q.23 双音生成，Goertzel 解码本机合成 PCM 自检</small></div></li>
             <li><span class="dot"></span><div><b>音调发生器</b><small>4 种波形持续输出与线性扫频，拖动变频不重建音轨</small></div></li>
+            <li><span class="dot"></span><div><b>SSTV 编解码</b><small>Robot36 / Martin M1 / Scottie S1，图片与基带音频互转</small></div></li>
+            <li><span class="dot"></span><div><b>FT8 编解码</b><small>LDPC + CRC14 + Costas 同步，79 符号 / 15 秒时隙</small></div></li>
           </ul>
         </article>
         <article class="block reveal" style="--delay:.06s">
@@ -240,7 +242,7 @@ d.setAttribute('data-theme',t)})();
           <ul class="calc-list">
             <li><svg class="icon icon--sm"><use href="#i-check"></use></svg> λ = 299.792458 / f，同时给出 λ/4 与 λ/2</li>
             <li><svg class="icon icon--sm"><use href="#i-check"></use></svg> 馈线衰减采用厂商 7 频点双对数插值</li>
-            <li><svg class="icon icon--sm"><use href="#i-check"></use></svg> 139 个单元测试覆盖算法、配色、数据解析与 QSL 状态机</li>
+            <li><svg class="icon icon--sm"><use href="#i-check"></use></svg> 197 个单元测试覆盖算法、配色、数据解析、QSL 状态机、FT8 / SSTV 编解码与检测更新双通道解析</li>
           </ul>
         </div>
         <div class="calc-card">
@@ -264,7 +266,7 @@ d.setAttribute('data-theme',t)})();
       <div class="section-head reveal">
         <span class="eyebrow">宣传片</span>
         <h2>三分钟，看完整个工具箱</h2>
-        <p>19 个工具逐个出镜，包含音频、联网与计算板块。3:01 · 1920×1080 · 30fps。</p>
+        <p>宣传片为 v1.2 时期录制，展示当时的 19 个工具；v2.0 新增的 SSTV / FT8、考试练习与检测更新未包含在片中，请以本页功能说明与 Release 更新日志为准。3:01 · 1920×1080 · 30fps。</p>
       </div>
       <div class="video-frame reveal">
         <video controls preload="metadata" poster="assets/img/promo-poster.png" playsinline>
@@ -280,12 +282,12 @@ d.setAttribute('data-theme',t)})();
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">开发进度</span>
-        <h2>从 10 个到 19 个，再到 QSL 交换</h2>
-        <p>19 个工具与独立的「QSL 交换」板块已在 v1.2 全部实现并发布，下方下载区提供的就是 1.2 安装包。后续计划以仓库 README 与 GitHub Release 为准。</p>
+        <h2>从测试通道，到 v2.0 正式版</h2>
+        <p><code>v1.0-beta</code>、<code>v1.1-beta</code> 与 <code>v1.2</code> 均已归入 GitHub 的 <b>测试版通道（Pre-release）</b>，不再作为正式版推荐；<b>v2.0 是当前唯一的正式版 Release</b>，也是下方下载区提供的安装包。考试练习、SSTV / FT8 编解码、检测更新双通道与统一顶栏都在这个版本里正式上线。</p>
       </div>
       <div class="roadmap">
         <div class="roadmap__col reveal">
-          <h3><svg class="icon"><use href="#i-check"></use></svg> 1.2 · 工具集全部完成 <span class="chip chip--done" style="margin-left:auto">19 个</span></h3>
+          <h3><svg class="icon"><use href="#i-check"></use></svg> 测试通道 · v1.2 及更早版本 <span class="chip chip--done" style="margin-left:auto">19 个</span></h3>
           <ul>
             <li><svg class="icon"><use href="#i-chevron"></use></svg> 计算工具 6 个：含新增的 APRS 验证码</li>
             <li><svg class="icon"><use href="#i-chevron"></use></svg> 查询手册 5 个：频段、前缀、Q 简语、摩尔斯、卫星中继</li>
@@ -302,7 +304,26 @@ d.setAttribute('data-theme',t)})();
             <li><svg class="icon"><use href="#i-chevron"></use></svg> 新申请本机通知；地址仅在接受交换后对对方可见</li>
           </ul>
         </div>
+        <div class="roadmap__col reveal" style="--delay:.12s; grid-column:1/-1">
+          <h3><svg class="icon"><use href="#i-check"></use></svg> v2.0 · 业余无线电考试练习 <span class="chip chip--done" style="margin-left:auto">已发布</span></h3>
+          <ul>
+            <li><svg class="icon"><use href="#i-chevron"></use></svg> 官方 v20250728 题库 A / B / C 三类，按题号去重共 1375 题，含 53 道附图题</li>
+            <li><svg class="icon"><use href="#i-chevron"></use></svg> 严格按正式考试配额组卷：A 40 题 / 40 分钟 / 对 30 题，B 60 题 / 60 分钟 / 对 45 题，C 90 题 / 90 分钟 / 对 70 题</li>
+            <li><svg class="icon"><use href="#i-chevron"></use></svg> 多选题漏选、少选、多选均判错；试卷按难度由易到难排列</li>
+            <li><svg class="icon"><use href="#i-chevron"></use></svg> 艾宾浩斯记忆曲线复习、错题本与学习统计；题库、附图、答题记录全部离线保存在本机</li>
+          </ul>
+        </div>
+        <div class="roadmap__col reveal" style="--delay:.16s; grid-column:1/-1">
+          <h3><svg class="icon"><use href="#i-check"></use></svg> v2.0 · SSTV / FT8 编解码 <span class="chip chip--done" style="margin-left:auto">已发布</span></h3>
+          <ul>
+            <li><svg class="icon"><use href="#i-chevron"></use></svg> SSTV：图片与基带音频互转，支持 Robot36 / Martin M1 / Scottie S1；可播放、导出 WAV、导入 WAV 解码、导出 PNG</li>
+            <li><svg class="icon"><use href="#i-chevron"></use></svg> FT8：LDPC(174,91) + CRC14 + Costas 同步的完整编解码，79 符号 / 15 秒时隙，可生成、播放、导出 WAV 与解码</li>
+            <li><svg class="icon"><use href="#i-chevron"></use></svg> 实时解码按需申请麦克风权限：先看用途说明再弹系统对话框；音频只在内存里处理，<b>不保存录音、不上传、不联网</b>，拒绝权限不影响编码与本机自测</li>
+            <li><svg class="icon"><use href="#i-chevron"></use></svg> 生成的是音频基带信号而非射频发射；解码为轻量化实现，弱信号灵敏度低于 WSJT-X / 专业 SSTV 软件</li>
+          </ul>
+        </div>
       </div>
+      <p style="margin-top:18px">以上内容已全部包含在下方 <strong>v2.0 正式版安装包</strong>中。题库难度为估算值，只用于排序，不代表官方难度分级；SSTV / FT8 的解码能力边界与麦克风权限说明详见<a href="privacy.html">隐私政策</a>。</p>
     </div>
   </section>
 
@@ -310,16 +331,16 @@ d.setAttribute('data-theme',t)})();
   <section class="section section--tight" id="download">
     <div class="container">
       <div class="download reveal">
-        <h2>下载 HAM 工具合集 v1.2</h2>
-        <p>v1.2 正式版：19 个工具全部实现，底部导航新增独立的 QSL 卡片交换板块。安装包由作者签名密钥签发，与 v1.0 / v1.1 同一证书，可直接覆盖升级；源码与构建方式全部公开，可自行编译核对。</p>
+        <h2>下载 HAM 工具合集 v2.0</h2>
+        <p>v2.0 正式版通道首发：21 个工具全部实现，包含新增的「考试练习」板块、SSTV / FT8 编解码与检测更新（正式 / 测试双通道）。安装包由作者签名密钥签发，与历史测试版同一证书且 versionCode 更高，可直接覆盖升级；源码与构建方式全部公开，可自行编译核对。<b>v1.2 及更早版本已归入测试版通道</b>，建议升级到本版本；SSTV / FT8 的实时解码会按需申请麦克风权限。</p>
         <div class="download__grid">
-          <div class="download__item"><small>版本</small><b>1.2（versionCode 3）</b></div>
-          <div class="download__item"><small>安装包</small><b>约 14.0 MB</b></div>
+          <div class="download__item"><small>版本</small><b>2.0（versionCode 4）</b></div>
+          <div class="download__item"><small>安装包</small><b>约 15.8 MB</b></div>
           <div class="download__item"><small>系统要求</small><b>Android 7.0 / API 24+</b></div>
           <div class="download__item"><small>包名</small><b>com.ham.tools</b></div>
         </div>
         <div class="download__actions">
-          <a class="btn btn--filled btn--lg" href="https://github.com/BA4IGG/hamtools/releases/download/v1.2/HAM-Tools-v1.2.apk" target="_blank" rel="noopener noreferrer">
+          <a class="btn btn--filled btn--lg" href="https://github.com/BA4IGG/hamtools/releases/download/v2.0/HAM-Tools-v2.0.apk" target="_blank" rel="noopener noreferrer">
             <svg class="icon"><use href="#i-download"></use></svg><span>下载 APK</span></a>
           <a class="btn btn--outlined btn--lg" href="https://github.com/BA4IGG/hamtools/releases" target="_blank" rel="noopener noreferrer">
             <svg class="icon"><use href="#i-external"></use></svg><span>全部 Release</span></a>
@@ -340,17 +361,25 @@ d.setAttribute('data-theme',t)})();
       </div>
       <div class="faq reveal">
         <details><summary>一定要联网才能用吗？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
-          <p>不需要。19 个工具的算法与数据表全部打包在 APK 里，飞行模式下也能正常计算与查询。只有注册 / 登录账号、QSL 交换，以及 DX 集群 / 传播指数 / 呼号查询这几项可选的在线增强才需要网络；在线源失败会自动退回内置数据并如实标注。详见<a href="privacy.html">隐私政策</a>。</p></details>
+          <p>不需要。v2.0 的 21 个工具，算法与数据表全部打包在 APK 里，飞行模式下也能正常计算与查询；考试练习、SSTV / FT8 编解码同样完全离线工作。只有注册 / 登录账号、QSL 交换、检测更新，以及 DX 集群 / 传播指数 / 呼号查询这几项可选的在线增强才需要网络；在线源失败会自动退回内置数据并如实标注。详见<a href="privacy.html">隐私政策</a>。</p></details>
         <details><summary>为什么要申请「修改系统设置」权限？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
           <p>部分手机厂商会把第三方应用锁在 90Hz。本工具在获得 <code>WRITE_SETTINGS</code> 授权后，会把系统允许的刷新率上限抬到屏幕硬件支持的最高值（最高 120Hz）。这是特殊权限，需要你在系统设置里手动打开；未授权时自动降级，不影响任何计算功能，也不会读取个人信息。</p></details>
         <details><summary>必须注册账号吗？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
-          <p>不必。账号是可选的，不注册也能使用全部 19 个本地工具；但「QSL 交换」板块涉及双方呼号、通联记录与邮寄地址，必须登录才能使用。注册只需要呼号、密码和可选昵称，不索取手机号、邮箱或真实姓名；QSL 名片中的邮箱与地址由你自愿填写。</p></details>
+          <p>不必。账号是可选的，不注册也能使用 v2.0 的全部 21 个本地工具；但「QSL 交换」板块涉及双方呼号、通联记录与邮寄地址，必须登录才能使用。注册只需要呼号、密码和可选昵称，不索取手机号、邮箱或真实姓名；QSL 名片中的邮箱与地址由你自愿填写。</p></details>
         <details><summary>QSL 交换会公开我的地址吗？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
           <p>不会自动公开。台站名录不含邮寄地址与邮箱；只有在你接受某次纸质交换之后，对方才能在该条记录中看到地址。不愿公开可改用 eQSL 电子卡片，或勾选「仅记录到我的交换历史」只做本地留档。全部 QSL 资料、卡片图片与交换记录可随时在应用内一键删除，详见<a href="privacy.html">隐私政策</a>。</p></details>
+        <details><summary>有业余无线电考试练习吗？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
+          <p>v2.0 已内置 A / B / C 三类题库练习与模拟考试（含艾宾浩斯记忆曲线复习、错题本、组卷 PDF 导出与成绩图表），入口在底部导航正中央，题库与附图全部内置，不登录也能离线练习；登录后可选地把错题本与复习进度同步到账号，服务端只存题号进度与成绩摘要，不存题目正文或所选答案。多选题必须与答案完全一致才得分。题库内容版权归原发布机构所有，本工具仅供离线练习，不保证与实际考试题目完全一致。</p></details>
         <details><summary>计算结果和内置资料能直接照着用吗？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
           <p>仅供学习与参考。天线尺寸、馈线衰减、链路预算都基于理想模型，实际结果受环境、材料与安装方式影响；频段划分、中继名录等资料可能滞后于主管部门的最新公告。发射前请以现行法规、执照核准范围和实测为准，详见<a href="terms.html">用户协议</a>中的免责条款。</p></details>
+        <details><summary>SSTV / FT8 会用到麦克风吗？会保存我的录音吗？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
+          <p>v2.0 中的 SSTV / FT8 编解码在现场收信号解码时需要麦克风，这是唯一会用到麦克风的功能。只有你主动点「申请权限」、看完用途说明并确认后，才会向系统请求；编码、播放、保存 WAV、导入 WAV 解码和本机自测都不需要。采集到的 PCM <b>只在运行内存里做本机解码，不生成录音文件、不上传、不联网</b>，停止监听或离开页面即释放，因此也没有可供删除的录音。应用不申请位置、相机、通讯录、短信、相册读取等权限，选图与导入导出都走系统文件选择器。详见<a href="privacy.html">隐私政策</a>第三条。</p></details>
+        <details><summary>会提示我更新吗？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
+          <p>「检测更新」通过 GitHub Releases 只读比对版本：启动后自动检查一次（12 小时内不重复），也能在「关于」页随时手动检查，并可切换<b>正式通道（默认）</b>与<b>测试通道</b>。有新版本时会弹窗列出该版本的<b>更新日志</b>、发布日期与真实数据来源，并提供「前往下载」入口；<b>不会自动下载或安装</b>，是否升级由你自己决定。请求不携带账号或设备信息，失败时会如实区分网络不通、GitHub 限流与该通道暂无发布，详见<a href="privacy.html">隐私政策</a>。当前唯一正式 Release 就是 v2.0，正式通道会显示「已是最新版本」，此时仍可点「查看 2.0 发布说明」查阅完整更新日志。</p></details>
+        <details><summary>「正式版通道」和「测试版通道」是什么？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
+          <p>GitHub 上 <code>v1.0-beta</code> / <code>v1.1-beta</code> / <code>v1.2</code> 已全部标记为 Pre-release，归入<b>测试版通道</b>；<code>v2.0</code> 是目前唯一的<b>正式版通道</b> Release。App「关于」页可切换检测更新所跟踪的通道：正式通道（默认）只提示稳定版，测试通道会连预发布一起提示并在弹窗标注「预发布」。切换只影响检测更新，不改变已安装的功能，偏好仅保存在本机；备用源无法确认通道时，弹窗会提示自行到发布页核对。</p></details>
         <details><summary>有广告、统计或推送吗？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
-          <p>没有。应用不接入广告 SDK、第三方统计分析或推送服务，也不申请位置、通讯录、相机、麦克风、相册读取等权限。Android 13 及以上会在首次进入 QSL 板块时申请通知权限，用于在<b>本机</b>提醒新的交换申请——这不是服务器推送，拒绝后不影响任何交换功能。官网本身是静态页面，不设置 Cookie，主题偏好只保存在浏览器本地。</p></details>
+          <p>没有。应用不接入广告 SDK、第三方统计分析或推送服务。v2.0 的 SSTV / FT8 会按需申请麦克风（见上一条），但依然不申请位置、相机、通讯录、短信、相册读取等权限。Android 13 及以上会在首次进入 QSL 板块时申请通知权限，用于在<b>本机</b>提醒新的交换申请——这不是服务器推送，拒绝后不影响任何交换功能。官网本身是静态页面，不设置 Cookie，主题偏好只保存在浏览器本地。</p></details>
         <details><summary>发现问题或想参与开发？<svg class="icon"><use href="#i-chevron"></use></svg></summary>
           <p>欢迎到 <a href="https://github.com/BA4IGG/hamtools/issues" target="_blank" rel="noopener noreferrer">GitHub Issues</a> 反馈，或直接提 PR。源码采用 MIT 许可，服务端也一并开源；涉及账号数据删除、协议与隐私的诉求，同样通过 Issues 联系作者 BA4IGG。</p></details>
       </div>

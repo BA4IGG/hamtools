@@ -20,6 +20,17 @@
     -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
+    <!--
+      FT8 / SSTV 解码：用户主动点「开始监听」后才申请，属于运行时危险权限。
+      PCM 只在内存里做本机信号处理，不写录音文件、不上传、不联网；
+      拒绝后编码、播放、本机自测与导入 WAV 解码仍然可用，离开页面即释放麦克风。
+    -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!--
+      模拟考试锁定：保持 OnBackPressedDispatcher 路径，让考试页能完整接管
+      系统返回键与侧滑返回手势（弹确认框而不是直接退出）。
+    -->
     <application
         android:allowBackup="true"
         android:usesCleartextTraffic="true"
@@ -29,7 +40,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.HAM工具合集">
+        android:theme="@style/Theme.HAM工具合集"
+        android:enableOnBackInvokedCallback="false">
         <activity
             android:name=".MainActivity"
             android:exported="true"

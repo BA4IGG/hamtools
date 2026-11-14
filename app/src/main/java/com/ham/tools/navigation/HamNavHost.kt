@@ -36,6 +36,8 @@ import com.ham.tools.ui.calc.WavelengthScreen
 import com.ham.tools.ui.audio.CwKeyerScreen
 import com.ham.tools.ui.audio.CwTrainerScreen
 import com.ham.tools.ui.audio.DtmfScreen
+import com.ham.tools.ui.audio.Ft8Screen
+import com.ham.tools.ui.audio.SstvScreen
 import com.ham.tools.ui.audio.ToneGeneratorScreen
 import com.ham.tools.ui.network.CallsignLookupScreen
 import com.ham.tools.ui.network.DxClusterScreen
@@ -197,6 +199,8 @@ fun HamNavHost(
                 ToolIds.CW_TRAINER -> CwTrainerScreen(onBack = onBack)
                 ToolIds.DTMF -> DtmfScreen(onBack = onBack)
                 ToolIds.TONE_GENERATOR -> ToneGeneratorScreen(onBack = onBack)
+                ToolIds.SSTV -> SstvScreen(onBack = onBack)
+                ToolIds.FT8 -> Ft8Screen(onBack = onBack)
                 ToolIds.PROPAGATION -> PropagationScreen(onBack = onBack)
                 ToolIds.DX_CLUSTER -> DxClusterScreen(onBack = onBack)
                 ToolIds.GRID_SQUARE -> GridSquareScreen(onBack = onBack)

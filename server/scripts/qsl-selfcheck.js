@@ -9,6 +9,9 @@
  * 1. 呼号规范化、图片文件头白名单、交换状态机；
  * 2. 服务端错误码是否都能被 App 端 QslErrorCode 识别（避免提示退化成「服务器开小差」）；
  * 3. schema.sql / db.js / index.js 里 QSL 的建表与挂载是否齐全。
+ *
+ * 生产机一般只部署 server/ 这一个目录，没有 Android 源码；此时第 2 项的跨端
+ * 枚举比对会跳过并如实提示，不算失败。自检绝不依赖仓库根目录下的其它文件。
  */
 
 const assert = require('node:assert/strict');
@@ -19,7 +22,8 @@ const path = require('node:path');
 process.env.JWT_SECRET = process.env.JWT_SECRET || 'qsl-selfcheck-placeholder-secret';
 
 const qsl = require('../src/routes/qsl');
-const root = path.resolve(__dirname, '../..');
+// 部署目录：本地是仓库的 server/，线上是 /www/wwwroot/xxx（目录里直接就是 src/、schema.sql）
+const serverRoot = path.resolve(__dirname, '..');
 
 let passed = 0;
 const failures = [];
@@ -107,11 +111,23 @@ check('rowToExchange 方向、注册标记与时间格式', () => {
   assert.equal(unregistered.registeredPeer, false);
 });
 
-check('QSL 接口错误码全部被 App 端枚举覆盖', () => {
-  const qslSource = fs.readFileSync(path.join(__dirname, '../src/routes/qsl.js'), 'utf8');
-  const kotlin = fs.readFileSync(
-    path.join(root, 'app/src/main/java/com/ham/tools/data/qsl/QslModels.kt'), 'utf8'
+check('QSL 接口错误码全部被 App 端枚举覆盖（生产机可跳过跨端比对）', () => {
+  const qslSource = fs.readFileSync(path.join(serverRoot, 'src/routes/qsl.js'), 'utf8');
+  const used = new Set();
+  for (const match of qslSource.matchAll(/fail\(res, \d+, '([A-Z_]+)'/g)) used.add(match[1]);
+  // requireAuth 复用了 auth.js 的令牌校验，它的这几个码也会从 QSL 接口透出
+  for (const code of ['NO_TOKEN', 'TOKEN_EXPIRED', 'NO_USER', 'SERVER_ERROR']) used.add(code);
+  assert.ok(used.size >= 4, '未能从 qsl.js 提取到服务端错误码');
+  for (const code of used) assert.match(code, /^[A-Z_]+$/, `错误码格式异常：${code}`);
+
+  const kotlinPath = path.join(
+    serverRoot, '..', 'app/src/main/java/com/ham/tools/data/qsl/QslModels.kt'
   );
+  if (!fs.existsSync(kotlinPath)) {
+    console.log('    ⓘ 未检测到 Android 源码，跳过 App 端枚举比对（生产机只部署 server/，属正常）');
+    return;
+  }
+  const kotlin = fs.readFileSync(kotlinPath, 'utf8');
   // 截到枚举末尾的分号为止，不要把后面的 companion object 也扫进来
   const enumBlock = kotlin.match(/enum class QslErrorCode \{([\s\S]*?);/);
   assert.ok(enumBlock, '未找到 QslErrorCode 枚举');
@@ -120,16 +136,12 @@ check('QSL 接口错误码全部被 App 端枚举覆盖', () => {
       .map((line) => line.trim())
       .filter((name) => /^[A-Z_]+$/.test(name))
   );
-  const used = new Set();
-  for (const match of qslSource.matchAll(/fail\(res, \d+, '([A-Z_]+)'/g)) used.add(match[1]);
-  // requireAuth 复用了 auth.js 的令牌校验，它的这几个码也会从 QSL 接口透出
-  for (const code of ['NO_TOKEN', 'TOKEN_EXPIRED', 'NO_USER', 'SERVER_ERROR']) used.add(code);
   const missing = [...used].filter((code) => !known.has(code));
   assert.deepEqual(missing, [], `App 端缺少错误码：${missing.join(', ')}`);
 });
 
 check('schema.sql / db.js / index.js 的 QSL 接线齐全', () => {
-  const schema = fs.readFileSync(path.join(root, 'server/schema.sql'), 'utf8');
+  const schema = fs.readFileSync(path.join(serverRoot, 'schema.sql'), 'utf8');
   const dbSource = fs.readFileSync(path.join(__dirname, '../src/db.js'), 'utf8');
   const indexSource = fs.readFileSync(path.join(__dirname, '../src/index.js'), 'utf8');
   for (const table of ['qsl_profiles', 'qsl_cards', 'qsl_exchanges']) {

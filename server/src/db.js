@@ -93,6 +93,17 @@ async function ensureSchema() {
       INDEX idx_qsl_ex_peer (peer_callsign)
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci
   `);
+
+  // 考试练习云同步：一个账号一条记录，只存题号进度、复习数字与成绩摘要的 JSON。
+  // App 不登录也能完整使用，因此这张表是可选增强；字段白名单在 routes/exam.js。
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS exam_progress (
+      user_id     BIGINT UNSIGNED NOT NULL,
+      data        MEDIUMTEXT   NOT NULL,
+      updated_at  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      PRIMARY KEY (user_id)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci
+  `);
 }
 
 async function findUserByCallsign(callsign) {

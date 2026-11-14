@@ -21,21 +21,27 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ham.tools.BuildConfig
 import com.ham.tools.R
 import com.ham.tools.data.AppConfig
 import com.ham.tools.data.tools.ToolRegistry
+import com.ham.tools.data.update.UpdateController
+import com.ham.tools.ui.components.HamTopBar
 import com.ham.tools.ui.components.staggerEnter
+import com.ham.tools.ui.update.UpdateEntryCard
 import com.ham.tools.ui.theme.HamToolsTheme
 import com.ham.tools.ui.theme.ThemeMode
 
@@ -46,14 +52,19 @@ fun AboutScreen(
     onSettingsClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+    val updateStatus by UpdateController.status.collectAsStateWithLifecycle()
+    val updateChannel by UpdateController.channel.collectAsStateWithLifecycle()
+    val scrollState = rememberScrollState()
+    val scrolled by remember { derivedStateOf { scrollState.value > 4 } }
+
     Scaffold(
         modifier = modifier,
         topBar = {
-            TopAppBar(
-                title = { Text(text = stringResource(R.string.about_title)) },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface
-                )
+            HamTopBar(
+                title = stringResource(R.string.about_title),
+                subtitle = stringResource(R.string.header_subtitle_about),
+                scrolled = scrolled
             )
         },
     ) { innerPadding ->
@@ -61,22 +72,43 @@ fun AboutScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(scrollState)
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             HeroCard(modifier = staggerEnter(0))
             SettingsEntryCard(onClick = onSettingsClick, modifier = staggerEnter(1))
-            TechInfoCard(modifier = staggerEnter(2))
+            UpdateEntryCard(
+                status = updateStatus,
+                localVersion = BuildConfig.VERSION_NAME,
+                channel = updateChannel,
+                onChannelChange = { channel ->
+                    UpdateController.setChannel(
+                        context,
+                        channel,
+                        BuildConfig.VERSION_NAME
+                    )
+                },
+                onClick = {
+                    UpdateController.check(
+                        context,
+                        BuildConfig.VERSION_NAME,
+                        manual = true
+                    )
+                },
+                onShowNotes = { UpdateController.showNotes() },
+                modifier = staggerEnter(2)
+            )
+            TechInfoCard(modifier = staggerEnter(3))
             InfoCard(
                 title = stringResource(R.string.about_section_data),
                 body = stringResource(R.string.about_data_body),
-                modifier = staggerEnter(3)
+                modifier = staggerEnter(4)
             )
             InfoCard(
                 title = stringResource(R.string.about_section_disclaimer),
                 body = stringResource(R.string.about_disclaimer_body),
-                modifier = staggerEnter(4)
+                modifier = staggerEnter(5)
             )
             Text(
                 text = stringResource(R.string.about_footer),

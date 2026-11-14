@@ -1,7 +1,5 @@
 package com.ham.tools.ui.home
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -22,8 +20,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -31,7 +27,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,7 +35,7 @@ import com.ham.tools.R
 import com.ham.tools.data.AppConfig
 import com.ham.tools.data.tools.ToolRegistry
 import com.ham.tools.model.ToolMeta
-import com.ham.tools.ui.components.Motion
+import com.ham.tools.ui.components.HamTopBar
 import com.ham.tools.ui.components.staggerEnter
 import com.ham.tools.ui.theme.HamToolsTheme
 import com.ham.tools.ui.theme.ThemeMode
@@ -63,9 +58,11 @@ fun HomeScreen(
     Scaffold(
         modifier = modifier,
         topBar = {
-            HomeTopAppBar(
+            HamTopBar(
+                title = stringResource(R.string.app_name),
+                subtitle = stringResource(R.string.home_subtitle),
                 scrolled = scrolled,
-                onAboutClick = onAboutClick
+                actions = { VersionAuthorBadge(onClick = onAboutClick) }
             )
         }
     ) { innerPadding ->
@@ -74,8 +71,8 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding),
-            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             var itemIndex = 0
 
@@ -106,54 +103,6 @@ fun HomeScreen(
             }
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun HomeTopAppBar(
-    scrolled: Boolean,
-    onAboutClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    val containerColor by animateColorAsState(
-        targetValue = if (scrolled) {
-            MaterialTheme.colorScheme.surfaceContainer
-        } else {
-            MaterialTheme.colorScheme.surface
-        },
-        label = "topBarContainer"
-    )
-    val subtitleAlpha by animateFloatAsState(
-        targetValue = if (scrolled) 0f else 1f,
-        animationSpec = Motion.standard(200),
-        label = "subtitleAlpha"
-    )
-
-    TopAppBar(
-        modifier = modifier,
-        title = {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = stringResource(R.string.app_name),
-                        style = MaterialTheme.typography.titleLarge
-                    )
-                    Text(
-                        text = stringResource(R.string.home_subtitle),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.graphicsLayer { alpha = subtitleAlpha }
-                    )
-                }
-            }
-        },
-        actions = {
-            VersionAuthorBadge(onClick = onAboutClick)
-        },
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = containerColor
-        )
-    )
 }
 
 /** 右上角署名：软件版本号 + 作者呼号，点击跳到「关于」页。 */

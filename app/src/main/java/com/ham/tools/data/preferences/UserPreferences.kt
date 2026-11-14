@@ -12,6 +12,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.ham.tools.data.remote.UserProfile
 import com.ham.tools.data.remote.UserSession
+import com.ham.tools.data.update.UpdateChannel
 import com.ham.tools.ui.theme.DEFAULT_ACCENT_SEED
 import com.ham.tools.ui.theme.M3Variant
 import com.ham.tools.ui.theme.ThemeMode
@@ -42,6 +43,11 @@ class UserPreferences(private val dataStore: DataStore<Preferences>) {
         val SESSION_CREATED_AT = stringPreferencesKey("session_created_at")
         // QSL 交换通知去重：记录上一次已提醒过的最大 incoming 申请 ID
         val QSL_LAST_INCOMING_ID = longPreferencesKey("qsl_last_incoming_id")
+        // 检测更新：自动检测节流时间、用户跳过过的 tag、上次看到的最新版本号、发布通道
+        val UPDATE_LAST_CHECKED_AT = longPreferencesKey("update_last_checked_at")
+        val UPDATE_SKIPPED_TAG = stringPreferencesKey("update_skipped_tag")
+        val UPDATE_LATEST_VERSION = stringPreferencesKey("update_latest_version")
+        val UPDATE_CHANNEL = stringPreferencesKey("update_channel")
     }
 
     val themeMode: Flow<ThemeMode> = dataStore.data
@@ -169,5 +175,52 @@ class UserPreferences(private val dataStore: DataStore<Preferences>) {
 
     suspend fun setQslLastIncomingId(id: Long) {
         dataStore.edit { preferences -> preferences[Keys.QSL_LAST_INCOMING_ID] = id }
+    }
+
+    /** 上次检测更新的时间戳（毫秒）。自动检测距此不足 12 小时就不再请求 GitHub。 */
+    val updateLastCheckedAt: Flow<Long> = dataStore.data
+        .catch { error ->
+            if (error is IOException) emit(emptyPreferences()) else throw error
+        }
+        .map { preferences -> preferences[Keys.UPDATE_LAST_CHECKED_AT] ?: 0L }
+
+    suspend fun setUpdateLastCheckedAt(millis: Long) {
+        dataStore.edit { preferences -> preferences[Keys.UPDATE_LAST_CHECKED_AT] = millis }
+    }
+
+    /** 用户点过「跳过此版本」的 tag；只抑制自动弹窗，手动检测仍会显示结果。 */
+    val updateSkippedTag: Flow<String> = dataStore.data
+        .catch { error ->
+            if (error is IOException) emit(emptyPreferences()) else throw error
+        }
+        .map { preferences -> preferences[Keys.UPDATE_SKIPPED_TAG] ?: "" }
+
+    suspend fun setUpdateSkippedTag(tag: String) {
+        dataStore.edit { preferences -> preferences[Keys.UPDATE_SKIPPED_TAG] = tag }
+    }
+
+    /** 上次成功检测到的最新版本号，网络失败时关于页仍可显示「上次看到 vX.Y」。 */
+    val updateLatestVersion: Flow<String> = dataStore.data
+        .catch { error ->
+            if (error is IOException) emit(emptyPreferences()) else throw error
+        }
+        .map { preferences -> preferences[Keys.UPDATE_LATEST_VERSION] ?: "" }
+
+    suspend fun setUpdateLatestVersion(version: String) {
+        dataStore.edit { preferences -> preferences[Keys.UPDATE_LATEST_VERSION] = version }
+    }
+
+    /**
+     * 发布通道偏好，默认正式通道。老版本没有这个键，读出来也自然回落到 STABLE，
+     * 不会把历史 beta 用户莫名其妙切到测试通道。
+     */
+    val updateChannel: Flow<UpdateChannel> = dataStore.data
+        .catch { error ->
+            if (error is IOException) emit(emptyPreferences()) else throw error
+        }
+        .map { preferences -> UpdateChannel.fromKey(preferences[Keys.UPDATE_CHANNEL]) }
+
+    suspend fun setUpdateChannel(channel: UpdateChannel) {
+        dataStore.edit { preferences -> preferences[Keys.UPDATE_CHANNEL] = channel.key }
     }
 }

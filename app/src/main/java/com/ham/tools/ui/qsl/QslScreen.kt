@@ -40,10 +40,9 @@ import androidx.compose.material3.SecondaryTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -61,6 +60,7 @@ import com.ham.tools.R
 import com.ham.tools.data.qsl.QslMode
 import com.ham.tools.data.qsl.QslNotifier
 import com.ham.tools.data.remote.UserSession
+import com.ham.tools.ui.components.HamTopBar
 import com.ham.tools.ui.components.StatusBanner
 import com.ham.tools.ui.theme.AppShapes
 
@@ -68,7 +68,7 @@ private val QSL_MODES = listOf(QslMode.PAPER, QslMode.EQSL)
 private val QSL_SECTIONS = listOf("我的资料", "发起交换", "交换记录", "台站名录")
 
 /**
- * QSL 卡片交换板块（底部 Dock 第 4 页，不在工具集里注册）。
+ * QSL 卡片交换板块（底部 Dock 第 2 页，紧邻主页，不在工具集里注册）。
  *
  * 三层结构：登录门禁 → 纸质 / eQSL 两大板块 → 每个板块内四个功能子页。
  * 铁律：未登录一律不给用；服务端没部署 QSL 接口时醒目显示「本地演示」，
@@ -79,12 +79,23 @@ private val QSL_SECTIONS = listOf("我的资料", "发起交换", "交换记录"
 fun QslScreen(
     session: UserSession?,
     onLoginClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    /**
+     * 当前页是否真的切到了 QSL。HorizontalPager 会预组合相邻页，
+     * 若不区分可见性，冷启动时就会在这里弹出通知权限说明、提前绑定账号。
+     */
+    active: Boolean = true
 ) {
     val viewModel: QslViewModel = viewModel()
     val state = viewModel.state
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
+    val listState = rememberLazyListState()
+    val scrolled by remember {
+        derivedStateOf {
+            listState.firstVisibleItemIndex > 0 || listState.firstVisibleItemScrollOffset > 4
+        }
+    }
 
     var modeIndex by rememberSaveable { mutableIntStateOf(0) }
     var sectionIndex by rememberSaveable { mutableIntStateOf(0) }
@@ -98,9 +109,9 @@ fun QslScreen(
         ActivityResultContracts.RequestPermission()
     ) { _ -> permissionVersion++ }
 
-    LaunchedEffect(session?.token) {
+    LaunchedEffect(session?.token, active) {
         val current = session
-        if (current != null) {
+        if (active && current != null) {
             viewModel.bind(current)
             if (!permissionAsked &&
                 QslNotifier.needsRuntimePermission() &&
@@ -134,8 +145,10 @@ fun QslScreen(
         containerColor = MaterialTheme.colorScheme.surface,
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
-            TopAppBar(
-                title = { Text(text = stringResource(R.string.dock_qsl)) },
+            HamTopBar(
+                title = stringResource(R.string.dock_qsl),
+                subtitle = stringResource(R.string.header_subtitle_qsl),
+                scrolled = scrolled,
                 actions = {
                     if (session != null) {
                         IconButton(onClick = { viewModel.refresh() }) {
@@ -145,10 +158,7 @@ fun QslScreen(
                             )
                         }
                     }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface
-                )
+                }
             )
         }
     ) { innerPadding ->
@@ -162,7 +172,6 @@ fun QslScreen(
         } else {
             // 整页只保留一个滚动容器：概览、通知卡、当前子页、底部说明一起滚动。
             // 只有两个 Tab 固定，避免上半部分被钉死后内容区过窄、键盘弹出时点不到按钮。
-            val listState = rememberLazyListState()
             LaunchedEffect(modeIndex, sectionIndex) {
                 listState.scrollToItem(0)
             }
@@ -300,7 +309,9 @@ fun QslScreen(
         }
     }
 
-    if (showRationale) {
+    // Dialog 是窗口级的：即使页面被滑出视口，一旦组合就会浮在整个 App 上，
+    // 所以必须同时要求当前页确实是 QSL。
+    if (active && showRationale) {
         AlertDialog(
             onDismissRequest = {
                 showRationale = false

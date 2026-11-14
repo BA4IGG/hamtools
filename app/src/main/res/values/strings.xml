@@ -52,6 +52,25 @@
     <string name="dock_home">主页</string>
     <string name="dock_about">关于</string>
     <string name="dock_qsl">QSL 交换</string>
+    <string name="dock_exam">考试练习</string>
+    <!-- Dock 短标签：五个按钮平分宽度，长名字在窄屏或大字体下会被省略号截断。
+         短名固定单行完整显示，完整名称仍用于页面标题与无障碍朗读。 -->
+    <string name="dock_label_home">主页</string>
+    <string name="dock_label_qsl">QSL</string>
+    <string name="dock_label_exam">考试</string>
+    <string name="dock_label_profile">我的</string>
+    <string name="dock_label_about">关于</string>
+
+    <!-- 五个顶层页统一顶栏的副标题，保证头部高度与视觉重量一致 -->
+    <string name="header_subtitle_profile">账号与应用信息</string>
+    <string name="header_subtitle_about">版本、更新与数据来源</string>
+    <string name="header_subtitle_qsl">纸质 / eQSL 卡片交换</string>
+    <string name="header_subtitle_exam">官方题库 v20250728 · 本机离线可用</string>
+    <string name="exam_header_result">本次成绩</string>
+    <string name="exam_header_wrong">错题本</string>
+    <string name="exam_header_stats">学习统计</string>
+    <string name="exam_header_history">考试历史</string>
+
     <string name="about_title">关于</string>
     <string name="about_stats_implemented">已上线</string>
     <string name="about_stats_total">规划总数</string>
@@ -66,6 +85,47 @@
     <string name="about_section_disclaimer">免责声明</string>
     <string name="about_disclaimer_body">本应用仅用于工程估算与学习参考。实际架设天线或发射前，请遵守所在国家与地区的频率划分、功率与执照规定，并以实测仪表读数为准。</string>
     <string name="about_footer">73！祝通联愉快</string>
+
+    <!-- 检测更新（GitHub Releases） -->
+    <string name="update_entry_title">检测更新</string>
+    <string name="update_entry_desc">通过 GitHub Releases 检查新版本与更新日志</string>
+    <string name="update_auto_note">启动时自动检查一次（12 小时内不重复），手动检查不受限制。</string>
+    <string name="update_state_checking">正在连接 GitHub…</string>
+    <string name="update_state_latest">已是最新版本 %1$s</string>
+    <string name="update_state_available">发现新版本 %1$s，点此查看更新日志</string>
+    <string name="update_state_skipped">已跳过版本 %1$s，点此重新检查</string>
+    <string name="update_state_failed">检测失败 · %1$s</string>
+    <string name="update_last_checked">上次检测：%1$s</string>
+    <string name="update_never_checked">尚未检测过更新</string>
+    <string name="update_failure_offline">无法连接 GitHub，请检查网络后重试（本机功能不受影响）</string>
+    <string name="update_failure_rate_limited">GitHub 接口暂时限流（403 / 429），请稍后再试</string>
+    <string name="update_failure_no_release">仓库暂无当前通道的 Release，无法比对版本</string>
+    <string name="update_failure_upstream">GitHub 返回错误，可能是服务暂不可用</string>
+    <string name="update_failure_bad_data">GitHub 返回内容无法解析，不猜测版本</string>
+    <string name="update_dialog_title">发现新版本 %1$s</string>
+    <string name="update_dialog_versions">当前 %1$s → 最新 %2$s</string>
+    <string name="update_dialog_source">来源：%1$s · 发布于 %2$s</string>
+    <string name="update_dialog_apk">安装包：%1$s（%2$s）</string>
+    <string name="update_dialog_notes">更新日志</string>
+    <string name="update_dialog_no_notes">该版本未提供更新日志，请到发布页查看。</string>
+    <string name="update_dialog_title_notes">发布说明 · %1$s</string>
+    <string name="update_dialog_same_version">本机与 GitHub 最新版本一致（%1$s）</string>
+    <string name="update_action_view_notes">查看 %1$s 发布说明</string>
+    <string name="update_action_open_release">打开发布页</string>
+    <string name="update_dialog_hint">只做版本检测，不会自动下载或安装。点「前往下载」会用浏览器打开 GitHub 发布页，请自行核对签名与来源，避免安装来历不明的 APK。</string>
+    <string name="update_action_download">前往下载</string>
+    <string name="update_action_later">稍后</string>
+    <string name="update_action_skip">跳过此版本</string>
+
+    <!-- 发布通道：正式通道只看稳定版，测试通道包含 Pre-release -->
+    <string name="update_channel_title">更新通道</string>
+    <string name="update_channel_stable">正式通道</string>
+    <string name="update_channel_beta">测试通道</string>
+    <string name="update_channel_stable_note">只提示正式版。历史 beta 与 v1.2 及更早版本已归入测试通道，不会再提示升级。</string>
+    <string name="update_channel_beta_note">包含预发布（Beta / RC）版本，可能不稳定，仅供尝鲜。</string>
+    <string name="update_channel_switch_note">切换通道后会立即重新检测一次；选择保存在本机。</string>
+    <string name="update_dialog_prerelease">该版本为预发布（测试通道），请留意稳定性。</string>
+    <string name="update_dialog_channel_unverified">备用源没有标注通道，无法确认这是正式版还是测试版，请到发布页核对后再安装。</string>
 
     <!-- 通用 -->
     <string name="group_input">输入</string>

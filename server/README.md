@@ -134,7 +134,8 @@ server/
 ├── smoke-test.js       无需 MySQL 的接口冒烟测试（18 项）
 ├── scripts/
 │   ├── db-check.js        数据库连通性/权限自检：npm run db:check
-│   ├── qsl-selfcheck.js   QSL 纯逻辑与双端契约自检：npm run qsl:check
+│   ├── qsl-selfcheck.js   QSL 纯逻辑与服务端接线自检：npm run qsl:check
+│   ├── exam-selfcheck.js  考试练习云同步自检：npm run exam:check
 │   └── backup-db.sh       mysqldump 备份：npm run backup
 ├── uploads/qsl/        用户上传的 QSL 卡片图片（自动创建，不入库、不公开）
 ├── deploy/

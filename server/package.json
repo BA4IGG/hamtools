@@ -9,6 +9,7 @@
     "dev": "node --watch src/index.js",
     "db:check": "node scripts/db-check.js",
     "qsl:check": "node scripts/qsl-selfcheck.js",
+    "exam:check": "node scripts/exam-selfcheck.js",
     "backup": "bash scripts/backup-db.sh"
   },
   "engines": {

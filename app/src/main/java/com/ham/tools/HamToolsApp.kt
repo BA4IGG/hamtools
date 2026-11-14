@@ -15,12 +15,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
+import com.ham.tools.data.exam.ExamLock
 import com.ham.tools.data.remote.UserSession
+import com.ham.tools.data.update.UpdateController
+import com.ham.tools.data.update.UpdatePhase
 import com.ham.tools.navigation.HamNavHost
 import com.ham.tools.ui.splash.SPLASH_DURATION_MS
 import com.ham.tools.ui.splash.SplashBrand
 import com.ham.tools.ui.theme.M3Variant
+import com.ham.tools.ui.update.UpdateDialog
 import com.ham.tools.ui.theme.ThemeMode
 import kotlinx.coroutines.delay
 
@@ -50,7 +56,10 @@ fun HamToolsApp(
 ) {
     val navController = rememberNavController()
     val snackbarHostState = remember { SnackbarHostState() }
+    val context = LocalContext.current
     var splashVisible by remember { mutableStateOf(true) }
+    val updateStatus by UpdateController.status.collectAsStateWithLifecycle()
+    val examLocked by ExamLock.locked.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         delay(SPLASH_DURATION_MS)
@@ -58,6 +67,13 @@ fun HamToolsApp(
     }
     // 冷启动时用本地令牌向服务器校验一次，令牌失效就退回未登录
     LaunchedEffect(Unit) { onSessionRefresh() }
+    // 启动动画结束后自动检测一次更新；12 小时节流与失败静默都由 UpdateController 负责，
+    // 弹窗只挂在最外层，工具详情、考试练习等页面不会被各自重复弹一次。
+    LaunchedEffect(splashVisible) {
+        if (!splashVisible) {
+            UpdateController.check(context, BuildConfig.VERSION_NAME, manual = false)
+        }
+    }
 
     Box(modifier = modifier) {
         Scaffold(
@@ -92,6 +108,20 @@ fun HamToolsApp(
             )
         ) {
             SplashBrand()
+        }
+
+        // 有更新才弹窗；自动检测失败与「已是最新」都只在关于页卡片里显示，不打扰用户。
+        // 模拟考试锁定期间绝不弹窗遮挡试卷，解锁后状态还在，届时再提示。
+        if (updateStatus.phase == UpdatePhase.AVAILABLE && !examLocked) {
+            updateStatus.release?.let { release ->
+                UpdateDialog(
+                    release = release,
+                    localVersion = BuildConfig.VERSION_NAME,
+                    notesOnly = updateStatus.notesOnly,
+                    onDismiss = { UpdateController.dismiss() },
+                    onSkip = { UpdateController.skip(context, release.tag) }
+                )
+            }
         }
     }
 }

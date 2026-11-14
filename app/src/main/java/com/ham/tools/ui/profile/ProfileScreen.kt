@@ -29,9 +29,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,6 +46,8 @@ import com.ham.tools.BuildConfig
 import com.ham.tools.R
 import com.ham.tools.data.AppConfig
 import com.ham.tools.data.remote.UserSession
+import com.ham.tools.ui.components.HamTopBar
+import com.ham.tools.ui.components.staggerEnter
 import com.ham.tools.ui.theme.HamToolsTheme
 import com.ham.tools.ui.theme.ThemeMode
 import com.ham.tools.util.Callsign
@@ -67,15 +68,16 @@ fun ProfileScreen(
     modifier: Modifier = Modifier
 ) {
     var logoutDialogVisible by remember { mutableStateOf(false) }
+    val scrollState = rememberScrollState()
+    val scrolled by remember { derivedStateOf { scrollState.value > 4 } }
 
     Scaffold(
         modifier = modifier,
         topBar = {
-            TopAppBar(
-                title = { Text(text = stringResource(R.string.profile_title)) },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface
-                )
+            HamTopBar(
+                title = stringResource(R.string.profile_title),
+                subtitle = stringResource(R.string.header_subtitle_profile),
+                scrolled = scrolled
             )
         }
     ) { innerPadding ->
@@ -83,22 +85,29 @@ fun ProfileScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(scrollState)
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
             if (session == null) {
-                GuestCard(onLoginClick = onLoginClick)
+                GuestCard(
+                    onLoginClick = onLoginClick,
+                    modifier = staggerEnter(0)
+                )
             } else {
                 AccountCard(
                     session = session,
-                    onLogoutClick = { logoutDialogVisible = true }
+                    onLogoutClick = { logoutDialogVisible = true },
+                    modifier = staggerEnter(0)
                 )
             }
 
-            AuthorCard()
+            AuthorCard(modifier = staggerEnter(1))
 
-            AppInfoCard(onSettingsClick = onSettingsClick)
+            AppInfoCard(
+                onSettingsClick = onSettingsClick,
+                modifier = staggerEnter(2)
+            )
         }
     }
 

@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Dialpad
 import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.GraphicEq
 import androidx.compose.material.icons.filled.Headphones
+import androidx.compose.material.icons.filled.Image
 import androidx.compose.material.icons.filled.Key
 import androidx.compose.material.icons.filled.LeakAdd
 import androidx.compose.material.icons.filled.MusicNote
@@ -19,6 +20,7 @@ import androidx.compose.material.icons.filled.Straighten
 import androidx.compose.material.icons.filled.Timeline
 import androidx.compose.material.icons.filled.TravelExplore
 import androidx.compose.material.icons.filled.ViewWeek
+import androidx.compose.material.icons.filled.Waves
 import androidx.compose.material.icons.filled.WbSunny
 import com.ham.tools.model.ToolCategory
 import com.ham.tools.model.ToolMeta
@@ -152,6 +154,22 @@ object ToolRegistry {
             implemented = true,
             icon = Icons.Filled.MusicNote
         ),
+        ToolMeta(
+            id = ToolIds.SSTV,
+            name = "SSTV 编解码",
+            description = "图像与慢扫描电视基带音频互转，需麦克风解码",
+            category = ToolCategory.AUDIO,
+            implemented = true,
+            icon = Icons.Filled.Image
+        ),
+        ToolMeta(
+            id = ToolIds.FT8,
+            name = "FT8 编解码",
+            description = "FT8 消息生成、播放与轻量化解码，需麦克风解码",
+            category = ToolCategory.AUDIO,
+            implemented = true,
+            icon = Icons.Filled.Waves
+        ),
 
         ToolMeta(
             id = ToolIds.PROPAGATION,
@@ -213,6 +231,8 @@ object ToolIds {
     const val CW_TRAINER = "cw_trainer"
     const val DTMF = "dtmf"
     const val TONE_GENERATOR = "tone_generator"
+    const val SSTV = "sstv"
+    const val FT8 = "ft8"
     const val PROPAGATION = "propagation"
     const val DX_CLUSTER = "dx_cluster"
     const val GRID_SQUARE = "grid_square"

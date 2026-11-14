@@ -77,6 +77,19 @@ CREATE TABLE IF NOT EXISTS `qsl_exchanges` (
   INDEX `idx_qsl_ex_peer` (`peer_callsign`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 
+-- ---------------------------------------------------------------------------
+-- 考试练习云同步（登录后才使用）。服务端启动时的 db.ensureSchema() 也会自动建表。
+-- data 只存题号进度、复习数字、顺序练习断点与成绩摘要的 JSON，不含题目正文，
+-- 不含用户所选答案，也不含任何个人资料；字段白名单见 src/routes/exam.js。
+-- ---------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `exam_progress` (
+  `user_id`     BIGINT UNSIGNED NOT NULL COMMENT '关联 ham_users.id',
+  `data`        MEDIUMTEXT   NOT NULL,
+  `updated_at`  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
 -- 示例：创建一个运维可查的管理账号（可选）
 -- INSERT INTO ham_users (callsign, nickname, password_hash)
 -- VALUES ('BA4IGG', '作者', '$2a$10$替换为bcrypt哈希');

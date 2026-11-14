@@ -9,11 +9,14 @@ const db = require('./db');
 const authRoutes = require('./routes/auth');
 const hamRoutes = require('./routes/ham');
 const qslRoutes = require('./routes/qsl');
+const examRoutes = require('./routes/exam');
 
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
 
 app.use(cors());
+// 学习记录最多覆盖 1375 道题，序列化后可能超过全局 64kb，单独放宽该路由并做字段白名单
+app.use('/api/exam', express.json({ limit: '1mb' }));
 app.use(express.json({ limit: '64kb' }));
 
 // 健康检查：App 的「服务器设置」就是靠它判断地址是否可用
@@ -26,6 +29,8 @@ app.use('/api/auth', authRoutes.router);
 app.use('/api/ham', hamRoutes.router);
 // QSL 卡片交换：全部接口都要求登录，未部署时 App 会标注「服务端未部署」并进入演示模式
 app.use('/api/qsl', qslRoutes.router);
+// 考试练习云同步：登录后才使用；未部署时 App 保持纯本机记录并如实标注
+app.use('/api/exam', examRoutes.router);
 
 app.use((_req, res) => {
   res.status(404).json({ error: { code: 'NOT_FOUND', message: '接口不存在' } });

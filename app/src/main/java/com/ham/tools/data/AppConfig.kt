@@ -48,6 +48,26 @@ object AppConfig {
     /** 服务端呼号查询代理（可选部署，国内网络更稳）；失败不影响 HamDB 直连。 */
     val CALLSIGN_LOOKUP_URL = "$SERVER_BASE_URL/api/ham/callsign"
 
+    /**
+     * 检测更新：GitHub Releases 列表接口，只读、无需密钥、无需登录。
+     * 用列表而不是 `/releases/latest`，是为了同时支持「正式通道」与「测试通道」：
+     * 正式通道筛掉 Pre-release，测试通道包含 Pre-release，都由客户端按 `prerelease`
+     * 字段判断，不硬编码任何版本黑名单。
+     */
+    const val GITHUB_RELEASE_API_URL =
+        "https://api.github.com/repos/BA4IGG/hamtools/releases?per_page=20"
+
+    /**
+     * 备用源：GitHub 官方 releases Atom feed。
+     * REST API 未认证时限流为 60 次/小时/IP，且部分网络下 api.github.com 不可达；
+     * Atom 无限流，同样带更新日志，但没有附件 APK 直链，也没有 `prerelease` 字段，
+     * 因此界面必须如实标注「来源差异 + 通道无法确认」，不能冒充 API 直连结果。
+     */
+    const val GITHUB_RELEASE_ATOM_URL = "https://github.com/BA4IGG/hamtools/releases.atom"
+
+    /** 仓库主页，用于「查看发布页」等兜底跳转。 */
+    const val GITHUB_REPO_URL = "https://github.com/BA4IGG/hamtools"
+
     /** 作者呼号，同时用作「我的」页的署名标题。 */
     const val AUTHOR_CALLSIGN = "BA4IGG"
 
